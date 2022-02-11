@@ -1,0 +1,28 @@
+.MuiBox-root .sidebarButton {
+    width: 100%;
+    background: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 10px 15px;
+    border-radius: 0px;
+    text-decoration: none;
+    box-shadow: none;
+    border-bottom: 1px solid #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.MuiBox-root .sidebarButton.sidebarButton--inner {
+    padding-left: 25px;
+    background: #f8f8fb;
+}
+
+.MuiBox-root .sidebarButton:hover {
+    background: #00ceaa;
+    color: #fff;
+    box-shadow: none;
+}
+
+.MuiBox-root .sidebarButton.active {
+    background: #00ceaa;
+    color: #fff;
+}
