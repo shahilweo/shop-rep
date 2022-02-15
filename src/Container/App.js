@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { Box, Toolbar } from '@mui/material';
 import Header from '../Components/Header/Header';
 import Sidebar from '../Components/Sidebar/Sidebar';
@@ -10,6 +10,8 @@ import Home from '../Components/Pages/Home/Home';
 import Product from '../Components/Pages/Product/Product';
 import AddProduct from '../Components/Pages/Product/AddProduct/AddProduct';
 import EditProduct from '../Components/Pages/Product/EditProduct/EditProduct';
+import AddVariant from '../Components/Pages/Product/EditProduct/AddVariant/AddVariant';
+// import Layout from '../Components/ThemeEditor/Layout/Layout';
 
 import './App.css';
 
@@ -53,6 +55,7 @@ const theme = createTheme({
 
 
 function App() {
+  const location = window.location.pathname
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -63,8 +66,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>
         <Router>
-          <Sidebar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
-          <Header handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
+          {location !== "/customizer" &&
+            <>
+              <Sidebar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
+              <Header handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
+            </>
+          }
           <Box
             component="main"
             sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
@@ -74,6 +81,8 @@ function App() {
               <Route path="/product/all" element={<Product />} exact />
               <Route path="/product/all/add-product" element={<AddProduct />} exact />
               <Route path="/product/all/edit-product" element={<EditProduct />} exact />
+              {/* <Route path="/customizer" element={<Layout />} exact /> */}
+              <Route path="/product/all/edit-product/add-variant" element={<AddVariant />} exact />
             </Routes>
           </Box>
         </Router>

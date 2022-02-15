@@ -8,6 +8,12 @@ body {
   background: #F8F8FB;
 }
    
+img {
+  max-width: 100%;
+}
+
 .grabbable:last-child hr:last-child {
   display: none;
 }
+
+

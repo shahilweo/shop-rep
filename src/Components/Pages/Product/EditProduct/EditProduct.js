@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
 import {
-    Box, Button, Grid,
+    Box, Button, Grid, ButtonGroup,
     MenuItem, Card, CardContent,
-    FormControl,
-    InputAdornment, Divider, FormControlLabel,
-    Checkbox, FormHelperText, Typography, FormGroup, Select, TextField, InputBase,
-    Chip, Stack, IconButton,
+    FormControl, Divider, FormHelperText,
+    Typography, Select, TextField, InputBase,
+    Chip, Stack, IconButton, Menu,
 } from '@mui/material';
 
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
@@ -15,16 +14,17 @@ import { Link } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SearchIcon from '@mui/icons-material/Search';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIRichTextEditor from 'mui-rte';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import bundleprod from '../../../../Assets/images/bundleprod.jpg';
 
 import { Draggable } from "react-drag-reorder";
-
-import Seo from '../../../Seo/Seo';
+import { DataGrid } from '@mui/x-data-grid';
 import PopupModal from '../../../PopupModal/PopupModal';
 
 
@@ -51,11 +51,15 @@ const EditProduct = () => {
     const [brand, setBrand] = useState(null);
     const [videourl, setVideourl] = useState();
     const [openModal, setOpenModal] = useState(false);
- 
+
     const [prodOption, setprodOption] = useState([
         { optionName: "Size", optionValue: ["s", "m", "l"], edit: false },
         { optionName: "Color", optionValue: ["red", "green", "Blue"], edit: false },
     ]);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const isMoreActionopen = Boolean(anchorEl);
+
 
     const productTypesList = [
         { title: 'product type 1' },
@@ -75,6 +79,12 @@ const EditProduct = () => {
         { title: "Organization 6" },
         { title: 'Organization 7' },
     ];
+    const moreActonClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const moreActionClose = () => {
+        setAnchorEl(null);
+    };
     const ModalOpen = () => setOpenModal(true);
     const ModalClose = () => setOpenModal(false);
     const savebtnFunct = () => {
@@ -171,29 +181,126 @@ const EditProduct = () => {
         setprodOption(updProdOption)
 
     };
- 
+
     useEffect(() => {
 
         console.log("prodOption", prodOption);
 
     }, [prodOption]);
 
+    const columns = [
+        { field: 'id', headerName: 'Id', width: 40, sortable: false, },
+        { field: 'image', headerName: 'Image', width: 90, renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
+        { field: 'variant', headerName: 'Variant', width: 200, sortable: false, },
+        {
+            field: 'price', headerName: 'Price', sortable: false, renderCell: (params) => <TextField
+                type="text"
+                id="prodPrice"
+                name="price"
+                defaultValue={params.value}
+                sx={{ m: 0, width: '100%', border: '0' }}
+
+            />,
+        },
+        {
+            field: 'quantity', headerName: 'Quantity', width: 100, sortable: false,
+            renderCell: (params) => <TextField
+                type="number"
+                id="quantity"
+                name="quantity"
+                defaultValue={params.value}
+                sx={{ m: 0, width: '100%', border: '0' }}
+
+            />,
+        },
+        {
+            field: 'sku', headerName: 'SKU', sortable: false, width: 200, renderCell: (params) => <TextField
+                type="text"
+                id="sku"
+                name="sku"
+                defaultValue={params.value}
+                sx={{ m: 0, width: '100%', border: '0' }}
+
+            />,
+        },
+        {
+            field: 'action', headerName: 'Action', sortable: false, renderCell: (params) =>
+                <>
+                    <IconButton aria-label="edit" color="success"><EditIcon /></IconButton>
+                    <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
+                </>
+        },
+
+        // { field: 'fullName', headerName: 'Full name', description: 'This column has a value getter and is not sortable.',
+        //     sortable: false,
+        //     width: 160,
+        //     valueGetter: (params) =>
+        //         `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''
+        //     }`,
+        // },
+
+    ];
+
+    const rows = [
+        { id: 1, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 1, sku: "TOYS136", action: "" },
+        { id: 2, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 3, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 4, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 5, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 6, image: bundleprod, variant: ["s", "m", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 7, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 8, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 9, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 10, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+    ];
 
     return (
-        <React.Fragment> 
-                 {prodOption.map((data, idx) => {
-                                    return(<> {data.edit} </>)
-                                })}
-            <Grid container spacing={2}>
+        <React.Fragment>
+            <Grid container spacing={2} sx={{ mb: 2 }}>
                 <Grid item xs={6}>
                     <Button component={Link} variant="text" to="/product/all" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
                 </Grid>
-                <Grid item xs={6}> </Grid>
+                <Grid item xs={6}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%'  }}>
+                        <div>
+                            <Button
+                                id="demo-positioned-button"
+                                aria-controls={isMoreActionopen ? "demo-positioned-menu" : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={isMoreActionopen ? "true" : undefined}
+                                onClick={moreActonClick}
+                            >
+                                More actions
+                            </Button>
+                            <Menu
+                                id="demo-positioned-menu"
+                                aria-labelledby="demo-positioned-button"
+                                anchorEl={anchorEl}
+                                open={isMoreActionopen}
+                                onClose={moreActionClose}
+                                anchorOrigin={{
+                                    vertical: "top",
+                                    horizontal: "left"
+                                }}
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "left"
+                                }}
+                            >
+                                <MenuItem onClick={moreActionClose}>Duplicate</MenuItem>
+                                <MenuItem onClick={moreActionClose}>View</MenuItem>
+                            </Menu>
+                        </div>
+                        <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                            <Button><ArrowBackIosIcon /></Button>
+                            <Button><ArrowForwardIosIcon /></Button>
+                        </ButtonGroup>
+                    </Box>
+                </Grid>
             </Grid>
-
             <Grid container spacing={2}>
-                <Grid item xs={7}>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                <Grid item xs={8}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Typography variant="h6" component="div">Product Title</Typography>
                             <FormControl fullWidth sx={{ mt: 2.5 }}>
@@ -205,7 +312,7 @@ const EditProduct = () => {
                             </FormControl>
                         </CardContent>
                     </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Typography variant="h6" component="div">Product Description</Typography>
 
@@ -218,7 +325,7 @@ const EditProduct = () => {
                             </ThemeProvider>
                         </CardContent>
                     </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Grid container spacing={2} columns={12}>
                                 <Grid item md={6}>
@@ -244,13 +351,13 @@ const EditProduct = () => {
                             />
                         </CardContent>
                     </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Options</Typography>
                             <Divider sx={{ mb: 0 }} />
                             <Draggable onPosChange={getChangedPos}>
 
-                           
+
                                 {prodOption.map((data, idx) => {
                                     return (
                                         <React.Fragment key={idx} >
@@ -360,139 +467,36 @@ const EditProduct = () => {
                             </Draggable>
                         </CardContent>
                     </Card>
-
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Pricing</Typography>
                             <Grid container spacing={2} columns={12}>
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth sx={{ m: 0 }} >
-                                        <TextField
-                                            label="Price"
-                                            id="prodPrice"
-                                            sx={{ m: 0, width: '100%' }}
-                                            InputProps={{
-                                                startadornment: <InputAdornment position="start">₹</InputAdornment>
-                                            }}
-                                        />
-                                    </FormControl>
+                                <Grid item md={6}>
+                                    <Box><Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Variants</Typography></Box>
                                 </Grid>
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth sx={{ margin: "0px" }}>
-                                        <TextField
-                                            label="Compare at price"
-                                            id="comparePrice"
-                                            sx={{ m: 0, width: '100%' }}
-                                            InputProps={{
-                                                startadornment: <InputAdornment position="start">₹</InputAdornment>
-                                            }}
-                                        />
-                                    </FormControl>
+                                <Grid item md={6} sx={{ textAlign: "Right" }}>
+                                    <Button component={Link} variant="text" to="/product/all/edit-product/add-variant">Add variant</Button>
                                 </Grid>
                             </Grid>
-                            <Divider sx={{ my: "15px" }}></Divider>
                             <Grid container spacing={2} columns={12}>
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth sx={{ m: 0 }}>
-                                        <TextField
-                                            label="Cost per item"
-                                            id="costpItem"
-                                            value={values.amount}
-                                            onChange={handleChange('amount')}
-                                            startadornment={<InputAdornment position="start">₹</InputAdornment>} />
-                                        <FormHelperText >Customers won’t see this </FormHelperText>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Box>
-                                        <Grid container spacing={2} columns={12}>
-                                            <Grid item xs={6} sx={{ textAlign: "center", marginTop: "10px" }}> Margin <Box>10</Box></Grid>
-                                            <Grid item xs={6} sx={{ textAlign: "center", marginTop: "10px" }}> Profit <Box>10</Box></Grid>
-                                        </Grid>
-                                    </Box>
-                                </Grid>
                                 <Grid item xs={12}>
-                                    <FormControlLabel control={<Checkbox />} label="Charge tax on this product " />
+                                    <div style={{ height: 400, width: '100%' }}>
+                                        <DataGrid
+                                            rows={rows}
+                                            columns={columns}
+                                            pageSize={5}
+                                            rowsPerPageOptions={[5]}
+                                            checkboxSelection
+                                            disableSelectionOnClick
+                                        />
+                                    </div>
                                 </Grid>
                             </Grid>
-                        </CardContent>
-                    </Card>
 
-                    <Card sx={{ marginBottom: "15px !important" }}>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Inventory</Typography>
-                            <Grid container spacing={2} columns={12}>
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth sx={{ m: 0 }}>
-                                        <TextField
-                                            label="SKU (Stock Keeping Unit) "
-                                            id="sku"
-                                            sx={{ m: 0, width: '100%' }} />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth sx={{ m: 0 }}>
-                                        <TextField
-                                            label="Barcode (ISBN, UPC, GTIN, etc.) at price"
-                                            id="barcode"
-                                            sx={{ m: 0, width: '100%' }} />
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={6} sx={{ paddingTop: "15px" }}>
-                                    <FormGroup>
-                                        <FormControlLabel control={<Checkbox />} label="Track quantity" />
-                                        <FormControlLabel control={<Checkbox />} label="Continue selling when out of stock" />
-                                    </FormGroup>
-                                </Grid>
-                            </Grid>
-                            <Divider sx={{ my: "15px" }}></Divider>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Quantity</Typography>
-                            <FormControl fullWidth sx={{ m: 0 }}>
-                                <TextField
-                                    label="Available"
-                                    type="number"
-                                    id="quantity"
-                                />
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Shipping</Typography>
-                            <FormControlLabel control={<Checkbox />} label="This is a physical product" />
-
-                            <Divider sx={{ my: "15px" }}></Divider>
-
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Weight</Typography>
-                            <Typography variant="body1" gutterBottom>Used to calculate shipping rates at checkout and label prices during fulfillment.</Typography>
-                            <TextField
-                                label="Weight"
-                                type="number"
-                                id="weight"
-                                sx={{ mt: 1, }}
-                            />
-                            <FormControl sx={{ m: 1 }}>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={weight}
-                                    onChange={handleChangeWeight}
-                                    sx={{ m: 0, marginLeft: "8px" }} >
-                                    <MenuItem value={1}>Kg</MenuItem>
-                                    <MenuItem value={2}>LBS</MenuItem>
-                                    <MenuItem value={3}>Pound</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
-                        <CardContent>
-                            <Seo />
                         </CardContent>
                     </Card>
                 </Grid>
                 <Grid item xs={4}>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Typography variant="h6" component="h6" >Product status</Typography>
                             <FormControl fullWidth sx={{ m: 0 }}>
@@ -509,7 +513,7 @@ const EditProduct = () => {
                             </FormControl>
                         </CardContent>
                     </Card>
-                    <Card sx={{ marginBottom: "15px !important" }}>
+                    <Card sx={{ mb: 2 }}>
                         <CardContent>
                             <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Organization</Typography>
                             <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Brands</Typography>
@@ -653,9 +657,19 @@ const EditProduct = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Divider sx={{ my: "15px" }}></Divider>
-                    <Box sx={{ textAlign: "left" }}>
-                        <Button variant="contained" color="success" size="large">Save</Button>
-                    </Box>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <Box sx={{ textAlign: "left" }}>
+                                <Button variant="contained" color="secondary" size="large">Archive product</Button>
+                                <Button variant="contained" color="error" size="large" sx={{ ml: 1 }}>Delete product</Button>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Box sx={{ textAlign: "right" }}>
+                                <Button variant="contained" color="success" size="large">Save</Button>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
 

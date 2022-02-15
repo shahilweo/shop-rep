@@ -138,7 +138,7 @@ const AddProduct = () => {
 
     return (
         <Box>
-            <Box>
+            <Box sx={{ mb: 2 }}>
                 <Grid container spacing={2} columns={12}>
                     <Grid item md={6}>
                         <Button component={Link} variant="text" to="/product/all" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
@@ -148,8 +148,8 @@ const AddProduct = () => {
             </Box>
             <Box>
                 <Grid container spacing={2} columns={12}>
-                    <Grid item md={7}>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                    <Grid item md={8}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="div">Product Title</Typography>
                                 <FormControl fullWidth sx={{ mt: 2.5 }}>
@@ -161,7 +161,7 @@ const AddProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="div">Product Description</Typography>
                                 <ThemeProvider theme={myTheme} >
@@ -173,10 +173,9 @@ const AddProduct = () => {
                                 </ThemeProvider>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Media Image</Typography>
-                                <Box sx={{ marginBottom: "15px !important" }}></Box>
+                                <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Media Image</Typography> 
                                 <DropzoneArea
                                     onChange={(files) => handleMediaChange(files)}
                                     acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
@@ -189,7 +188,7 @@ const AddProduct = () => {
                                 />
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Pricing</Typography>
                                 <Grid container spacing={2} columns={12}>
@@ -259,7 +258,7 @@ const AddProduct = () => {
                                 </Grid>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Inventory</Typography>
                                 <Grid container spacing={2} columns={12}>
@@ -297,7 +296,7 @@ const AddProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Shipping</Typography>
                                 <FormControlLabel control={<Checkbox />} label="This is a physical product" />
@@ -326,14 +325,14 @@ const AddProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Seo />
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item md={4}>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" >Product status</Typography>
                                 <FormControl fullWidth sx={{ m: 0 }}>
@@ -350,7 +349,7 @@ const AddProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                        <Card sx={{ marginBottom: "15px !important" }}>
+                        <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Organization</Typography>
                                 <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Brands</Typography>
