@@ -1,0 +1,226 @@
+export default [
+    {
+        name: "Typography",
+        type: "typography",
+        settings: [
+            {
+                type: "heading",
+                text: "Headings"
+            },
+            {
+                type: "font_family",
+                label: "Font family",
+                value: "Arial"
+            },
+            {
+                type: "range",
+                label: "Heading Size",
+                value: 26,
+                min: 20,
+                max: 40,
+                step: 2,
+                unit: "px"
+            },
+            {
+                type: "heading",
+                text: "Body text"
+            },
+            {
+                type: "font_family",
+                label: "Font family",
+                value: "Arial"
+            },
+            {
+                type: "range",
+                label: "Base Size",
+                value: 14,
+                min: 12,
+                max: 20,
+                step: 1,
+                unit: "px"
+            }
+        ]
+    },
+    {
+        name: "Colors",
+        type: "colors",
+        settings: [
+            {
+                type: "heading",
+                text: "Text colors"
+            },
+            {
+                type: "color_picker",
+                id: "heading_color",
+                label: "Headings",
+                value: "#000000"
+            },
+            {
+                type: "color_picker",
+                id: "body_text_color",
+                label: "Body text",
+                value: "#000000"
+            },
+            {
+                type: "heading",
+                text: "Button colors"
+            },
+            {
+                type: "color_picker",
+                id: "button_color",
+                label: "Button color",
+                value: "#000000"
+            },
+            {
+                type: "color_picker",
+                id: "button_hover_color",
+                label: "Button hover color",
+                value: "#333333"
+            },
+            {
+                type: "color_picker",
+                id: "button_text_color",
+                label: "Button text color",
+                value: "#ffffff"
+            },
+            {
+                type: "heading",
+                text: "Body colors"
+            },
+            {
+                type: "color_picker",
+                id: "body_bg_color",
+                label: "Background",
+                value: "#ffffff"
+            },
+            {
+                type: "heading",
+                text: "Overlay color"
+            },
+            {
+                type: "color_picker",
+                id: "overlay_bg_color",
+                label: "Background",
+                value: "#000000"
+            },
+            {
+                type: "color_picker",
+                id: "overlay_text_color",
+                label: "Text color",
+                value: "#ffffff"
+            },
+            {
+                type: "range",
+                id: "overlay_opacity",
+                label: "Opacity",
+                value: 40,
+                min: 0,
+                max: 100,
+                step: 5,
+                unit: "%"
+            }
+        ]
+    },
+    {
+        name: "Favicon",
+        type: "favicon",
+        settings: [
+            {
+                type: "image_file",
+                id: "favicon",
+                label: "Add Favicon image",
+                note: "Will be scaled down to 32 x 32px"
+            }
+        ]
+    },
+    {
+        name: "Social share",
+        type: "share_button",
+        settings: [
+            {
+                type: "heading",
+                text: "Social sharing"
+            },
+            {
+                type: "checkbox",
+                id: "facebook_share",
+                label: "Share on Facebook",
+                value: true
+            },
+            {
+                type: "checkbox",
+                id: "twitter_share",
+                label: "Share on Twitter",
+                value: true
+            },
+            {
+                type: "checkbox",
+                id: "pinterest_share",
+                label: "Share on Pinterest",
+                value: true
+            }
+        ]
+    },
+    {
+        name: "Social links",
+        type: "social_button",
+        settings: [
+            {
+                type: "text",
+                id: "facebook_link",
+                label: "Facebook",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "twitter_link",
+                label: "Twitter",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "pinterest_link",
+                label: "Pinterest",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "instagram_link",
+                label: "Instagram",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "youtube_link",
+                label: "Youtube",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "vimeo_link",
+                label: "Vimeo",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "tumblr_link",
+                label: "Tumblr",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "text",
+                id: "snapchat_link",
+                label: "Snapchat",
+                value: "",
+                placeholder: ""
+            }
+        ]
+    }
+]
