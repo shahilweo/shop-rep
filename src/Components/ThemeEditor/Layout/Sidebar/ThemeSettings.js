@@ -17,7 +17,7 @@ export default function ThemeSettings({clickBlock, backToHome}) {
         <List sx={{ width: "100%" }}
             component="nav"
             subheader={
-                <ListSubheader component="div" id="nested-list-subheader">
+                <ListSubheader component="div" id="nested-list-subheader" sx={{backgroundColor: "#f9f9f9"}}>
                     <Button startIcon={<ArrowBackIcon />} sx={{px: 0}} onClick={backToHome}>
                         Theme settings
                     </Button>

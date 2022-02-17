@@ -307,7 +307,7 @@ export default {
             options: {
                 facebook: true,
                 twitter: true,
-                pinterest: true
+                pinterest: false
             }
         },
         social_button: {

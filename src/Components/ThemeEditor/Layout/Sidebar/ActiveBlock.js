@@ -13,7 +13,7 @@ export default function ActiveBlock({ backToList }) {
 
 
     return (
-        <Box>
+        <Box className="activeBlock_outer">
             <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={backToList}>
                 {activeBlock.name}
             </Button>

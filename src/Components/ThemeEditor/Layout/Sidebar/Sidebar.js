@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button, FormControl, Grid, MenuItem, Select } from "@mui/material";
 import ThemeSettings from "./ThemeSettings";
 import ActiveBlock from "./ActiveBlock";
+import { Box } from "@mui/system";
 
 export default function LayoutSidebar() {
     const params = new URLSearchParams(window.location.search)
@@ -45,8 +46,8 @@ export default function LayoutSidebar() {
         navigate('')
     }
 
-    const goToSettings = (type) =>{
-        if(type === 'themes'){
+    const goToSettings = (type) => {
+        if (type === 'themes') {
             backToList()
         }
     }
@@ -77,9 +78,14 @@ export default function LayoutSidebar() {
             </Grid >
             <div className="layout_sidebar_container">
                 {showAll ?
-                    <Button onClick={()=>goToSettings('themes')}>
-                        Theme settings
-                    </Button>
+                    <>
+                        <Box className="layout_sidebar_sections">
+                            
+                        </Box>
+                        <Button onClick={() => goToSettings('themes')} className="themesetting_btn" variant="outlined">
+                            Theme settings
+                        </Button>
+                    </>
                     :
                     <>
                         {!showBlock ?

@@ -75,7 +75,7 @@ export default [
                 type: "color_picker",
                 id: "button_hover_color",
                 label: "Button hover color",
-                value: "#333333"
+                value: "#ff0000"
             },
             {
                 type: "color_picker",
@@ -129,7 +129,11 @@ export default [
                 type: "image_file",
                 id: "favicon",
                 label: "Add Favicon image",
-                note: "Will be scaled down to 32 x 32px"
+                note: "Recommended size 64 X 64",
+                height: "64px",
+                width: "100%",
+                alt: "",
+                value: "https://www.psd2html5.co/img/logo-light.svg"
             }
         ]
     },
@@ -157,7 +161,7 @@ export default [
                 type: "checkbox",
                 id: "pinterest_share",
                 label: "Share on Pinterest",
-                value: true
+                value: false
             }
         ]
     },
