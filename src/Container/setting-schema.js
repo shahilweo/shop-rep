@@ -299,7 +299,120 @@ export default [
                     { name: "Main menu", value: "main_menu" },
                     { name: "Footer menu", value: "footer_menu" }
                 ]
-            }
+            },
+            {
+                type: "divider"
+            },
+            {
+                type: "heading",
+                text: "Announcement bar"
+            },
+            {
+                type: "checkbox",
+                id: "show_announcement",
+                label: "Show",
+                value: true
+            },
+            {
+                type: "text",
+                id: "announcement_text",
+                label: "Text",
+                value: "",
+                placeholder: "Enter announcement text"
+            },
+            {
+                type: "text",
+                id: "announcement_link",
+                label: "Link",
+                value: "",
+                placeholder: "Enter redirect URL"
+            },
+            {
+                type: "heading",
+                text: "Announcement colors"
+            },
+            {
+                type: "color_picker",
+                id: "bar_color",
+                label: "Bar color",
+                value: "#000000"
+            },
+            {
+                type: "color_picker",
+                id: "bar_text_color",
+                label: "Text color",
+                value: "#ffffff"
+            },
         ]
     },
+    {
+        name: "Slider",
+        type: "hero_slider",
+        settings: [
+            {
+                type: "heading",
+                text: "Slide list"
+            },
+            {
+                type: "slide_item",
+                label: "Slide",
+                length: 3
+            },
+            {
+                type: "divider"
+            },
+            {
+                type: "heading",
+                text: "Slider settings"
+            },
+            {
+                type: "text",
+                id: "slider_class",
+                label: "Class name",
+                value: "",
+                placeholder: ""
+            },
+            {
+                type: "select",
+                label: "Slider text alignment",
+                id: "slider_text_alignment",
+                current: "center",
+                items: [
+                    { name: "Left", value: "left" },
+                    { name: "Center", value: "center" },
+                    { name: "Right", value: "right" }
+                ]
+            },
+            {
+                type: "divider"
+            },
+            {
+                type: "checkbox",
+                id: "slider_autoplay",
+                label: "Autoplay",
+                value: true
+            },
+            {
+                type: "checkbox",
+                id: "slider_loop",
+                label: "Infinite",
+                value: true
+            },
+            {
+                type: "checkbox",
+                id: "slider_arrows",
+                label: "Arrows",
+                value: false
+            },
+            {
+                type: "checkbox",
+                id: "slider_dots",
+                label: "Dots",
+                value: true
+            },
+            {
+                type: "slide_settings",
+            }
+        ]
+    }
 ]

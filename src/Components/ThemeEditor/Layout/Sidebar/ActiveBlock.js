@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { renderFn } from "../../../../Container/Exports";
 import _ from "underscore";
 
-export default function ActiveBlock({ backToList }) {
+export default function ActiveBlock() {
     const navigate = useNavigate()
     const params = new URLSearchParams(window.location.search)
     const [activeBlock, setActiveBlock] = useState({})
@@ -18,8 +18,7 @@ export default function ActiveBlock({ backToList }) {
         }else{
             navigate('/customizer')
         }
-    }, [])
-    
+    }, [activeBlock])
 
     return (
         <Box className="activeBlock_outer">

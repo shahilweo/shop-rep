@@ -24,11 +24,12 @@
 
 .layout_sidebar {
     width: 300px;
-    padding: 15px 0;
     box-shadow: rgba(0, 0, 0, 0.1) 2px 0 5px;
     height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 0;
 }
 
 .layout_sidebar_container {
@@ -38,7 +39,7 @@
     padding: 10px 10px 30px;
     overflow: hidden;
     overflow-y: auto;
-    max-height: calc(100vh - 160px);
+    max-height: calc(100vh - 110px);
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;

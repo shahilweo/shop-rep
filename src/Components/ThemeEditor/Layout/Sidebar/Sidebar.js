@@ -10,19 +10,9 @@ export default function LayoutSidebar() {
     const params = new URLSearchParams(window.location.search)
 
     const navigate = useNavigate()
-    const pages = [
-        { name: "Home page", value: "home" },
-        { name: "Product page", value: "product" },
-        { name: "Category page", value: "category" },
-        { name: "Category List page", value: "category_list" },
-    ]
     const [showAll, setshowAll] = useState(true)
     const [showBlock, setshowBlock] = useState(false)
     const [showSection, setshowSection] = useState(false)
-    const [current, setCurrent] = useState("home")
-    const handleChange = (e) => {
-        setCurrent(e.target.value)
-    }
 
     useEffect(() => {
         if (params.get('context') !== null && params.get('type') == null) {
@@ -33,15 +23,13 @@ export default function LayoutSidebar() {
             setshowBlock(true)
         } else {
             setshowAll(true)
+            setshowSection(false)
         }
     }, [params])
 
     const clickBlock = (name) => {
         setshowBlock(false)
         navigate(`?context=theme&type=${name}`)
-    }
-    const backToList = () => {
-        setshowBlock(false)
     }
     const backToHome = () => {
         navigate('')
@@ -60,7 +48,7 @@ export default function LayoutSidebar() {
 
     return (
         <div className="layout_sidebar">
-            <Grid
+            {/* <Grid
                 container
                 direction="row"
                 justifyContent="center"
@@ -81,7 +69,7 @@ export default function LayoutSidebar() {
                         })}
                     </Select>
                 </FormControl>
-            </Grid >
+            </Grid > */}
             <div className="layout_sidebar_container">
                 {showAll ?
                     <>
@@ -91,9 +79,7 @@ export default function LayoutSidebar() {
                                     openSection={openSection}
                                 />
                                 :
-                                <ActiveBlock
-                                    backToList={backToList}
-                                />
+                                <ActiveBlock />
                             }
                         </Box>
                         <Button onClick={() => goToSettings('themes')} className="themesetting_btn" variant="outlined">
@@ -105,12 +91,9 @@ export default function LayoutSidebar() {
                         {!showBlock ?
                             <ThemeSettings
                                 clickBlock={clickBlock}
-                                backToHome={backToHome}
                             />
                             :
-                            <ActiveBlock
-                                backToList={backToList}
-                            />
+                            <ActiveBlock />
                         }
                     </>
                 }

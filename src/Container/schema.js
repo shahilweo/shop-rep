@@ -51,22 +51,22 @@ export default {
         hero_slider: {
             name: "Slider",
             class: "hero-slider",
-            limit: 5,
-            config: {
-                type: "slide_with_text",
-                settings: {
+            settings: {
+                autoplay: true,
+                loop: true,
+                dots: true,
+                arrow: true
+            },
+            text_alignment: "center",
+            items: [
+                {
                     image_src: "",
                     link: "",
                     heading: "Lorem ipsum dolor sit.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                     button_label: "Shop now",
-                    alignment: "center"
-                },
-                autoplay: true,
-                loop: true,
-                dots: true,
-                arrow: true
-            }
+                }
+            ],
         },
         text_over_image: {
             name: "Text Over Image",
