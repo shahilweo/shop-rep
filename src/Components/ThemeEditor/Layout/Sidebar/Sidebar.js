@@ -4,6 +4,7 @@ import { Button, FormControl, Grid, MenuItem, Select } from "@mui/material";
 import ThemeSettings from "./ThemeSettings";
 import ActiveBlock from "./ActiveBlock";
 import { Box } from "@mui/system";
+import CurrentBlock from "./CurrentBlock/CurrentBlock";
 
 export default function LayoutSidebar() {
     const params = new URLSearchParams(window.location.search)
@@ -17,6 +18,7 @@ export default function LayoutSidebar() {
     ]
     const [showAll, setshowAll] = useState(true)
     const [showBlock, setshowBlock] = useState(false)
+    const [showSection, setshowSection] = useState(false)
     const [current, setCurrent] = useState("home")
     const handleChange = (e) => {
         setCurrent(e.target.value)
@@ -40,15 +42,19 @@ export default function LayoutSidebar() {
     }
     const backToList = () => {
         setshowBlock(false)
-        navigate('?context=theme')
     }
     const backToHome = () => {
         navigate('')
     }
 
+    const openSection = (name) => {
+        setshowSection(true)
+        navigate(`?context=page&type=${name}`)
+    }
+
     const goToSettings = (type) => {
         if (type === 'themes') {
-            backToList()
+            navigate(`?context=theme`)
         }
     }
 
@@ -80,7 +86,15 @@ export default function LayoutSidebar() {
                 {showAll ?
                     <>
                         <Box className="layout_sidebar_sections">
-                            
+                            {!showSection ?
+                                <CurrentBlock
+                                    openSection={openSection}
+                                />
+                                :
+                                <ActiveBlock
+                                    backToList={backToList}
+                                />
+                            }
                         </Box>
                         <Button onClick={() => goToSettings('themes')} className="themesetting_btn" variant="outlined">
                             Theme settings

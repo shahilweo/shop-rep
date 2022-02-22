@@ -1,5 +1,12 @@
 export default {
-    common: {
+    active: {
+        blocks: [
+            "header",
+            "hero_slider",
+            "footer"
+        ]
+    },
+    components: {
         header: {
             name: "Header",
             settings: {
@@ -40,9 +47,7 @@ export default {
                     ]
                 }
             ]
-        }
-    },
-    components: {
+        },
         hero_slider: {
             name: "Slider",
             class: "hero-slider",

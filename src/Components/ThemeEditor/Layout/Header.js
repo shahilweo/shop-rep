@@ -19,15 +19,16 @@ export default function LayoutHeader() {
                     </Button>
                     <Divider orientation="vertical" flexItem />
                 </Box>
-                
+
                 <Grid
+                    container
                     direction="row"
-                    justifyContent="center"
+                    justifyContent="end"
                     alignItems="center"
                     sx={{ flexWrap: "nowrap", whiteSpace: 'nowrap' }}
                 >
                     <Button variant="outlined" color="error">Reset</Button>
-                    <Button variant="contained" sx={{mx: 3}}>Save</Button>
+                    <Button variant="contained" sx={{ mx: 3 }}>Save</Button>
                 </Grid>
             </Grid>
         </Paper>
