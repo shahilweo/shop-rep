@@ -358,6 +358,9 @@ export default [
                 label: "Slide",
                 length: 3
             },
+            // {
+            //     type: "slide_settings",
+            // },
             {
                 type: "divider"
             },
@@ -409,9 +412,6 @@ export default [
                 id: "slider_dots",
                 label: "Dots",
                 value: true
-            },
-            {
-                type: "slide_settings",
             }
         ]
     }

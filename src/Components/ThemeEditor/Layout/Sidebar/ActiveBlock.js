@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import setting from "../../../../Container/setting-schema";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box } from "@mui/system";
-import { renderFn } from "../../../../Container/Exports";
+import RenderFn, { renderFn } from "../../../../Container/Exports";
 import _ from "underscore";
 
 export default function ActiveBlock() {
@@ -22,14 +22,14 @@ export default function ActiveBlock() {
 
     return (
         <Box className="activeBlock_outer">
-            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => navigate(-1)}>
+            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => params.get('context') === "theme" ? navigate(-1) : navigate('')}>
                 {!_.isEmpty(activeBlock) && activeBlock.name}
             </Button>
             <Box>
                 {!_.isEmpty(activeBlock) && activeBlock.settings.map((data, index) => {
                     return (
                         <Box key={index.toString()}>
-                            {renderFn(data)}
+                            <RenderFn data={data} />
                         </Box>
                     )
                 })}

@@ -74,7 +74,7 @@ export default function ImagePicker({data}){
     return (
         <Box sx={{ mb: 3 }}>
             <Box id={data.id} className="uploader_outer">
-                <Card sx={{ py: 1 }} className="pre_uploader">
+                <Card sx={{ pb: 1 }} className="pre_uploader">
                     <CardMedia
                         component="img"
                         width={data.width}

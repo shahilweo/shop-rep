@@ -4,7 +4,6 @@ import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/mater
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 export default function CurrentBlock({openSection}) {
-    console.log("schema: ", schema)
     return (
         <>
             {schema.active.blocks.length > 0 && schema.active.blocks.map((opt, index) => {
