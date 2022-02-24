@@ -3,6 +3,7 @@ export default {
         blocks: [
             "header",
             "hero_slider",
+            "text_over_image",
             "footer"
         ]
     },

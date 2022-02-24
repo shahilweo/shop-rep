@@ -236,113 +236,8 @@ export default [
         type: "header",
         settings: [
             {
-                type: "heading",
-                text: "Logo image"
-            },
-            {
-                type: "image_file",
-                id: "logo_image",
-                label: "Logo image",
-                note: "",
-                height: "70px",
-                width: "200px",
-                alt: "Logo",
-                value: "https://www.psd2html5.co/img/logo-light.svg"
-            },
-            {
-                type: "heading",
-                text: "Logo alignment"
-            },
-            {
-                type: "radio",
-                id: "logo_align_left",
-                label: "Left",
-                value: true
-            },
-            {
-                type: "radio",
-                id: "logo_align_center",
-                label: "Center",
-                value: false
-            },
-            {
-                type: "heading",
-                text: "Logo width"
-            },
-            {
-                type: "range",
-                label: "",
-                value: 100,
-                min: 50,
-                max: 300,
-                step: 10,
-                unit: "px"
-            },
-            {
-                type: "heading",
-                text: "Navigation"
-            },
-            {
-                type: "nav_list",
-                label: "Static menu",
-                current: {
-                    name: "Main menu",
-                    link: ""
-                }
-            },
-            {
-                type: "select",
-                label: "",
-                id: "nav_menu",
-                current: "main_menu",
-                items: [
-                    { name: "Main menu", value: "main_menu" },
-                    { name: "Footer menu", value: "footer_menu" }
-                ]
-            },
-            {
-                type: "divider"
-            },
-            {
-                type: "heading",
-                text: "Announcement bar"
-            },
-            {
-                type: "checkbox",
-                id: "show_announcement",
-                label: "Show",
-                value: true
-            },
-            {
-                type: "text",
-                id: "announcement_text",
-                label: "Text",
-                value: "",
-                placeholder: "Enter announcement text"
-            },
-            {
-                type: "text",
-                id: "announcement_link",
-                label: "Link",
-                value: "",
-                placeholder: "Enter redirect URL"
-            },
-            {
-                type: "heading",
-                text: "Announcement colors"
-            },
-            {
-                type: "color_picker",
-                id: "bar_color",
-                label: "Bar color",
-                value: "#000000"
-            },
-            {
-                type: "color_picker",
-                id: "bar_text_color",
-                label: "Text color",
-                value: "#ffffff"
-            },
+                type: "header"
+            }
         ]
     },
     {
@@ -350,68 +245,16 @@ export default [
         type: "hero_slider",
         settings: [
             {
-                type: "heading",
-                text: "Slide list"
-            },
+                type: "hero_slider"
+            }
+        ]
+    },
+    {
+        name: "Text Over Image",
+        type: "text_over_image",
+        settings: [
             {
-                type: "slide_item",
-                label: "Slide",
-                length: 3
-            },
-            // {
-            //     type: "slide_settings",
-            // },
-            {
-                type: "divider"
-            },
-            {
-                type: "heading",
-                text: "Slider settings"
-            },
-            {
-                type: "text",
-                id: "slider_class",
-                label: "Class name",
-                value: "",
-                placeholder: ""
-            },
-            {
-                type: "select",
-                label: "Slider text alignment",
-                id: "slider_text_alignment",
-                current: "center",
-                items: [
-                    { name: "Left", value: "left" },
-                    { name: "Center", value: "center" },
-                    { name: "Right", value: "right" }
-                ]
-            },
-            {
-                type: "divider"
-            },
-            {
-                type: "checkbox",
-                id: "slider_autoplay",
-                label: "Autoplay",
-                value: true
-            },
-            {
-                type: "checkbox",
-                id: "slider_loop",
-                label: "Infinite",
-                value: true
-            },
-            {
-                type: "checkbox",
-                id: "slider_arrows",
-                label: "Arrows",
-                value: false
-            },
-            {
-                type: "checkbox",
-                id: "slider_dots",
-                label: "Dots",
-                value: true
+                type: "text_over_image"
             }
         ]
     }

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import React from "react"
-import ImagePicker from "./ImagePicker"
-import TextFields from "./TextField"
+import ImagePicker from "../ImagePicker"
+import TextFields from "../TextField"
 
 export default function SlideSettings({ id }) {
     let data = [

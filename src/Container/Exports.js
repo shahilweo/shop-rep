@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Slider, Typography, TextField, Divider, FormGroup, FormControlLabel, Checkbox, RadioGroup, Radio, FormControl, InputLabel, Select, MenuItem, Link, List, Button } from "@mui/material";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Slider, Typography, Divider, Link, List } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate, useLocation } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit';
-import { ColorPicker } from 'material-ui-color';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import ImagePicker from "../Components/ThemeEditor/Layout/Sidebar/Components/ImagePicker";
-import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/SlideSettings";
 import TextFields from "../Components/ThemeEditor/Layout/Sidebar/Components/TextField";
+import SelectBox from "../Components/ThemeEditor/Layout/Sidebar/Components/Select";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import CheckBox from "../Components/ThemeEditor/Layout/Sidebar/Components/CheckBox";
+import RadioButton from "../Components/ThemeEditor/Layout/Sidebar/Components/RadioButton";
+import Colors from "../Components/ThemeEditor/Layout/Sidebar/Components/ColorPicker";
+import RangeSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/RangeSlider";
+import TextEditor from "../Components/ThemeEditor/Layout/Sidebar/Components/TextEditor";
+import Heading from "../Components/ThemeEditor/Layout/Sidebar/Components/Heading";
+import Header from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Header";
+import HeroSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeroSlider";
+import TextOverImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextOverImage";
+import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/SlideSettings";
 
 
 export const drawerWidth = 240;
@@ -51,9 +60,9 @@ export default function RenderFn({ data }) {
     return (
         <>
             {data.type === "heading" &&
-                <Typography variant="button" component="div" sx={{ mb: 2, pb: 0.5, borderBottom: "#eee 1px solid" }}>
-                    {data.text}
-                </Typography>
+                <Heading
+                    data={data}
+                />
             }
             {data.type === "font_family" &&
                 <Box sx={{ mb: 3 }}>
@@ -73,35 +82,16 @@ export default function RenderFn({ data }) {
                 </Box>
             }
             {data.type === "range" &&
-                <Box sx={{ mb: 3 }}>
-                    <Typography variant="caption" component="div" sx={{ pb: 1, display: "block" }}>
-                        {data.label}
-                    </Typography>
-                    <Box sx={{ px: 2 }}>
-                        <Slider
-                            aria-label={data.label}
-                            defaultValue={data.value}
-                            getAriaValueText={(val) => rangeValue(val, data.unit)}
-                            valueLabelFormat={(val) => rangeValue(val, data.unit)}
-                            step={data.step}
-                            marks
-                            min={data.min}
-                            max={data.max}
-                            valueLabelDisplay="auto"
-                        />
-                    </Box>
-                </Box>
+                <RangeSlider
+                    data={data}
+                    rangeValue={rangeValue}
+                />
             }
             {data.type === "color_picker" &&
-                <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-                    <ColorPicker value={data.value} hideTextfield onChange={val => handleColorChange(data.id, val)} disableAlpha />
-                    <Box sx={{ ml: 1 }}>
-                        <Typography variant="caption" gutterBottom component="div">
-                            {data.label}<br />
-                            {data.value}
-                        </Typography>
-                    </Box>
-                </Box>
+                <Colors
+                    data={data}
+                    handleColorChange={handleColorChange}
+                />
             }
             {data.type === "image_file" &&
                 <ImagePicker
@@ -109,20 +99,14 @@ export default function RenderFn({ data }) {
                 />
             }
             {data.type === "checkbox" &&
-                <FormGroup>
-                    <FormControlLabel control={<Checkbox checked={data.value} />} label={data.label} />
-                </FormGroup>
+                <CheckBox
+                    data={data}
+                />
             }
             {data.type === "radio" &&
-                <FormControl>
-                    <RadioGroup
-                        aria-labelledby={data.id}
-                        name={data.name}
-                        value={data.value}
-                    >
-                        <FormControlLabel value={data.value} control={<Radio checked={data.value} />} label={data.label} />
-                    </RadioGroup>
-                </FormControl>
+                <RadioButton
+                    data={data}
+                />
             }
             {data.type === "text" || data.type === "number" ?
                 <TextFields
@@ -130,23 +114,9 @@ export default function RenderFn({ data }) {
                 /> : null
             }
             {data.type === "select" &&
-                <FormControl fullWidth>
-                    {data.label !== "" &&
-                        <InputLabel>{data.label}</InputLabel>
-                    }
-                    <Select
-                        id={data.id}
-                        value={data.current}
-                        label={data.label}
-                        size="small"
-                    >
-                        {data.items.length > 0 && data.items.map((val, index) => {
-                            return (
-                                <MenuItem value={val.value} key={index.toString()}>{val.name}</MenuItem>
-                            )
-                        })}
-                    </Select>
-                </FormControl>
+                <SelectBox
+                    data={data}
+                />
             }
             {data.type === "nav_list" &&
                 <Link href={data.current.link} underline="hover" sx={{ pb: 2, display: "block" }}>
@@ -157,40 +127,52 @@ export default function RenderFn({ data }) {
                 <Divider sx={{ my: 2 }} />
             }
             {data.type === "slide_item" &&
-                <>
-                    <List sx={{ m: 0, p: 0 }}>
-                        {array.map((opt, index) => {
-                            return (
-                                <>
-                                    <ListItem disablePadding key={index.toString()}>
-                                        <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }} onClick={() => editItem(opt)}>
-                                            <ListItemIcon sx={{ minWidth: "30px" }}>
-                                                <DragIndicatorIcon fontSize="small" />
-                                            </ListItemIcon>
-                                            <ListItemText primary={`${data.label} ${opt}`} />
-                                            <ListItemIcon>
-                                                <EditIcon fontSize="inherit" />
-                                            </ListItemIcon>
-                                        </ListItemButton>
-                                    </ListItem>
-                                    {params.get('slide') === opt.toString() &&
-                                        <SlideSettings
-                                            id={opt}
-                                        />
-                                    }
-                                </>
-                            )
-                        })}
-                        <ListItem disablePadding>
-                            <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }}>
-                                <ListItemIcon sx={{ minWidth: "30px" }}>
-                                    <AddCircleOutlineIcon fontSize="small" />
-                                </ListItemIcon>
-                                <ListItemText primary="Add new" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </>
+                <List sx={{ m: 0, p: 0 }}>
+                    {array.map((opt, index) => {
+                        return (
+                            <React.Fragment key={index.toString()}>
+                                <ListItem disablePadding >
+                                    <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }} onClick={() => editItem(opt)}>
+                                        <ListItemIcon sx={{ minWidth: "30px" }}>
+                                            <DragIndicatorIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        <ListItemText primary={`${data.label} ${opt}`} />
+                                        <ListItemIcon>
+                                            <EditIcon fontSize="inherit" />
+                                        </ListItemIcon>
+                                    </ListItemButton>
+                                </ListItem>
+                                {params.get('slide') === opt.toString() &&
+                                    <SlideSettings
+                                        id={opt}
+                                    />
+                                }
+                            </React.Fragment>
+                        )
+                    })}
+                    <ListItem disablePadding>
+                        <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }}>
+                            <ListItemIcon sx={{ minWidth: "30px" }}>
+                                <AddCircleOutlineIcon fontSize="small" />
+                            </ListItemIcon>
+                            <ListItemText primary="Add new" />
+                        </ListItemButton>
+                    </ListItem>
+                </List>
+            }
+            {data.type === "editor" &&
+                <TextEditor
+                    data={data}
+                />
+            }
+            {data.type === "header" &&
+                <Header />
+            }
+            {data.type === "hero_slider" &&
+                <HeroSlider />
+            }
+            {data.type === "text_over_image" &&
+                <TextOverImage />
             }
         </>
     )
