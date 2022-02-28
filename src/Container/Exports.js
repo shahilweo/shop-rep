@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Slider, Typography, Divider, Link, List } from "@mui/material";
 import { Box } from "@mui/system";
-import { useNavigate, useLocation } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import ImagePicker from "../Components/ThemeEditor/Layout/Sidebar/Components/ImagePicker";
 import TextFields from "../Components/ThemeEditor/Layout/Sidebar/Components/TextField";
 import SelectBox from "../Components/ThemeEditor/Layout/Sidebar/Components/Select";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CheckBox from "../Components/ThemeEditor/Layout/Sidebar/Components/CheckBox";
 import RadioButton from "../Components/ThemeEditor/Layout/Sidebar/Components/RadioButton";
 import Colors from "../Components/ThemeEditor/Layout/Sidebar/Components/ColorPicker";
@@ -19,15 +16,14 @@ import Header from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/H
 import HeroSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeroSlider";
 import TextOverImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextOverImage";
 import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/SlideSettings";
+import ProductList from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ProductList";
+import ListItems from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ListItems";
+import TextColumnWithImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextColumnWithImage";
 
 
 export const drawerWidth = 240;
 
 export default function RenderFn({ data }) {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const params = new URLSearchParams(window.location.search)
-    const [array, setArray] = useState([])
     function rangeValue(value, unit) {
         return `${value} ${unit}`;
     }
@@ -35,28 +31,7 @@ export default function RenderFn({ data }) {
     function handleColorChange(id, val) {
 
     }
-    const editItem = (id) => {
-        if (params.get("slide") && params.get("slide").toString() !== id.toString()) {
-            params.set('slide', id)
-        } else if (params.get("slide") && params.get("slide").toString() === id.toString()) {
-            params.delete("slide")
-        } else {
-            params.append("slide", id)
-        }
-        const to = { pathname: location.pathname, search: params.toString() };
-        navigate(to, { replace: true });
-    }
 
-    useEffect(() => {
-        if (data.type === "slide_item") {
-            console.log("data.type: ", data.type)
-            let arr = []
-            for (let i = 1; i <= data.length; i++) {
-                arr.push(i)
-            }
-            setArray(arr)
-        }
-    }, [data])
     return (
         <>
             {data.type === "heading" &&
@@ -126,39 +101,11 @@ export default function RenderFn({ data }) {
             {data.type === "divider" &&
                 <Divider sx={{ my: 2 }} />
             }
-            {data.type === "slide_item" &&
-                <List sx={{ m: 0, p: 0 }}>
-                    {array.map((opt, index) => {
-                        return (
-                            <React.Fragment key={index.toString()}>
-                                <ListItem disablePadding >
-                                    <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }} onClick={() => editItem(opt)}>
-                                        <ListItemIcon sx={{ minWidth: "30px" }}>
-                                            <DragIndicatorIcon fontSize="small" />
-                                        </ListItemIcon>
-                                        <ListItemText primary={`${data.label} ${opt}`} />
-                                        <ListItemIcon>
-                                            <EditIcon fontSize="inherit" />
-                                        </ListItemIcon>
-                                    </ListItemButton>
-                                </ListItem>
-                                {params.get('slide') === opt.toString() &&
-                                    <SlideSettings
-                                        id={opt}
-                                    />
-                                }
-                            </React.Fragment>
-                        )
-                    })}
-                    <ListItem disablePadding>
-                        <ListItemButton sx={{ p: 0.5, borderBottom: '#eee 1px solid' }}>
-                            <ListItemIcon sx={{ minWidth: "30px" }}>
-                                <AddCircleOutlineIcon fontSize="small" />
-                            </ListItemIcon>
-                            <ListItemText primary="Add new" />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
+            {data.type === "slide_item" || data.type === "column_item" ?
+                <ListItems
+                    data={data}
+                />
+                : null
             }
             {data.type === "editor" &&
                 <TextEditor
@@ -173,6 +120,12 @@ export default function RenderFn({ data }) {
             }
             {data.type === "text_over_image" &&
                 <TextOverImage />
+            }
+            {data.type === "product_list" &&
+                <ProductList />
+            }
+            {data.type === "text_column_with_image" &&
+                <TextColumnWithImage />
             }
         </>
     )

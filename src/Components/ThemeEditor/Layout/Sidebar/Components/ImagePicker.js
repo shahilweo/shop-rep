@@ -60,7 +60,7 @@ const itemData = [
 ];
 
 
-export default function ImagePicker({data}){
+export default function ImagePicker({ data }) {
     console.log("data: ", data)
     const showUploader = (id) => {
         document.getElementById(id).classList.add("active")
@@ -75,14 +75,16 @@ export default function ImagePicker({data}){
         <Box sx={{ mb: 3 }}>
             <Box id={data.id} className="uploader_outer">
                 <Card sx={{ pb: 1 }} className="pre_uploader">
-                    <CardMedia
-                        component="img"
-                        width={data.width}
-                        image={data.value}
-                        alt={data.alt}
-                        sx={{ maxHeight: data.height, objectFit: "contain" }}
-                    />
-                    <Divider sx={{ pt: 1, mb: 0 }} />
+                    <Box sx={{p:1}}>
+                        <CardMedia
+                            component="img"
+                            width={data.width}
+                            image={data.value}
+                            alt={data.alt}
+                            sx={{ maxHeight: data.height, objectFit: "contain" }}
+                        />
+                    </Box>
+                    <Divider sx={{ pt: 0, mb: 1 }} />
                     <CardContent sx={{ pt: 1 }}>
                         {data.note !== "" &&
                             <Typography variant="caption" component="div" sx={{ mb: 1 }}>

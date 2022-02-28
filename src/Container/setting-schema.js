@@ -257,5 +257,23 @@ export default [
                 type: "text_over_image"
             }
         ]
+    },
+    {
+        name: "Product list",
+        type: "product_list",
+        settings: [
+            {
+                type: "product_list"
+            }
+        ]
+    },
+    {
+        name: "Text column with image",
+        type: "text_column_with_image",
+        settings: [
+            {
+                type: "text_column_with_image"
+            }
+        ]
     }
 ]

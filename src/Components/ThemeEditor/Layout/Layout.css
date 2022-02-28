@@ -107,3 +107,6 @@
     user-select: none;
     border-radius: 3px;
 }
+.active_item{
+    background-color: #ccc;
+}

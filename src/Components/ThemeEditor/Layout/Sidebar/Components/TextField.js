@@ -9,7 +9,6 @@ export default function TextFields({data}) {
             variant="outlined"
             fullWidth
             type={data.type}
-            size="small"
             name={data.id}
             placeholder={data.placeholder}
             sx={{ mb: 2 }}

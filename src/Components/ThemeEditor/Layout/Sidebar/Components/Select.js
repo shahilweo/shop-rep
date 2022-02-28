@@ -11,7 +11,6 @@ export default function SelectBox({ data }) {
                 id={data.id}
                 value={data.current}
                 label={data.label}
-                size="small"
             >
                 {data.items.length > 0 && data.items.map((val, index) => {
                     return (

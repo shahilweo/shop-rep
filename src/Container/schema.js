@@ -4,6 +4,8 @@ export default {
             "header",
             "hero_slider",
             "text_over_image",
+            "product_list",
+            "text_column_with_image",
             "footer"
         ]
     },
@@ -85,6 +87,19 @@ export default {
                 label: "Shop now",
                 link: ""
             }
+        },
+        product_list: {
+            name: "Product list",
+            heading: "",
+            category: "",
+            item_per_row: 3,
+            is_slider: false,
+        },
+        text_column_with_image: {
+            name: "Text column with image",
+            heading: "",
+            item_per_row: 3,
+            items: []
         },
         gallery: {
             name: "Gallery",

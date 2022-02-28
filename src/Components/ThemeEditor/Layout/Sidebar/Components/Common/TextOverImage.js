@@ -1,8 +1,6 @@
 import { Box } from "@mui/material"
 import React from "react"
 import RenderFn from "../../../../../../Container/Exports"
-import ImagePicker from "../ImagePicker"
-import TextFields from "../TextField"
 
 export default function TextOverImage() {
     let data = [
