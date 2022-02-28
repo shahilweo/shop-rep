@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import React from "react"
-import RenderFn from "../../../../../../Container/Exports"
+import RenderFn from "../../../../../../../Container/Exports"
 
 export default function HeroSlider() {
     let data = [

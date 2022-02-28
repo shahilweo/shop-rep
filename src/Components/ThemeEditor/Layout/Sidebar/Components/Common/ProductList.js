@@ -28,7 +28,7 @@ export default function ProductList() {
         },
         {
             type: "range",
-            label: "Item per row",
+            label: "Items per row",
             value: 4,
             min: 2,
             max: 5,

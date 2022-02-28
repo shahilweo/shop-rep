@@ -13,11 +13,11 @@ import RangeSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/Ran
 import TextEditor from "../Components/ThemeEditor/Layout/Sidebar/Components/TextEditor";
 import Heading from "../Components/ThemeEditor/Layout/Sidebar/Components/Heading";
 import Header from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Header";
-import HeroSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeroSlider";
+import HeroSlider from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Slider/HeroSlider";
 import TextOverImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextOverImage";
-import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/SlideSettings";
+import Gallery from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Gallery/Gallery";
 import ProductList from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ProductList";
-import ListItems from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ListItems";
+import ListItems from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ListItem/ListItems";
 import TextColumnWithImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextColumnWithImage";
 
 
@@ -126,6 +126,9 @@ export default function RenderFn({ data }) {
             }
             {data.type === "text_column_with_image" &&
                 <TextColumnWithImage />
+            }
+            {data.type === "gallery" &&
+                <Gallery />
             }
         </>
     )

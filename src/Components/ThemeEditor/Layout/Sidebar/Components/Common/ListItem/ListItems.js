@@ -5,8 +5,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SlideSettings from "./SlideSettings";
+import SlideSettings from "../Slider/SlideSettings";
 import ListItemDetail from "./ListItemDetail";
+import GalleryEdit from "../Gallery/GalleryEdit";
 
 export default function ListItems({ data }) {
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ export default function ListItems({ data }) {
         let pageType = ""
         if(params.get('type') === "hero_slider"){
             pageType = "slide"
-        }else if(params.get('type') === "text_column_with_image"){
+        }else if(params.get('type') === "text_column_with_image" || params.get('type') === "gallery"){
             pageType = "column"
         }
 
@@ -60,8 +61,13 @@ export default function ListItems({ data }) {
                                 id={opt}
                             />
                         }
-                        {params.get('column') === opt.toString() &&
+                        {params.get('column') === opt.toString() && params.get('type') !== "gallery" &&
                             <ListItemDetail
+                                id={opt}
+                            />
+                        }
+                        {params.get('column') === opt.toString() && params.get('type') === "gallery" &&
+                            <GalleryEdit
                                 id={opt}
                             />
                         }

@@ -1,44 +1,29 @@
 import { Box } from "@mui/material"
 import React from "react"
-import RenderFn from "../../../../../../Container/Exports"
-import ImagePicker from "../ImagePicker"
-import TextFields from "../TextField"
+import RenderFn from "../../../../../../../Container/Exports"
 
-export default function ListItemDetail({ id }) {
+export default function GalleryEdit({ id }) {
     let data = [
         {
             type: "image_file",
-            id: "column1_image",
-            label: "column image",
+            id: "gallery1_image",
+            label: "Gallery image",
             note: "",
             height: "200px",
             width: "100%",
-            alt: `Column ${id}`,
+            alt: `Gallery ${id}`,
             value: "http://122.160.61.100/design/st/Dr.Khasha-HTML/V2/images/testimonials-2.jpg"
         },
         {
             type: "text",
-            id: "column1_heading",
-            label: "Heading",
+            id: "gallery1_caption",
+            label: "Caption",
             value: "Lorem ipsum dolor",
             placeholder: ""
         },
         {
-            type: "editor",
-            id: "column1_text",
-            label: "Text",
-            value: "",
-        },
-        {
             type: "text",
-            id: "column1_btn_label",
-            label: "Button label",
-            value: "Shop now",
-            placeholder: ""
-        },
-        {
-            type: "text",
-            id: "column1_link",
+            id: "gallery1_link",
             label: "Link",
             value: "",
             placeholder: ""

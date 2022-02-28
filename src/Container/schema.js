@@ -6,6 +6,7 @@ export default {
             "text_over_image",
             "product_list",
             "text_column_with_image",
+            "gallery",
             "footer"
         ]
     },

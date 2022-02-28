@@ -275,5 +275,14 @@ export default [
                 type: "text_column_with_image"
             }
         ]
+    },
+    {
+        name: "Gallery",
+        type: "gallery",
+        settings: [
+            {
+                type: "gallery"
+            }
+        ]
     }
 ]

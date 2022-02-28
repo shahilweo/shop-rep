@@ -1,43 +1,42 @@
 import { Box } from "@mui/material"
 import React from "react"
-import RenderFn from "../../../../../../Container/Exports"
+import RenderFn from "../../../../../../../Container/Exports"
 
-export default function SlideSettings({ id }) {
+export default function ListItemDetail({ id }) {
     let data = [
         {
             type: "image_file",
-            id: "slide1_image",
-            label: "Slide image",
+            id: "column1_image",
+            label: "column image",
             note: "",
-            height: "150px",
+            height: "200px",
             width: "100%",
-            alt: `Slide ${id}`,
+            alt: `Column ${id}`,
             value: "http://122.160.61.100/design/st/Dr.Khasha-HTML/V2/images/testimonials-2.jpg"
         },
         {
             type: "text",
-            id: "slide1_heading",
+            id: "column1_heading",
             label: "Heading",
             value: "Lorem ipsum dolor",
             placeholder: ""
         },
         {
-            type: "text",
-            id: "slide1_subheading",
-            label: "Sub heading",
-            value: "Lorem ipsum dolor sit amet",
-            placeholder: ""
+            type: "editor",
+            id: "column1_text",
+            label: "Text",
+            value: "",
         },
         {
             type: "text",
-            id: "slide1_btn_label",
+            id: "column1_btn_label",
             label: "Button label",
             value: "Shop now",
             placeholder: ""
         },
         {
             type: "text",
-            id: "slide1_link",
+            id: "column1_link",
             label: "Link",
             value: "",
             placeholder: ""
@@ -48,7 +47,7 @@ export default function SlideSettings({ id }) {
         <React.Fragment>
             {data.map((opt, index) => {
                 return (
-                    <Box key={index.toString()} sx={{ p: 2, background: "#fff", border: "#ededed 1px solid" }}>
+                    <Box key={index.toString()}>
                         <RenderFn data={opt} />
                     </Box>
                 )
