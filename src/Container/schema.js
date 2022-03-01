@@ -9,6 +9,9 @@ export default {
             "gallery",
             "content_block",
             "brands_list",
+            "map",
+            "heading_text",
+            "testimonials",
             "footer"
         ]
     },
@@ -149,18 +152,12 @@ export default {
         },
         map: {
             name: "Map",
-            settings: {
-                iframe: {
-                    link: "",
-                    width: "",
-                    height: ""
-                },
-                map_address: {
-                    heading: "Our store",
-                    address_text: "",
-                    map_address: "",
-                    button_label: "Get Direction"
-                }
+            map_src: "",
+            map_address: {
+                heading: "Our store",
+                address_text: "",
+                map_address: "",
+                button_label: "Get Directions"
             }
         },
         heading_text: {

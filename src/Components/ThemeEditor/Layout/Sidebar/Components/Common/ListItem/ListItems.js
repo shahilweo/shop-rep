@@ -9,6 +9,7 @@ import SlideSettings from "../Slider/SlideSettings";
 import ListItemDetail from "./ListItemDetail";
 import GalleryEdit from "../Gallery/GalleryEdit";
 import BrandEdit from "../BrandList/BrandEdit";
+import TestimonialtestimonialSettings from "../Testimonials/TestimonialSlideSettings";
 
 export default function ListItems({ data }) {
     const navigate = useNavigate()
@@ -23,6 +24,8 @@ export default function ListItems({ data }) {
             pageType = "column"
         } else if (params.get('type') === "brands_list") {
             pageType = "brand"
+        } else if (params.get('type') === "testimonials") {
+            pageType = "testimonial"
         }
 
         if (params.get(pageType) && params.get(pageType).toString() !== id.toString()) {
@@ -71,6 +74,11 @@ export default function ListItems({ data }) {
                         }
                         {params.get('column') === opt.toString() && params.get('type') === "gallery" &&
                             <GalleryEdit
+                                id={opt}
+                            />
+                        }
+                        {params.get('testimonial') === opt.toString() && params.get('type') === "testimonials" &&
+                            <TestimonialtestimonialSettings
                                 id={opt}
                             />
                         }

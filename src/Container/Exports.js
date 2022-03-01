@@ -21,6 +21,9 @@ import ListItems from "../Components/ThemeEditor/Layout/Sidebar/Components/Commo
 import TextColumnWithImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextColumnWithImage";
 import ContentBlock from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ContentBlock";
 import BrandList from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/BrandList/BrandList";
+import MapBlock from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/MapBlock";
+import HeadingText from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeadingText";
+import Testimonials from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Testimonials/Testimonials";
 
 
 export const drawerWidth = 240;
@@ -137,6 +140,15 @@ export default function RenderFn({ data }) {
             }
             {data.type === "brands_list" &&
                 <BrandList />
+            }
+            {data.type === "map" &&
+                <MapBlock />
+            }
+            {data.type === "heading_text" &&
+                <HeadingText />
+            }
+            {data.type === "testimonials" &&
+                <Testimonials />
             }
         </>
     )

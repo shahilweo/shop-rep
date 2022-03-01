@@ -302,5 +302,32 @@ export default [
                 type: "brands_list"
             }
         ]
+    },
+    {
+        name: "Map",
+        type: "map",
+        settings: [
+            {
+                type: "map"
+            }
+        ]
+    },
+    {
+        name: "Heading text",
+        type: "heading_text",
+        settings: [
+            {
+                type: "heading_text"
+            }
+        ]
+    },
+    {
+        name: "Testimonials",
+        type: "testimonials",
+        settings: [
+            {
+                type: "testimonials"
+            }
+        ]
     }
 ]
