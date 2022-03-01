@@ -293,5 +293,14 @@ export default [
                 type: "content_block"
             }
         ]
+    },
+    {
+        name: "Brand list",
+        type: "brands_list",
+        settings: [
+            {
+                type: "brands_list"
+            }
+        ]
     }
 ]

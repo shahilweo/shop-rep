@@ -8,6 +8,7 @@ export default {
             "text_column_with_image",
             "gallery",
             "content_block",
+            "brands_list",
             "footer"
         ]
     },
@@ -119,24 +120,20 @@ export default {
         content_block: {
             name: "Content Block",
             heading: "",
-            settings: [
-                {
-                    order: "default",
-                    image: {
-                        src: "",
-                        column_width: 5,
-                        alignment: "center"
-                    },
-                    content: {
-                        heading: "Lorem ipsum dolor sit",
-                        paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                        column_width: 5,
-                        alignment: "center",
-                        button_label: "Learn more",
-                        button_link: ""
-                    }
-                }
-            ]
+            order: "default",
+            image: {
+                src: "",
+                column_width: 50,
+                alignment: "center"
+            },
+            content: {
+                heading: "Lorem ipsum dolor sit",
+                paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                column_width: 50,
+                alignment: "center",
+                button_label: "Learn more",
+                button_link: ""
+            }
         },
         brands_list: {
             name: "Brand list",

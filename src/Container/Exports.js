@@ -20,6 +20,7 @@ import ProductList from "../Components/ThemeEditor/Layout/Sidebar/Components/Com
 import ListItems from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ListItem/ListItems";
 import TextColumnWithImage from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/TextColumnWithImage";
 import ContentBlock from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/ContentBlock";
+import BrandList from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/BrandList/BrandList";
 
 
 export const drawerWidth = 240;
@@ -133,6 +134,9 @@ export default function RenderFn({ data }) {
             }
             {data.type === "content_block" &&
                 <ContentBlock />
+            }
+            {data.type === "brands_list" &&
+                <BrandList />
             }
         </>
     )
