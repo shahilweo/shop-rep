@@ -22,7 +22,7 @@ export default function Gallery() {
         },
         {
             type: "checkbox",
-            id: "is_lightbox",
+            id: "lightbox",
             label: "Enable lightbox",
             value: false
         },

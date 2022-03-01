@@ -284,5 +284,14 @@ export default [
                 type: "gallery"
             }
         ]
+    },
+    {
+        name: "Content block",
+        type: "content_block",
+        settings: [
+            {
+                type: "content_block"
+            }
+        ]
     }
 ]

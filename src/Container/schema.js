@@ -7,6 +7,7 @@ export default {
             "product_list",
             "text_column_with_image",
             "gallery",
+            "content_block",
             "footer"
         ]
     },
