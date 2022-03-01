@@ -1,7 +1,5 @@
 import React from "react";
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Slider, Typography, Divider, Link, List } from "@mui/material";
-import { Box } from "@mui/system";
-import EditIcon from '@mui/icons-material/Edit';
+import { Divider, Link } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ImagePicker from "../Components/ThemeEditor/Layout/Sidebar/Components/ImagePicker";
 import TextFields from "../Components/ThemeEditor/Layout/Sidebar/Components/TextField";
@@ -24,6 +22,7 @@ import BrandList from "../Components/ThemeEditor/Layout/Sidebar/Components/Commo
 import MapBlock from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/MapBlock";
 import HeadingText from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeadingText";
 import Testimonials from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Testimonials/Testimonials";
+import FontFamily from "../Components/ThemeEditor/Layout/Sidebar/Components/FontFamily";
 
 
 export const drawerWidth = 240;
@@ -45,21 +44,9 @@ export default function RenderFn({ data }) {
                 />
             }
             {data.type === "font_family" &&
-                <Box sx={{ mb: 3 }}>
-                    <Typography variant="caption" component="div" sx={{ pb: 1, display: "block" }}>
-                        {data.label}
-                    </Typography>
-                    <Box sx={{ border: '1px solid #eee' }}>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={data.value} />
-                                <ListItemIcon>
-                                    <EditIcon />
-                                </ListItemIcon>
-                            </ListItemButton>
-                        </ListItem>
-                    </Box>
-                </Box>
+                <FontFamily
+                    data={data}
+                />
             }
             {data.type === "range" &&
                 <RangeSlider

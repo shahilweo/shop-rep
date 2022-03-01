@@ -13,7 +13,7 @@ export default function TextOverImage() {
             id: "logo_image",
             label: "Logo image",
             note: "",
-            height: "70px",
+            height: "200px",
             width: "100%",
             alt: "",
             value: "http://122.160.61.100/design/st/Dr.Khasha-HTML/V2/images/testimonials-2.jpg"

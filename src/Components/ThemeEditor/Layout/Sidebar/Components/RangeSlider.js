@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Checkbox, FormControlLabel, FormGroup, Slider, Typography } from "@mui/material";
+import { Box, Slider, Typography } from "@mui/material";
 
 export default function RangeSlider({ data, rangeValue }) {
     return (

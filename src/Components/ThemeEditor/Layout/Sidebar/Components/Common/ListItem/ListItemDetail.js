@@ -42,7 +42,6 @@ export default function ListItemDetail({ id }) {
             placeholder: ""
         },
     ]
-    console.log("data: ", data)
     return (
         <React.Fragment>
             {data.map((opt, index) => {

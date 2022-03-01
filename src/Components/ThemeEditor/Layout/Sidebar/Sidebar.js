@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
-import { Button, FormControl, Grid, MenuItem, Select } from "@mui/material";
+import { Button } from "@mui/material";
 import ThemeSettings from "./ThemeSettings";
 import ActiveBlock from "./ActiveBlock";
 import { Box } from "@mui/system";
@@ -30,9 +30,6 @@ export default function LayoutSidebar() {
     const clickBlock = (name) => {
         setshowBlock(false)
         navigate(`?context=theme&type=${name}`)
-    }
-    const backToHome = () => {
-        navigate('')
     }
 
     const openSection = (name) => {

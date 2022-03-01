@@ -10,7 +10,8 @@ export default [
             {
                 type: "font_family",
                 label: "Font family",
-                value: "Arial"
+                id: "heading_font",
+                value: "Roboto"
             },
             {
                 type: "range",
@@ -28,7 +29,8 @@ export default [
             {
                 type: "font_family",
                 label: "Font family",
-                value: "Arial"
+                id: "body_font",
+                value: "Roboto"
             },
             {
                 type: "range",
