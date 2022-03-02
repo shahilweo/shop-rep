@@ -1,9 +1,4 @@
-import { Box } from "@mui/material"
-import React from "react"
-import RenderFn from "../../../../../../../Container/Exports"
-
-export default function HeroSlider() {
-    let data = [
+export default [
         {
             type: "heading",
             text: "Slide list"
@@ -66,15 +61,3 @@ export default function HeroSlider() {
             value: true
         }
     ]
-    return (
-        <React.Fragment>
-            {data.map((opt, index) => {
-                return (
-                    <Box key={index.toString()}>
-                        <RenderFn data={opt} />
-                    </Box>
-                )
-            })}
-        </React.Fragment>
-    )
-}

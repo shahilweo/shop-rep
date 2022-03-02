@@ -23,15 +23,33 @@ import MapBlock from "../Components/ThemeEditor/Layout/Sidebar/Components/Common
 import HeadingText from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/HeadingText";
 import Testimonials from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Testimonials/Testimonials";
 import FontFamily from "../Components/ThemeEditor/Layout/Sidebar/Components/FontFamily";
+import BlogPost from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/BlogPost";
+import { Box } from "@mui/system";
+import NavList from "../Components/ThemeEditor/Layout/Sidebar/Components/NavList";
 
 
 export const drawerWidth = 240;
+
+
+export const renderImport = (arr) => {
+    return (
+        <React.Fragment>
+            {arr.map((opt, index) => {
+                return (
+                    <Box key={index.toString()}>
+                        <RenderFn data={opt} />
+                    </Box>
+                )
+            })}
+        </React.Fragment>
+    )
+}
+
 
 export default function RenderFn({ data }) {
     function rangeValue(value, unit) {
         return `${value} ${unit}`;
     }
-
     function handleColorChange(id, val) {
 
     }
@@ -86,9 +104,9 @@ export default function RenderFn({ data }) {
                 />
             }
             {data.type === "nav_list" &&
-                <Link href={data.current.link} underline="hover" sx={{ pb: 2, display: "block" }}>
-                    {data.current.name} <OpenInNewIcon fontSize="inherit" sx={{ verticalAlign: 'middle' }} />
-                </Link>
+                <NavList
+                    data={data}
+                />
             }
             {data.type === "divider" &&
                 <Divider sx={{ my: 2 }} />
@@ -105,37 +123,40 @@ export default function RenderFn({ data }) {
                 />
             }
             {data.type === "header" &&
-                <Header />
+                renderImport(Header)
             }
             {data.type === "hero_slider" &&
-                <HeroSlider />
+                renderImport(HeroSlider)
             }
             {data.type === "text_over_image" &&
-                <TextOverImage />
+                renderImport(TextOverImage)
             }
             {data.type === "product_list" &&
-                <ProductList />
+                renderImport(ProductList)
             }
             {data.type === "text_column_with_image" &&
-                <TextColumnWithImage />
+                renderImport(TextColumnWithImage)
             }
             {data.type === "gallery" &&
-                <Gallery />
+                renderImport(Gallery)
             }
             {data.type === "content_block" &&
-                <ContentBlock />
+                renderImport(ContentBlock)
             }
             {data.type === "brands_list" &&
-                <BrandList />
+                renderImport(BrandList)
             }
             {data.type === "map" &&
-                <MapBlock />
+                renderImport(MapBlock)
             }
             {data.type === "heading_text" &&
-                <HeadingText />
+                renderImport(HeadingText)
             }
             {data.type === "testimonials" &&
-                <Testimonials />
+                renderImport(Testimonials)
+            }
+            {data.type === "blog_post" &&
+                renderImport(BlogPost)
             }
         </>
     )

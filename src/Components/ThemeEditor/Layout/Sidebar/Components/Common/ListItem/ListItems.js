@@ -10,6 +10,7 @@ import ListItemDetail from "./ListItemDetail";
 import GalleryEdit from "../Gallery/GalleryEdit";
 import BrandEdit from "../BrandList/BrandEdit";
 import TestimonialtestimonialSettings from "../Testimonials/TestimonialSlideSettings";
+import { renderImport } from "../../../../../../../Container/Exports";
 
 export default function ListItems({ data }) {
     const navigate = useNavigate()
@@ -63,29 +64,19 @@ export default function ListItems({ data }) {
                             </ListItemButton>
                         </ListItem>
                         {params.get('slide') === opt.toString() &&
-                            <SlideSettings
-                                id={opt}
-                            />
+                            renderImport(SlideSettings)
                         }
                         {params.get('column') === opt.toString() && params.get('type') !== "gallery" &&
-                            <ListItemDetail
-                                id={opt}
-                            />
+                            renderImport(ListItemDetail)
                         }
                         {params.get('column') === opt.toString() && params.get('type') === "gallery" &&
-                            <GalleryEdit
-                                id={opt}
-                            />
+                            renderImport(GalleryEdit)
                         }
                         {params.get('testimonial') === opt.toString() && params.get('type') === "testimonials" &&
-                            <TestimonialtestimonialSettings
-                                id={opt}
-                            />
+                            renderImport(TestimonialtestimonialSettings)
                         }
                         {params.get('brand') === opt.toString() &&
-                            <BrandEdit
-                                id={opt}
-                            />
+                            renderImport(BrandEdit)
                         }
                     </React.Fragment>
                 )

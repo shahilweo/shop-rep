@@ -12,6 +12,7 @@ export default {
             "map",
             "heading_text",
             "testimonials",
+            "blog_post",
             "footer"
         ]
     },

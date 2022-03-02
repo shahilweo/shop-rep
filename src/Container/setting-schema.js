@@ -331,5 +331,14 @@ export default [
                 type: "testimonials"
             }
         ]
+    },
+    {
+        name: "Blog Post",
+        type: "blog_post",
+        settings: [
+            {
+                type: "blog_post"
+            }
+        ]
     }
 ]
