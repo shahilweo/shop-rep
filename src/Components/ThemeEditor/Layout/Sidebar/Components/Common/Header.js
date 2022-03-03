@@ -36,7 +36,7 @@ export default [
         {
             type: "range",
             label: "",
-            value: 100,
+            value: 200,
             min: 50,
             max: 300,
             step: 10,
@@ -81,7 +81,7 @@ export default [
             type: "text",
             id: "announcement_text",
             label: "Text",
-            value: "",
+            value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             placeholder: "Enter announcement text"
         },
         {

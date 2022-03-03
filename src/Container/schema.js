@@ -29,7 +29,7 @@ export default {
             settings: {
                 logo: {
                     logo_alignment: "left",
-                    logo_alt: "",
+                    logo_alt: "Logo",
                     logo_image: "https://www.psd2html5.co/img/logo-light.svg",
                     logo_width: 200
                 },
