@@ -1,7 +1,6 @@
 export default {
-    active: {
-        blocks: [
-            "header",
+    blocks: {
+        list: [
             "hero_slider",
             "text_over_image",
             "product_list",
@@ -12,7 +11,15 @@ export default {
             "map",
             "heading_text",
             "testimonials",
-            "blog_post",
+            "blog_post"
+        ],
+        active: [
+            "header",
+            "hero_slider",
+            "text_over_image",
+            "product_list",
+            "text_column_with_image",
+            "gallery",
             "footer"
         ]
     },
@@ -22,7 +29,8 @@ export default {
             settings: {
                 logo: {
                     logo_alignment: "left",
-                    logo_image: "",
+                    logo_alt: "",
+                    logo_image: "https://www.psd2html5.co/img/logo-light.svg",
                     logo_width: 200
                 },
                 navigation: "",

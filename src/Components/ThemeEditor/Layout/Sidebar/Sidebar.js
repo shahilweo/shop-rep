@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
-import { Button } from "@mui/material";
+import { Button, Paper, Grid, Typography } from "@mui/material";
 import ThemeSettings from "./ThemeSettings";
 import ActiveBlock from "./ActiveBlock";
 import { Box } from "@mui/system";
 import CurrentBlock from "./CurrentBlock/CurrentBlock";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import schema from "../../../../Container/schema";
+import SectionIcons from "./Components/SectionIcons";
 
 export default function LayoutSidebar() {
     const params = new URLSearchParams(window.location.search)
 
     const navigate = useNavigate()
+    const [showAllSections, setshowAllSections] = useState(false)
     const [showAll, setshowAll] = useState(true)
     const [showBlock, setshowBlock] = useState(false)
     const [showSection, setshowSection] = useState(false)
@@ -45,52 +50,60 @@ export default function LayoutSidebar() {
 
     return (
         <div className="layout_sidebar">
-            {/* <Grid
-                container
-                direction="row"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ flexWrap: "nowrap", width: "100%" }}
-            >
-                <FormControl fullWidth variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                    <Select
-                        labelId="current-page"
-                        onChange={handleChange}
-                        value={current}
-                        id="current-page-id"
-                    >
-                        {pages.map((page, index) => {
-                            return (
-                                <MenuItem key={index.toString()} sx={{ fontSize: "14px" }} value={page.value}>{page.name}</MenuItem>
-                            )
-                        })}
-                    </Select>
-                </FormControl>
-            </Grid > */}
             <div className="layout_sidebar_container">
-                {showAll ?
-                    <>
-                        <Box className="layout_sidebar_sections">
-                            {!showSection ?
-                                <CurrentBlock
-                                    openSection={openSection}
-                                />
-                                :
-                                <ActiveBlock />
-                            }
-                        </Box>
-                        <Button onClick={() => goToSettings('themes')} className="themesetting_btn" variant="outlined">
-                            Theme settings
+                {showAllSections ?
+                    <Box>
+                        <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => setshowAllSections(false)}>
+                            Back
                         </Button>
-                    </>
+                        <Grid container spacing={2}>
+                            {schema.blocks.list.length > 0 && schema.blocks.list.map((opt, index) => {
+                                let activeName = schema.components[opt].name
+                                return (
+                                    <Grid item xs={6} key={index.toString()}>
+                                        <Paper sx={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }} elevation={3}>
+                                            <Button sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }} fullWidth>
+                                                <SectionIcons type={opt} />
+                                                {activeName}
+                                            </Button>
+                                        </Paper>
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                    </Box>
                     :
                     <>
-                        {!showBlock ?
-                            <ThemeSettings
-                                clickBlock={clickBlock}
-                            />
+                        {showAll ?
+                            <>
+                                <Box className="layout_sidebar_sections">
+                                    <Box sx={{ py: 1 }}>
+                                        <Button fullWidth onClick={() => setshowAllSections(true)} variant="outlined">
+                                            <AddCircleOutlineIcon fontSize="small" sx={{ mr: 1 }} /> Add new section
+                                        </Button>
+                                    </Box>
+                                    {!showSection ?
+                                        <CurrentBlock
+                                            openSection={openSection}
+                                        />
+                                        :
+                                        <ActiveBlock />
+                                    }
+                                </Box>
+                                <Button onClick={() => goToSettings('themes')} className="themesetting_btn" variant="outlined">
+                                    Theme settings
+                                </Button>
+                            </>
                             :
-                            <ActiveBlock />
+                            <>
+                                {!showBlock ?
+                                    <ThemeSettings
+                                        clickBlock={clickBlock}
+                                    />
+                                    :
+                                    <ActiveBlock />
+                                }
+                            </>
                         }
                     </>
                 }

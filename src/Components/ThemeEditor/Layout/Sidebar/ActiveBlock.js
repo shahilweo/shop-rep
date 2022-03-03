@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import setting from "../../../../Container/setting-schema";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box } from "@mui/system";
-import RenderFn, { renderFn } from "../../../../Container/Exports";
+import RenderFn from "../../../../Container/Exports";
 import _ from "underscore";
 
 export default function ActiveBlock() {

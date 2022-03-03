@@ -6,7 +6,7 @@ import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 export default function CurrentBlock({openSection}) {
     return (
         <>
-            {schema.active.blocks.length > 0 && schema.active.blocks.map((opt, index) => {
+            {schema.blocks.active.length > 0 && schema.blocks.active.map((opt, index) => {
                 let activeName = schema.components[opt].name
                 return (
                     <ListItem disablePadding key={index.toString()}>
