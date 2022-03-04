@@ -5,12 +5,14 @@ import { IconButton } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-export default function HeaderCart() {
+export default function HeaderCart({ data }) {
     return (
         <Box>
-            <IconButton color="primary" component="span">
-                <SearchIcon />
-            </IconButton>
+            {data.show_search &&
+                <IconButton color="primary" component="span">
+                    <SearchIcon />
+                </IconButton>
+            }
             <IconButton color="primary" component="span">
                 <AccountCircleIcon />
             </IconButton>

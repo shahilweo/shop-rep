@@ -9,23 +9,29 @@ import NavBar from "./Navbar/NavBar";
 export default function Header({ data }) {
     return (
         <Box>
-            {data.announcement.show &&
+            {data.settings.announcement.show &&
                 <AnnouncementBar
-                    data={data.announcement}
+                    data={data.settings.announcement}
                 />
             }
             <Box sx={{ py: 3 }}>
                 <Container maxWidth="lg">
-                    {data.logo.logo_alignment === "left" ?
+                    {data.settings.logo.logo_alignment === "left" ?
                         <Grid container spacing={2}>
                             <Grid item xs={2}>
-                                <Logo logo={data.logo} />
+                                <Logo logo={data.settings.logo} />
                             </Grid>
                             <Grid item xs={8}>
                                 <NavBar />
                             </Grid>
                             <Grid item xs={2}>
-                                <HeaderCart />
+                                <Grid container spacing={0} justifyContent="flex-end">
+                                    <Grid item xs={'auto'}>
+                                        <HeaderCart
+                                            data={data}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                         :
@@ -34,12 +40,14 @@ export default function Header({ data }) {
                                 <Grid item xs={4}>
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: 'center' }}>
-                                    <Logo logo={data.logo} />
+                                    <Logo logo={data.settings.logo} />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Grid container spacing={0} justifyContent="flex-end">
                                         <Grid item xs={'auto'}>
-                                            <HeaderCart />
+                                            <HeaderCart
+                                                data={data}
+                                            />
                                         </Grid>
                                     </Grid>
                                 </Grid>

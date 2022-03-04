@@ -7,7 +7,7 @@ export default [
         height: "150px",
         width: "100%",
         alt: `Slide 1`,
-        value: "http://122.160.61.100/design/st/Dr.Khasha-HTML/V2/images/testimonials-2.jpg"
+        value: "http://122.160.61.100/design/slide.jpg"
     },
     {
         type: "text",
@@ -21,13 +21,6 @@ export default [
         id: "slide1_subheading",
         label: "Subheading",
         value: "",
-    },
-    {
-        type: "text",
-        id: "slide1_btn_label",
-        label: "Button label",
-        value: "Shop now",
-        placeholder: ""
     },
     {
         type: "text",

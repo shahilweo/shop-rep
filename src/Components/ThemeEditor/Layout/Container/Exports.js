@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Components/Header/Header";
+import Heroslider from "./Components/Heroslider/Heroslider";
 
 // export const blokImport = (arr) => {
 //     return (
@@ -21,6 +22,12 @@ export default function BlockRenderFn({ type, data }) {
             {type === "header" &&
                 <Header
                     data={data}
+                />
+            }
+            {type === "hero_slider" &&
+                <Heroslider
+                    data={data}
+                    type="hero"
                 />
             }
         </>

@@ -11,7 +11,7 @@ export default [
         height: "200px",
         width: "100%",
         alt: "",
-        value: "http://122.160.61.100/design/st/Dr.Khasha-HTML/V2/images/testimonials-2.jpg"
+        value: "http://122.160.61.100/design/slide.jpg"
     },
     {
         type: "select",

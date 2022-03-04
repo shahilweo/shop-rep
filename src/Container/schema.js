@@ -16,7 +16,7 @@ export default {
         active: [
             "header",
             "hero_slider",
-            "text_over_image",
+            "content_block",
             "product_list",
             "text_column_with_image",
             "gallery",
@@ -71,18 +71,23 @@ export default {
             class: "hero-slider",
             settings: {
                 autoplay: true,
-                loop: true,
+                infinite: true,
                 dots: true,
-                arrow: true
+                arrows: true
             },
             text_alignment: "center",
             items: [
                 {
-                    image_src: "",
-                    link: "",
+                    image_src: "http://122.160.61.100/design/slide.jpg",
+                    link: "/",
                     heading: "Lorem ipsum dolor sit.",
-                    subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                    button_label: "Shop now",
+                    subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                },
+                {
+                    image_src: "http://122.160.61.100/design/slide.jpg",
+                    link: "/",
+                    heading: "Lorem ipsum dolor sit.",
+                    subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 }
             ],
         },

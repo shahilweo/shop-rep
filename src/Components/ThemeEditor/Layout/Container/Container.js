@@ -15,7 +15,7 @@ export default function LayoutContainer() {
                         <Box key={index.toString()}>
                             <BlockRenderFn
                                 type={opt}
-                                data={activeData.settings}
+                                data={activeData}
                             />
                         </Box>
                     )

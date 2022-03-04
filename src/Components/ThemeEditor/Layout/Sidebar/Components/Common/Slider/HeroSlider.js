@@ -52,7 +52,7 @@ export default [
             type: "checkbox",
             id: "slider_arrows",
             label: "Arrows",
-            value: false
+            value: true
         },
         {
             type: "checkbox",
