@@ -15,11 +15,11 @@ export default [
     {
         type: "range",
         label: "Container width",
-        value: 50,
-        min: 25,
-        max: 100,
-        step: 5,
-        unit: "%"
+        value: 8,
+        min: 2,
+        max: 12,
+        step: 1,
+        unit: ""
     },
     {
         type: "select",

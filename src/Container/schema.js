@@ -136,18 +136,16 @@ export default {
         },
         content_block: {
             name: "Content Block",
-            heading: "",
+            heading: "Lorem ipsum dolor",
             order: "default",
+            alignment: "center",
             image: {
-                src: "",
-                column_width: 50,
-                alignment: "center"
+                src: "http://122.160.61.100/design/side-image.jpg",
+                alt: "",
             },
             content: {
                 heading: "Lorem ipsum dolor sit",
                 paragraph: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                column_width: 50,
-                alignment: "center",
                 button_label: "Learn more",
                 button_link: ""
             }
@@ -178,7 +176,7 @@ export default {
             name: "Heading text",
             heading: "Lorem ipsum dolor sit",
             subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            size: "large",
+            size: "small",
             container_width: 8
         },
         testimonials: {

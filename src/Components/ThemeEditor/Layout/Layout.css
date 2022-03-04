@@ -69,7 +69,8 @@
     width: calc(100% - 300px);
     justify-self: flex-end;
     background-color: #f7f7f7;
-    height: calc(100vh - 52px);
+    height: calc(100% - 52px);
+    max-height: calc(100vh - 52px);
     position: relative;
     z-index: -1;
     padding: 10px;
@@ -198,4 +199,7 @@
     margin: 0;
     margin-left: auto;
     text-align: right;
+}
+.img-fluid{
+    max-width: 100%;
 }

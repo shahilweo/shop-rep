@@ -1,5 +1,7 @@
 import React from "react";
+import ContentBlock from "./Components/ContentBlock/ContentBlock";
 import Header from "./Components/Header/Header";
+import HeadingText from "./Components/HeadingText/HeadingText";
 import Heroslider from "./Components/Heroslider/Heroslider";
 
 // export const blokImport = (arr) => {
@@ -28,6 +30,16 @@ export default function BlockRenderFn({ type, data }) {
                 <Heroslider
                     data={data}
                     type="hero"
+                />
+            }
+            {type === "content_block" &&
+                <ContentBlock
+                    data={data}
+                />
+            }
+            {type === "heading_text" &&
+                <HeadingText
+                    data={data}
                 />
             }
         </>

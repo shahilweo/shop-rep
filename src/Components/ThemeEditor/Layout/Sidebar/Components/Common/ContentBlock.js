@@ -14,19 +14,10 @@ export default [
         id: "content_block_image",
         label: "Image",
         note: "",
-        height: "200px",
+        height: "",
         width: "100%",
         alt: "",
-        value: "http://122.160.61.100/design/slide.jpg"
-    },
-    {
-        type: "range",
-        label: "Image container width",
-        value: 50,
-        min: 20,
-        max: 100,
-        step: 5,
-        unit: "%"
+        value: "http://122.160.61.100/design/side-image.jpg"
     },
     {
         type: "select",
@@ -51,15 +42,6 @@ export default [
         id: "content_block_text",
         label: "Text",
         value: "",
-    },
-    {
-        type: "range",
-        label: "Content container width",
-        value: 50,
-        min: 20,
-        max: 100,
-        step: 5,
-        unit: "%"
     },
     {
         type: "select",
