@@ -10,7 +10,7 @@ export default function ContentBlock({ data }) {
                 <HeadingText
                     data={data}
                 />
-                <Grid container spacing={2} alignItems={data.alignment === "top" ? "flex-start" : data.alignment === "bottom" ? "flex-end" : data.alignment}>
+                <Grid container spacing={4} alignItems={data.alignment === "top" ? "flex-start" : data.alignment === "bottom" ? "flex-end" : 'center'}>
                     <Grid item sm={12} md={6} >
                         <img src={data.image.src} alt={data.image.alt} className="img-fluid" />
                     </Grid>

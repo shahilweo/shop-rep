@@ -1,16 +1,26 @@
 import React from "react";
 import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 
-export default function RadioButton({ data }) {
+export default function RadioButton({ data, handleRadioChange }) {
     return (
-        <FormControl>
-            <RadioGroup
-                aria-labelledby={data.id}
-                name={data.name}
-                value={data.value}
-            >
-                <FormControlLabel value={data.value} control={<Radio checked={data.value} />} label={data.label} />
-            </RadioGroup>
-        </FormControl>
+        <RadioGroup
+            name={data.name}
+        >
+            {data.options.length > 0 && data.options.map((opt, index) => {
+                return (
+                    <FormControlLabel
+                        key={index.toString()}
+                        value={opt.value}
+                        control={
+                            <Radio
+                                checked={opt.checked}
+                                onChange={(e) => handleRadioChange(e, opt.id)}
+                            />
+                        }
+                        label={opt.label}
+                    />
+                )
+            })}
+        </RadioGroup>
     )
 }

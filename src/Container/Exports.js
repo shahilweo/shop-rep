@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Divider, Link } from "@mui/material";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ImagePicker from "../Components/ThemeEditor/Layout/Sidebar/Components/ImagePicker";
@@ -26,6 +26,9 @@ import FontFamily from "../Components/ThemeEditor/Layout/Sidebar/Components/Font
 import BlogPost from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/BlogPost";
 import { Box } from "@mui/system";
 import NavList from "../Components/ThemeEditor/Layout/Sidebar/Components/NavList";
+import { useDispatch } from "react-redux";
+
+import { handleRadioChange } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/HeaderReducer";
 
 
 export const drawerWidth = 240;
@@ -47,12 +50,68 @@ export const renderImport = (arr) => {
 
 
 export default function RenderFn({ data }) {
+    const params = new URLSearchParams(window.location.search)
+    const dispatch = useDispatch()
+    const [main, setMain] = useState(Header)
     function rangeValue(value, unit) {
         return `${value} ${unit}`;
     }
     function handleColorChange(id, val) {
 
     }
+    const handleRadioChange = useCallback((e, id) => {
+        console.log("e: ", e, "----id: ", id)
+        main.filter((obj) => obj.name === e.target.name).map((opt) => {
+            opt.options.map((val)=>{
+                if (val.id !== id) {
+                    val.checked = false
+                } else {
+                    val.checked = e.target.checked
+                }
+            })
+        })
+        setMain([...main])
+    }, [main])
+
+
+    useEffect(() => {
+        if (params.get('type') === "header") {
+            setMain(Header)
+        }
+        if (params.get('type') === "hero_slider") {
+            setMain(HeroSlider)
+        }
+        if (params.get('type') === "text_over_image") {
+            setMain(TextOverImage)
+        }
+        if (params.get('type') === "product_list") {
+            setMain(ProductList)
+        }
+        if (params.get('type') === "text_column_with_image") {
+            setMain(TextColumnWithImage)
+        }
+        if (params.get('type') === "gallery") {
+            setMain(Gallery)
+        }
+        if (params.get('type') === "content_block") {
+            setMain(ContentBlock)
+        }
+        if (params.get('type') === "brands_list") {
+            setMain(BrandList)
+        }
+        if (params.get('type') === "map") {
+            setMain(MapBlock)
+        }
+        if (params.get('type') === "heading_text") {
+            setMain(HeadingText)
+        }
+        if (params.get('type') === "testimonials") {
+            setMain(Testimonials)
+        }
+        if (params.get('type') === "blog_post") {
+            setMain(BlogPost)
+        }
+    }, [main])
 
     return (
         <>
@@ -91,6 +150,7 @@ export default function RenderFn({ data }) {
             {data.type === "radio" &&
                 <RadioButton
                     data={data}
+                    handleRadioChange={handleRadioChange}
                 />
             }
             {data.type === "text" || data.type === "number" ?
@@ -122,41 +182,20 @@ export default function RenderFn({ data }) {
                     data={data}
                 />
             }
-            {data.type === "header" &&
-                renderImport(Header)
-            }
-            {data.type === "hero_slider" &&
-                renderImport(HeroSlider)
-            }
-            {data.type === "text_over_image" &&
-                renderImport(TextOverImage)
-            }
-            {data.type === "product_list" &&
-                renderImport(ProductList)
-            }
-            {data.type === "text_column_with_image" &&
-                renderImport(TextColumnWithImage)
-            }
-            {data.type === "gallery" &&
-                renderImport(Gallery)
-            }
-            {data.type === "content_block" &&
-                renderImport(ContentBlock)
-            }
-            {data.type === "brands_list" &&
-                renderImport(BrandList)
-            }
-            {data.type === "map" &&
-                renderImport(MapBlock)
-            }
-            {data.type === "heading_text" &&
-                renderImport(HeadingText)
-            }
-            {data.type === "testimonials" &&
-                renderImport(Testimonials)
-            }
-            {data.type === "blog_post" &&
-                renderImport(BlogPost)
+            {data.type === "header" ||
+                data.type === "hero_slider" ||
+                data.type === "text_over_image" ||
+                data.type === "product_list" ||
+                data.type === "text_column_with_image" ||
+                data.type === "gallery" ||
+                data.type === "content_block" ||
+                data.type === "brands_list" ||
+                data.type === "map" ||
+                data.type === "heading_text" ||
+                data.type === "testimonials" ||
+                data.type === "blog_post" ?
+                renderImport(main)
+                : null
             }
         </>
     )

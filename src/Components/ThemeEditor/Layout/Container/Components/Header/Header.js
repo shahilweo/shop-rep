@@ -1,5 +1,6 @@
 import { Box, Container, Grid } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
 import schema from "../../../../../../Container/schema";
 import AnnouncementBar from "./AnnouncementBar/AnnouncementBar";
 import HeaderCart from "./HeaderCart/HeaderCart";
@@ -7,6 +8,8 @@ import Logo from "./Logo/Logo";
 import NavBar from "./Navbar/NavBar";
 
 export default function Header({ data }) {
+    const logo = useSelector((state) => state)
+    console.log("logo: ", logo)
     return (
         <Box>
             {data.settings.announcement.show &&

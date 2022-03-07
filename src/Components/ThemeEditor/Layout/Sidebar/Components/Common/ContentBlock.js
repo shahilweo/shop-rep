@@ -34,14 +34,14 @@ export default [
         type: "text",
         id: "content_block_heading",
         label: "Heading",
-        value: "",
+        value: "Lorem ipsum dolor sit",
         placeholder: ""
     },
     {
         type: "editor",
         id: "content_block_text",
         label: "Text",
-        value: "",
+        value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
         type: "select",

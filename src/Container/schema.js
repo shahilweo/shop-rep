@@ -79,13 +79,13 @@ export default {
             items: [
                 {
                     image_src: "http://122.160.61.100/design/slide.jpg",
-                    link: "/",
+                    link: "",
                     heading: "Lorem ipsum dolor sit.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 },
                 {
                     image_src: "http://122.160.61.100/design/slide.jpg",
-                    link: "/",
+                    link: "",
                     heading: "Lorem ipsum dolor sit.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 }
@@ -135,7 +135,7 @@ export default {
             ]
         },
         content_block: {
-            name: "Content Block",
+            name: "Content block",
             heading: "Lorem ipsum dolor",
             order: "default",
             alignment: "center",
