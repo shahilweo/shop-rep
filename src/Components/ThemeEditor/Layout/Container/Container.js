@@ -10,7 +10,7 @@ export default function LayoutContainer() {
             <Paper className="layout_card">
                 {sectionSchema.blocks.active.length > 0 && sectionSchema.blocks.active.map((opt, index) => {
                     let activeData = sectionSchema.components[opt]
-                    console.log("activeData: ", activeData)
+                    // console.log("activeData: ", activeData)
                     return (
                         <Box key={index.toString()}>
                             <BlockRenderFn

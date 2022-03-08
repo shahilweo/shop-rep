@@ -19,10 +19,10 @@ export default function Header({ data }) {
             }
             <Box sx={{ py: 3 }}>
                 <Container maxWidth="lg">
-                    {data.settings.logo.logo_alignment === "left" ?
+                    {logo && logo.alignment.value === "left" ?
                         <Grid container spacing={2}>
                             <Grid item xs={2}>
-                                <Logo logo={data.settings.logo} />
+                                <Logo image={logo && logo.logoImage.image} width={logo && logo.logoWidth.width} />
                             </Grid>
                             <Grid item xs={8}>
                                 <NavBar />
@@ -43,7 +43,7 @@ export default function Header({ data }) {
                                 <Grid item xs={4}>
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: 'center' }}>
-                                    <Logo logo={data.settings.logo} />
+                                    <Logo image={logo && logo.logoImage.image} width={logo && logo.logoWidth.width} />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Grid container spacing={0} justifyContent="flex-end">

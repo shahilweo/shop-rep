@@ -4,5 +4,7 @@ import alignmentreducer from "../Components/ThemeEditor/Layout/Sidebar/Component
 export default configureStore({
   reducer: {
     alignment: alignmentreducer,
+    logoWidth: alignmentreducer,
+    logoImage: alignmentreducer,
   },
 })

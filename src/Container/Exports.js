@@ -28,7 +28,7 @@ import { Box } from "@mui/system";
 import NavList from "../Components/ThemeEditor/Layout/Sidebar/Components/NavList";
 import { useDispatch } from "react-redux";
 
-import { handleRadioChange } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/HeaderReducer";
+import { alignment, logoWidth, logoImage } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/HeaderReducer";
 
 
 export const drawerWidth = 240;
@@ -53,16 +53,19 @@ export default function RenderFn({ data }) {
     const params = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
     const [main, setMain] = useState(Header)
-    function rangeValue(value, unit) {
+    function rangeValue(value, unit, name) {
+        dispatch(logoWidth(value))
         return `${value} ${unit}`;
     }
     function handleColorChange(id, val) {
 
     }
     const handleRadioChange = useCallback((e, id) => {
-        console.log("e: ", e, "----id: ", id)
+        if(e.target.name === "logo_alignment"){
+            dispatch(alignment(e.target.value))
+        }
         main.filter((obj) => obj.name === e.target.name).map((opt) => {
-            opt.options.map((val)=>{
+            opt.options.map((val) => {
                 if (val.id !== id) {
                     val.checked = false
                 } else {
@@ -73,6 +76,12 @@ export default function RenderFn({ data }) {
         setMain([...main])
     }, [main])
 
+    //image uploader
+    const doneUpload = (id, img) => {
+        if(id === "logo_image"){
+            dispatch(logoImage(img))
+        }
+    }
 
     useEffect(() => {
         if (params.get('type') === "header") {
@@ -140,6 +149,7 @@ export default function RenderFn({ data }) {
             {data.type === "image_file" &&
                 <ImagePicker
                     data={data}
+                    doneUpload={doneUpload}
                 />
             }
             {data.type === "checkbox" &&

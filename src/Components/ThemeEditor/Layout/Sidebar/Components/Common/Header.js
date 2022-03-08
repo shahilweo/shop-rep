@@ -41,10 +41,11 @@ export default [
     },
     {
         type: "range",
+        id: "logo_width",
         label: "",
-        value: 200,
+        value: 100,
         min: 50,
-        max: 300,
+        max: 250,
         step: 10,
         unit: "px"
     },

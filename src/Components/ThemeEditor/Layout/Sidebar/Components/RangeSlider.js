@@ -11,9 +11,10 @@ export default function RangeSlider({ data, rangeValue }) {
                 <Slider
                     aria-label={data.label}
                     defaultValue={data.value}
-                    getAriaValueText={(val) => rangeValue(val, data.unit)}
-                    valueLabelFormat={(val) => rangeValue(val, data.unit)}
+                    getAriaValueText={(val) => rangeValue(val, data.unit, data.id)}
+                    valueLabelFormat={(val) => rangeValue(val, data.unit, data.id)}
                     step={data.step}
+                    name={data.id}
                     marks
                     min={data.min}
                     max={data.max}
