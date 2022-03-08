@@ -27,8 +27,13 @@ import BlogPost from "../Components/ThemeEditor/Layout/Sidebar/Components/Common
 import { Box } from "@mui/system";
 import NavList from "../Components/ThemeEditor/Layout/Sidebar/Components/NavList";
 import { useDispatch } from "react-redux";
+import _ from "underscore";
 
-import { alignment, logoWidth, logoImage } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/HeaderReducer";
+import schema from "./schema";
+
+import { logo } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/LogoReducer";
+import { announcement } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/AnnouncementReducer";
+import { dataValue } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/CommonReducer";
 
 
 export const drawerWidth = 240;
@@ -53,17 +58,38 @@ export default function RenderFn({ data }) {
     const params = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
     const [main, setMain] = useState(Header)
+
+    const componentScheme = schema.components
     function rangeValue(value, unit, name) {
-        dispatch(logoWidth(value))
+        dispatchFn(name, value)
         return `${value} ${unit}`;
     }
     function handleColorChange(id, val) {
 
     }
+
+    function dispatchFn(id, val) {
+        const currentId = componentScheme[params.get('type')]
+        console.log("currentId: ", currentId)
+        return dispatch(dataValue({ ...currentId, id: val }))
+        
+        // if (id === "announcement_text") {
+        //     dispatch(announcement({ 'text': val }))
+        // }
+        // if (id === "logo_alignment") {
+        //     dispatch(logo({ 'value': val }))
+        // }
+        // if (id === "show_announcement") {
+        //     dispatch(announcement({ 'show': val }))
+        // }
+        // if (id === "logo_image") {
+        //     dispatch(logo({ 'image': val }))
+        // }        
+    }
+
+    //Radio change
     const handleRadioChange = useCallback((e, id) => {
-        if(e.target.name === "logo_alignment"){
-            dispatch(alignment(e.target.value))
-        }
+        dispatchFn(e.target.name, e.target.value)
         main.filter((obj) => obj.name === e.target.name).map((opt) => {
             opt.options.map((val) => {
                 if (val.id !== id) {
@@ -76,12 +102,28 @@ export default function RenderFn({ data }) {
         setMain([...main])
     }, [main])
 
+    //Checkbox change
+    const handleCheckboxChange = useCallback((e, id) => {
+        dispatchFn(e.target.name, e.target.checked)
+        main.filter((obj) => obj.name === e.target.name).map((opt) => {
+            opt.value = e.target.checked
+        })
+        setMain([...main])
+    }, [main])
+
     //image uploader
     const doneUpload = (id, img) => {
-        if(id === "logo_image"){
-            dispatch(logoImage(img))
-        }
+        dispatchFn(id, img)
     }
+
+    //Text/input change
+    const handleInputChange = useCallback((e) => {
+        dispatchFn(e.target.name, e.target.value)
+        main.filter((obj) => obj.name === e.target.name).map((opt) => {
+            opt.value = e.target.value
+        })
+        setMain([...main])
+    }, [main])
 
     useEffect(() => {
         if (params.get('type') === "header") {
@@ -155,6 +197,7 @@ export default function RenderFn({ data }) {
             {data.type === "checkbox" &&
                 <CheckBox
                     data={data}
+                    handleCheckboxChange={handleCheckboxChange}
                 />
             }
             {data.type === "radio" &&
@@ -166,6 +209,7 @@ export default function RenderFn({ data }) {
             {data.type === "text" || data.type === "number" ?
                 <TextFields
                     data={data}
+                    handleInputChange={handleInputChange}
                 /> : null
             }
             {data.type === "select" &&

@@ -8,21 +8,20 @@ import Logo from "./Logo/Logo";
 import NavBar from "./Navbar/NavBar";
 
 export default function Header({ data }) {
-    const logo = useSelector((state) => state)
-    console.log("logo: ", logo)
+    const logo = useSelector((state) => state.logo)
+    const announcement = useSelector((state) => state)
+    console.log("announcement: ", announcement)
     return (
         <Box>
-            {data.settings.announcement.show &&
-                <AnnouncementBar
-                    data={data.settings.announcement}
-                />
-            }
+            {/* <AnnouncementBar
+                data={announcement}
+            />
             <Box sx={{ py: 3 }}>
                 <Container maxWidth="lg">
-                    {logo && logo.alignment.value === "left" ?
-                        <Grid container spacing={2}>
+                    {logo && logo.value === "left" ?
+                        <Grid container spacing={2} alignItems="center">
                             <Grid item xs={2}>
-                                <Logo image={logo && logo.logoImage.image} width={logo && logo.logoWidth.width} />
+                                <Logo image={logo && logo.image} width={logo && logo.width} />
                             </Grid>
                             <Grid item xs={8}>
                                 <NavBar />
@@ -43,7 +42,7 @@ export default function Header({ data }) {
                                 <Grid item xs={4}>
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: 'center' }}>
-                                    <Logo image={logo && logo.logoImage.image} width={logo && logo.logoWidth.width} />
+                                    <Logo image={logo && logo.image} width={logo && logo.width} />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Grid container spacing={0} justifyContent="flex-end">
@@ -59,7 +58,7 @@ export default function Header({ data }) {
                         </>
                     }
                 </Container>
-            </Box>
+            </Box> */}
         </Box>
     )
 }

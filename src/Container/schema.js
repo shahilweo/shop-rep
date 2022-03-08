@@ -25,24 +25,17 @@ export default {
     },
     components: {
         header: {
-            name: "Header",
-            settings: {
-                logo: {
-                    logo_alignment: "left",
-                    logo_alt: "Logo",
-                    logo_image: "https://www.psd2html5.co/img/logo-light.svg",
-                    logo_width: 100
-                },
-                navigation: "",
-                announcement: {
-                    show: true,
-                    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                    link: "",
-                    bar_color: "#000000",
-                    text_color: "#ffffff"
-                },
-                show_search: true
-            }
+            logo_alignment: "left",
+            logo_alt: "Logo",
+            logo_image: "https://www.psd2html5.co/img/logo-light.svg",
+            logo_width: 100,
+            navigation: "",
+            show_announcement: true,
+            announcement_text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            announcement_link: "",
+            bar_color: "#000000",
+            bar_text_color: "#ffffff",
+            show_search: true
         },
         footer: {
             name: "Footer",

@@ -14,7 +14,6 @@ export default function ImagePicker({ data, doneUpload }) {
         {
             img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
             title: 'Bed',
-            current: true
         },
         {
             img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
@@ -81,6 +80,15 @@ export default function ImagePicker({ data, doneUpload }) {
         setItemData(newArr)
         setActiveImage(img)
     }
+
+    const handleImageChange = (e) => {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            setActiveImage(reader.result)
+        }
+        reader.readAsDataURL(file)
+    }
     return (
         <Box sx={{ mb: 3 }}>
             <Box id={data.id} className="uploader_outer">
@@ -114,19 +122,33 @@ export default function ImagePicker({ data, doneUpload }) {
                     </CardActions>
                 </Card>
                 <Card sx={{ p: 2 }} className="post_uploader">
-                    <Button startIcon={<ArrowBackIcon />} onClick={() => backToImage(data.id)}>
-                        Back
-                    </Button>
+                    <Box sx={{ display: 'flex', justifyContent: "space-between", width: "100%" }}>
+                        <Button startIcon={<ArrowBackIcon />} onClick={() => backToImage(data.id)}>
+                            Back
+                        </Button>
+                        <Button variant="contained" disabled={activeImage === "" ? true : false} onClick={() => doneUpload(data.id, activeImage)}>
+                            Done
+                        </Button>
+                    </Box>
                     <Divider sx={{ pt: 1, mb: 1 }} />
                     <Box sx={{ border: "#ccc 2px dashed", textAlign: 'center', p: 1, cursor: 'pointer' }}>
                         <label htmlFor={`img_${data.id}`}>
-                            <Input accept="image/*" id={`img_${data.id}`} type="file" />
-                            <IconButton color="primary" aria-label="upload picture" component="span">
-                                <PhotoCamera />
-                            </IconButton>
-                            <Typography variant="p" gutterBottom component="div">
-                                Upload new
-                            </Typography>
+                            <Input accept="image/*" id={`img_${data.id}`} type="file" onChange={handleImageChange} />
+                            {activeImage === "" ?
+                                <>
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <PhotoCamera />
+                                    </IconButton>
+                                    <Typography variant="p" gutterBottom component="div">
+                                        Upload new
+                                    </Typography>
+                                </>
+                                :
+                                <Box className="edit_selected_image">
+                                    <PhotoCamera fontSize="large" />
+                                    <img src={activeImage} alt="" className="img-fluid" />
+                                </Box>
+                            }
                         </label>
                     </Box>
                     <Box sx={{ width: '100%', height: 250, overflowY: 'scroll', my: 1 }}>
@@ -155,11 +177,7 @@ export default function ImagePicker({ data, doneUpload }) {
                             ))}
                         </ImageList>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: "end", width: "100%" }}>
-                        <Button variant="contained" disabled={activeImage === "" ? true : false} onClick={() => doneUpload(data.id, activeImage)}>
-                            Done
-                        </Button>
-                    </Box>
+
                 </Card>
             </Box>
         </Box>

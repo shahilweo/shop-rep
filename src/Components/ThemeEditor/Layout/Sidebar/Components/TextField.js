@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "@mui/material";
 
-export default function TextFields({data}) {
+export default function TextFields({ data, handleInputChange }) {
     return (
         <TextField
             label={data.label}
@@ -9,9 +9,10 @@ export default function TextFields({data}) {
             variant="outlined"
             fullWidth
             type={data.type}
-            name={data.id}
+            name={data.name}
             placeholder={data.placeholder}
             sx={{ mb: 2 }}
+            onChange={handleInputChange}
         />
     )
 }

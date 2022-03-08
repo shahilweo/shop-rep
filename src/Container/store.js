@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import alignmentreducer from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/HeaderReducer";
+import commonReducer from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/CommonReducer";
+// import alignmentreducer from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/LogoReducer";
+// import announcementreducer from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/AnnouncementReducer";
 
 export default configureStore({
   reducer: {
-    alignment: alignmentreducer,
-    logoWidth: alignmentreducer,
-    logoImage: alignmentreducer,
+    dataValue: commonReducer,
+    // announcement: announcementreducer,
   },
 })

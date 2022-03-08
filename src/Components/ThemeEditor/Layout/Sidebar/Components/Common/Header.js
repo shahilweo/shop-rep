@@ -81,19 +81,20 @@ export default [
     {
         type: "checkbox",
         id: "show_announcement",
+        name: "show_announcement",
         label: "Show",
         value: true
     },
     {
         type: "text",
-        id: "announcement_text",
+        name: "announcement_text",
         label: "Text",
         value: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         placeholder: "Enter announcement text"
     },
     {
         type: "text",
-        id: "announcement_link",
+        name: "announcement_link",
         label: "Link",
         value: "",
         placeholder: "Enter redirect URL"
@@ -104,13 +105,13 @@ export default [
     },
     {
         type: "color_picker",
-        id: "bar_color",
+        name: "bar_color",
         label: "Bar color",
         value: "#000000"
     },
     {
         type: "color_picker",
-        id: "bar_text_color",
+        name: "bar_text_color",
         label: "Text color",
         value: "#ffffff"
     },
