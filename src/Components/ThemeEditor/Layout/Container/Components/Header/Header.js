@@ -8,20 +8,19 @@ import Logo from "./Logo/Logo";
 import NavBar from "./Navbar/NavBar";
 
 export default function Header({ data }) {
-    const logo = useSelector((state) => state.logo)
-    const announcement = useSelector((state) => state)
-    console.log("announcement: ", announcement)
+    const dataVal = useSelector((state) => state.dataValue.header)
+    console.log("dataVal: ", dataVal)
     return (
         <Box>
-            {/* <AnnouncementBar
-                data={announcement}
+            <AnnouncementBar
+                data={dataVal && dataVal}
             />
             <Box sx={{ py: 3 }}>
                 <Container maxWidth="lg">
-                    {logo && logo.value === "left" ?
+                    {dataVal && dataVal.logo_alignment === "left" ?
                         <Grid container spacing={2} alignItems="center">
                             <Grid item xs={2}>
-                                <Logo image={logo && logo.image} width={logo && logo.width} />
+                                <Logo image={dataVal && dataVal.logo_image} width={dataVal && dataVal.logo_width} />
                             </Grid>
                             <Grid item xs={8}>
                                 <NavBar />
@@ -30,7 +29,7 @@ export default function Header({ data }) {
                                 <Grid container spacing={0} justifyContent="flex-end">
                                     <Grid item xs={'auto'}>
                                         <HeaderCart
-                                            data={data}
+                                            data={dataVal && dataVal}
                                         />
                                     </Grid>
                                 </Grid>
@@ -42,13 +41,13 @@ export default function Header({ data }) {
                                 <Grid item xs={4}>
                                 </Grid>
                                 <Grid item xs={4} sx={{ textAlign: 'center' }}>
-                                    <Logo image={logo && logo.image} width={logo && logo.width} />
+                                    <Logo image={dataVal && dataVal.logo_image} width={dataVal && dataVal.logo_width} />
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Grid container spacing={0} justifyContent="flex-end">
                                         <Grid item xs={'auto'}>
                                             <HeaderCart
-                                                data={data}
+                                                data={dataVal && dataVal}
                                             />
                                         </Grid>
                                     </Grid>
@@ -58,7 +57,7 @@ export default function Header({ data }) {
                         </>
                     }
                 </Container>
-            </Box> */}
+            </Box>
         </Box>
     )
 }

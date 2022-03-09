@@ -4,7 +4,7 @@ import schema from '../../../../../../../Container/schema'
 const componentSchema = schema.components
 
 export const CommonReducer = createSlice({
-    name: 'dataValue',
+    name: 'data',
     initialState: {
         ...componentSchema
     },

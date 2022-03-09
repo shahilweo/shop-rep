@@ -26,7 +26,7 @@ import FontFamily from "../Components/ThemeEditor/Layout/Sidebar/Components/Font
 import BlogPost from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/BlogPost";
 import { Box } from "@mui/system";
 import NavList from "../Components/ThemeEditor/Layout/Sidebar/Components/NavList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 
 import schema from "./schema";
@@ -37,7 +37,6 @@ import { dataValue } from "../Components/ThemeEditor/Layout/Sidebar/Components/R
 
 
 export const drawerWidth = 240;
-
 
 export const renderImport = (arr) => {
     return (
@@ -57,11 +56,12 @@ export const renderImport = (arr) => {
 export default function RenderFn({ data }) {
     const params = new URLSearchParams(window.location.search)
     const dispatch = useDispatch()
+    const componentScheme = schema.components
+    const [schemaData, setSchemaData] = useState(componentScheme)
     const [main, setMain] = useState(Header)
 
-    const componentScheme = schema.components
     function rangeValue(value, unit, name) {
-        dispatchFn(name, value)
+        // dispatchFn(name, value)
         return `${value} ${unit}`;
     }
     function handleColorChange(id, val) {
@@ -69,22 +69,11 @@ export default function RenderFn({ data }) {
     }
 
     function dispatchFn(id, val) {
-        const currentId = componentScheme[params.get('type')]
-        console.log("currentId: ", currentId)
-        return dispatch(dataValue({ ...currentId, id: val }))
-        
-        // if (id === "announcement_text") {
-        //     dispatch(announcement({ 'text': val }))
-        // }
-        // if (id === "logo_alignment") {
-        //     dispatch(logo({ 'value': val }))
-        // }
-        // if (id === "show_announcement") {
-        //     dispatch(announcement({ 'show': val }))
-        // }
-        // if (id === "logo_image") {
-        //     dispatch(logo({ 'image': val }))
-        // }        
+        const currentId = schemaData[params.get('type')]
+        let newObj = {}
+        newObj = { ...currentId, [id]: val }
+        setSchemaData({ ...schemaData, [params.get('type')]: newObj })
+        return dispatch(dataValue({ ...schemaData, [params.get('type')]: newObj }))
     }
 
     //Radio change

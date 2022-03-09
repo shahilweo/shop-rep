@@ -19,7 +19,7 @@ export default function ActiveBlock() {
             navigate('/customizer')
         }
     }, [activeBlock])
-    // console.log("activeBlock: ", activeBlock)
+    console.log("activeBlock: ", activeBlock)
 
     return (
         <Box className="activeBlock_outer">

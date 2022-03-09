@@ -8,7 +8,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function HeaderCart({ data }) {
     return (
         <Box>
-            {data.show_search &&
+            {data && data.show_search &&
                 <IconButton color="primary" component="span">
                     <SearchIcon />
                 </IconButton>
