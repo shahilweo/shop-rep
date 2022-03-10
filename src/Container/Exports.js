@@ -60,6 +60,7 @@ export default function RenderFn({ data }) {
     const [schemaData, setSchemaData] = useState(componentScheme)
     const [main, setMain] = useState(Header)
 
+    //Default dispatch function
     const dispatchFn = useCallback((id, val) => {
         const currentId = schemaData[params.get('type')]
         let newObj = { ...currentId, [id]: val }
@@ -67,7 +68,7 @@ export default function RenderFn({ data }) {
         setSchemaData(schemaData)
     }, [main, schemaData])
 
-
+    //Range slider onchange
     const rangeValue = useCallback((value, unit, name) => {
         dispatchFn(name, value)
         main.filter((obj) => obj.name === name).map((opt) => {
@@ -77,11 +78,17 @@ export default function RenderFn({ data }) {
         return `${value} ${unit}`;
     }, [main, schemaData])
 
-    function handleColorChange(id, val) {
+    //Color picker on change
+    const handleColorChange = useCallback((name, val) => {
+        console.log("name: ", name, "val: ", val)
+        dispatchFn(name, `#${val.hex}`)
+        main.filter((obj) => obj.name === name).map((opt) => {
+            opt.value = `#${val.hex}`
+        })
+        setMain([...main])
+    }, [main, schemaData])
 
-    }
-
-    //Radio change
+    //Radio button on change
     const handleRadioChange = useCallback((e, id) => {
         dispatchFn(e.target.name, e.target.value)
         main.filter((obj) => obj.name === e.target.name).map((opt) => {
@@ -96,8 +103,8 @@ export default function RenderFn({ data }) {
         setMain([...main])
     }, [main, schemaData])
 
-    //Checkbox change
-    const handleCheckboxChange = useCallback((e, id) => {
+    //Checkbox button on change
+    const handleCheckboxChange = useCallback((e) => {
         dispatchFn(e.target.name, e.target.checked)
         main.filter((obj) => obj.name === e.target.name).map((opt) => {
             opt.value = e.target.checked
@@ -123,7 +130,16 @@ export default function RenderFn({ data }) {
         setMain([...main])
     }, [main, schemaData])
 
+    const handleAltChange = useCallback((e, name) => {
+        dispatchFn(name, e.target.value)
+        main.filter((obj) => obj.alt_name === name).map((opt) => {
+            opt.alt = e.target.value
+        })
+        setMain([...main])
+    }, [main, schemaData])
+
     useEffect(() => {
+
         console.log("schemaData: ", schemaData)
         dispatch(dataValue(schemaData))
         if (params.get('type') === "header") {
@@ -192,6 +208,7 @@ export default function RenderFn({ data }) {
                 <ImagePicker
                     data={data}
                     doneUpload={doneUpload}
+                    handleAltChange={handleAltChange}
                 />
             }
             {data.type === "checkbox" &&

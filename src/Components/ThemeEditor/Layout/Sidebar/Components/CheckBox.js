@@ -10,7 +10,7 @@ export default function CheckBox({ data, handleCheckboxChange }) {
                 control={
                     <Checkbox
                         checked={data.value}
-                        onChange={(e) => handleCheckboxChange(e, data.id)}
+                        onChange={(e) => handleCheckboxChange(e)}
                     />
                 }
                 label={data.label}

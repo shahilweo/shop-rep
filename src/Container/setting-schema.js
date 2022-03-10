@@ -16,6 +16,7 @@ export default [
             {
                 type: "range",
                 label: "Heading Size",
+                id: 'heading_base_size',
                 value: 26,
                 min: 20,
                 max: 40,
@@ -34,6 +35,7 @@ export default [
             },
             {
                 type: "range",
+                id: "body_text_base_size",
                 label: "Base Size",
                 value: 14,
                 min: 12,

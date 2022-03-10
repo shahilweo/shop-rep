@@ -9,7 +9,7 @@ import { Card, CardContent, Typography, CardMedia, CardActions, Button, TextFiel
 
 
 
-export default function ImagePicker({ data, doneUpload }) {
+export default function ImagePicker({ data, doneUpload, handleAltChange }) {
     const [itemData, setItemData] = useState([
         {
             img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
@@ -112,6 +112,7 @@ export default function ImagePicker({ data, doneUpload }) {
                         <TextField
                             label="Alt text"
                             defaultValue={data.alt}
+                            onChange={(e)=>handleAltChange(e, data.alt_name)}
                             variant="outlined"
                             fullWidth
                             size="small"

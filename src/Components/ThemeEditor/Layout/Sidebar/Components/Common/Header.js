@@ -10,6 +10,7 @@ export default [
         note: "",
         height: "70px",
         width: "200px",
+        alt_name: "logo_alt",
         alt: "Logo",
         value: "https://www.psd2html5.co/img/logo-light.svg"
     },

@@ -254,6 +254,53 @@ export default {
         custom_html: {
             name: "Custom HTML",
             code: ""
+        },
+        typography: {
+            name: "Typography",
+            heading_font: "Arial",
+            heading_base_size: 26,
+            body_font: "Arial",
+            body_text_base_size: 16
+        },
+        colors: {
+            name: "Colors",
+            heading_color: "#000000",
+            button_color: "#000000",
+            button_hover_color: "#333333",
+            button_text_color: "#ffffff",
+            body_text_color: "#000000",
+            body_bg_color: "#ffffff",
+            overlay_text_color: "#ffffff",
+            overlay_bg_color: "#000000",
+            overlay_opacity: 40
+        },
+        share_button: {
+            name: "Share buttons",
+            options: {
+                facebook: true,
+                twitter: true,
+                pinterest: false
+            }
+        },
+        social_button: {
+            name: "Social Buttons",
+            title: "Follow us:",
+            options: [
+                {
+                    facebook: "",
+                    twitter: "",
+                    pinterest: "",
+                    instagram: "",
+                    youtube: "",
+                    vimeo: "",
+                    tumblr: "",
+                    snapchat: ""
+                }
+            ]
+        },
+        favicon: {
+            name: "Favicon",
+            image_scr: ""
         }
     },
     page: {
