@@ -60,20 +60,25 @@ export default function RenderFn({ data }) {
     const [schemaData, setSchemaData] = useState(componentScheme)
     const [main, setMain] = useState(Header)
 
-    function rangeValue(value, unit, name) {
-        // dispatchFn(name, value)
+    const dispatchFn = useCallback((id, val) => {
+        const currentId = schemaData[params.get('type')]
+        let newObj = { ...currentId, [id]: val }
+        schemaData[params.get('type')] = newObj
+        setSchemaData(schemaData)
+    }, [main, schemaData])
+
+
+    const rangeValue = useCallback((value, unit, name) => {
+        dispatchFn(name, value)
+        main.filter((obj) => obj.name === name).map((opt) => {
+            opt.value = value
+        })
+        setMain([...main])
         return `${value} ${unit}`;
-    }
+    }, [main, schemaData])
+
     function handleColorChange(id, val) {
 
-    }
-
-    function dispatchFn(id, val) {
-        const currentId = schemaData[params.get('type')]
-        let newObj = {}
-        newObj = { ...currentId, [id]: val }
-        setSchemaData({ ...schemaData, [params.get('type')]: newObj })
-        return dispatch(dataValue({ ...schemaData, [params.get('type')]: newObj }))
     }
 
     //Radio change
@@ -89,7 +94,7 @@ export default function RenderFn({ data }) {
             })
         })
         setMain([...main])
-    }, [main])
+    }, [main, schemaData])
 
     //Checkbox change
     const handleCheckboxChange = useCallback((e, id) => {
@@ -98,12 +103,16 @@ export default function RenderFn({ data }) {
             opt.value = e.target.checked
         })
         setMain([...main])
-    }, [main])
+    }, [main, schemaData])
 
     //image uploader
-    const doneUpload = (id, img) => {
+    const doneUpload = useCallback((id, img) => {
         dispatchFn(id, img)
-    }
+        main.filter((obj) => obj.id === id).map((opt) => {
+            opt.value = img
+        })
+        setMain([...main])
+    }, [main, schemaData])
 
     //Text/input change
     const handleInputChange = useCallback((e) => {
@@ -112,9 +121,11 @@ export default function RenderFn({ data }) {
             opt.value = e.target.value
         })
         setMain([...main])
-    }, [main])
+    }, [main, schemaData])
 
     useEffect(() => {
+        console.log("schemaData: ", schemaData)
+        dispatch(dataValue(schemaData))
         if (params.get('type') === "header") {
             setMain(Header)
         }
@@ -151,7 +162,7 @@ export default function RenderFn({ data }) {
         if (params.get('type') === "blog_post") {
             setMain(BlogPost)
         }
-    }, [main])
+    }, [main, schemaData])
 
     return (
         <>
