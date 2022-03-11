@@ -16,8 +16,8 @@ export default [
     {
         type: "select",
         label: "Image layout",
-        id: "image_layout",
-        current: "full",
+        name: "image_layout",
+        value: "full",
         items: [
             { name: "Full width", value: "full" },
             { name: "Fixed width", value: "fixed" }
@@ -46,8 +46,8 @@ export default [
     {
         type: "select",
         label: "Position",
-        id: "image_text_alignment",
-        current: "center",
+        name: "image_text_alignment",
+        value: "center",
         items: [
             { name: "Top", value: "top" },
             { name: "Center", value: "center" },
@@ -57,8 +57,8 @@ export default [
     {
         type: "select",
         label: "Size",
-        id: "image_text_size",
-        current: "large",
+        name: "image_text_size",
+        value: "large",
         items: [
             { name: "Small", value: "small" },
             { name: "Medium", value: "medium" },

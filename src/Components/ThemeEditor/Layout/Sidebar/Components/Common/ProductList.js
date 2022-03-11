@@ -9,8 +9,8 @@ export default [
     {
         type: "select",
         label: "Choose category",
-        id: "product_list_category",
-        current: "",
+        name: "product_list_category",
+        value: "",
         items: [
             { name: "Category 1", value: "1" },
             { name: "Category 2", value: "2" },

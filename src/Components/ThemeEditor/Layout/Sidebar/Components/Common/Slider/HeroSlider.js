@@ -17,7 +17,7 @@ export default [
         },
         {
             type: "text",
-            id: "slider_class",
+            name: "class",
             label: "Class name",
             value: "",
             placeholder: ""
@@ -25,8 +25,8 @@ export default [
         {
             type: "select",
             label: "Slider text alignment",
-            id: "slider_text_alignment",
-            current: "center",
+            name: "slider_text_alignment",
+            value: "center",
             items: [
                 { name: "Left", value: "left" },
                 { name: "Center", value: "center" },
@@ -39,24 +39,28 @@ export default [
         {
             type: "checkbox",
             id: "slider_autoplay",
+            name: "autoplay",
             label: "Autoplay",
             value: true
         },
         {
             type: "checkbox",
             id: "slider_loop",
+            name: "infinite",
             label: "Infinite",
             value: true
         },
         {
             type: "checkbox",
             id: "slider_arrows",
+            name: "arrows",
             label: "Arrows",
             value: true
         },
         {
             type: "checkbox",
             id: "slider_dots",
+            name: "dots",
             label: "Dots",
             value: true
         }

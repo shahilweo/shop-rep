@@ -31,6 +31,7 @@ import _ from "underscore";
 
 import schema from "./schema";
 import settingSchema from "./setting-schema";
+import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Slider/SlideSettings";
 
 import { logo } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/LogoReducer";
 import { announcement } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/AnnouncementReducer";
@@ -63,10 +64,28 @@ export default function RenderFn({ data }) {
 
     //Default dispatch function
     const dispatchFn = useCallback((id, val) => {
-        const currentId = schemaData[params.get('type')]
-        let newObj = { ...currentId, [id]: val }
-        schemaData[params.get('type')] = newObj
-        setSchemaData(schemaData)
+        let currentId = { ...schemaData }
+        let newObj = {}
+        if (params.get('slide')) {
+            let newArr = [...schemaData[params.get('type')].items],
+                currentIndex = ""
+            newArr.map((obj, i) => {
+                if (obj.id.toString() === params.get('slide').toString()) {
+                    currentIndex = i
+                    newObj = { ...obj, [id]: val }
+                }
+            })
+            newArr[currentIndex] = newObj
+            console.log("newArr: ", newArr)
+
+            setSchemaData(schemaData, [...schemaData[params.get('type')].items, newArr])
+            // schemaData[params.get('type')].items = newArr
+        } else {
+            currentId = schemaData[params.get('type')]
+            newObj = { ...currentId, [id]: val }
+            schemaData[params.get('type')] = newObj
+            setSchemaData(schemaData)
+        }
     }, [main, schemaData])
 
     //Range slider onchange
@@ -131,6 +150,15 @@ export default function RenderFn({ data }) {
         setMain([...main])
     }, [main, schemaData])
 
+    //Select change
+    const handleSelectChange = useCallback((e, name) => {
+        dispatchFn(name, e.target.value)
+        main.filter((obj) => obj.name === name).map((opt) => {
+            opt.value = e.target.value
+        })
+        setMain([...main])
+    }, [main, schemaData])
+
     const handleAltChange = useCallback((e, name) => {
         dispatchFn(name, e.target.value)
         main.filter((obj) => obj.alt_name === name).map((opt) => {
@@ -138,6 +166,7 @@ export default function RenderFn({ data }) {
         })
         setMain([...main])
     }, [main, schemaData])
+    console.log("main: ", main)
 
     useEffect(() => {
 
@@ -147,7 +176,11 @@ export default function RenderFn({ data }) {
             setMain(Header)
         }
         else if (params.get('type') === "hero_slider") {
-            setMain(HeroSlider)
+            if (params.get('slide')) {
+                setMain(SlideSettings)
+            } else {
+                setMain(HeroSlider)
+            }
         }
         else if (params.get('type') === "text_over_image") {
             setMain(TextOverImage)
@@ -181,11 +214,10 @@ export default function RenderFn({ data }) {
         }
         else {
             let currentObj = {}
-            settingSchema.filter((opt)=>opt.type === params.get('type')).map((val)=>{
+            settingSchema.filter((opt) => opt.type === params.get('type')).map((val) => {
                 currentObj = val.settings
             })
             setMain(currentObj)
-
         }
     }, [main, schemaData])
 
@@ -241,6 +273,7 @@ export default function RenderFn({ data }) {
             {data.type === "select" &&
                 <SelectBox
                     data={data}
+                    handleSelectChange={handleSelectChange}
                 />
             }
             {data.type === "nav_list" &&

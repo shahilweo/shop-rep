@@ -63,25 +63,27 @@ export default {
         hero_slider: {
             name: "Slider",
             class: "hero-slider",
-            settings: {
-                autoplay: true,
-                infinite: true,
-                dots: true,
-                arrows: true
-            },
-            text_alignment: "center",
+            slider_text_alignment: "center",
+            autoplay: true,
+            infinite: true,
+            dots: true,
+            arrows: true,
             items: [
                 {
+                    id: 1,
                     image_src: "http://122.160.61.100/design/slide.jpg",
                     link: "",
                     heading: "Lorem ipsum dolor sit.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    slide_img_alt: ""
                 },
                 {
+                    id: 2,
                     image_src: "http://122.160.61.100/design/slide.jpg",
                     link: "",
                     heading: "Lorem ipsum dolor sit.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    slide_img_alt: ""
                 }
             ],
         },
@@ -351,54 +353,18 @@ export default {
     theme: {
         typography: {
             name: "Typography",
-            heading: {
-                font_family: "Arial",
-                base_size: 26
-            },
-            body_text: {
-                font_family: "Arial",
-                base_size: 16
-            }
         },
         colors: {
             name: "Colors",
-            heading_color: "#000000",
-            button_color: "#000000",
-            button_hover_color: "#333333",
-            button_text_color: "#ffffff",
-            body_text_color: "#000000",
-            body_bg_color: "#ffffff",
-            overlay_text_color: "#ffffff",
-            overlay_bg_color: "#000000",
-            overlay_opacity: 40
         },
         share_button: {
             name: "Share buttons",
-            options: {
-                facebook: true,
-                twitter: true,
-                pinterest: false
-            }
         },
         social_button: {
             name: "Social Buttons",
-            title: "Follow us:",
-            options: [
-                {
-                    facebook: "",
-                    twitter: "",
-                    pinterest: "",
-                    instagram: "",
-                    youtube: "",
-                    vimeo: "",
-                    tumblr: "",
-                    snapchat: ""
-                }
-            ]
         },
         favicon: {
             name: "Favicon",
-            image_scr: ""
         }
     }
 }

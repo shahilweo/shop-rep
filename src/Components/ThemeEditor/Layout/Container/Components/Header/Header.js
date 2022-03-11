@@ -9,7 +9,6 @@ import NavBar from "./Navbar/NavBar";
 
 export default function Header({ data }) {
     const dataVal = useSelector((state) => state.dataValue.header)
-    console.log("dataVal: ", dataVal)
     return (
         <Box>
             <AnnouncementBar

@@ -24,8 +24,8 @@ export default [
     {
         type: "select",
         label: "Text Size",
-        id: "heading_text_size",
-        current: "medium",
+        name: "heading_text_size",
+        value: "medium",
         items: [
             { name: "Small", value: "small" },
             { name: "Medium", value: "medium" },

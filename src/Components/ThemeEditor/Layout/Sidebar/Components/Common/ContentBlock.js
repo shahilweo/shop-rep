@@ -22,8 +22,8 @@ export default [
     {
         type: "select",
         label: "Image alignment",
-        id: "content_block_image_alignment",
-        current: "center",
+        name: "content_block_image_alignment",
+        value: "center",
         items: [
             { name: "Top", value: "top" },
             { name: "Center", value: "center" },
@@ -46,8 +46,8 @@ export default [
     {
         type: "select",
         label: "Content alignment",
-        id: "content_block_text_alignment",
-        current: "center",
+        name: "content_block_text_alignment",
+        value: "center",
         items: [
             { name: "Top", value: "top" },
             { name: "Center", value: "center" },

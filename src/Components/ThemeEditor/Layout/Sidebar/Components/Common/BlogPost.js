@@ -21,8 +21,8 @@ export default [
     {
         type: "select",
         label: "",
-        id: "nav_menu",
-        current: "news_blog",
+        name: "nav_menu",
+        value: "news_blog",
         items: [
             { name: "News", value: "news_blog" },
             { name: "Fashion", value: "fashion_blog" }

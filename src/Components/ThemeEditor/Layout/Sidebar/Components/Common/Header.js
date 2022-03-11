@@ -65,8 +65,8 @@ export default [
     {
         type: "select",
         label: "",
-        id: "nav_menu",
-        current: "main_menu",
+        name: "nav_menu",
+        value: "main_menu",
         items: [
             { name: "Main menu", value: "main_menu" },
             { name: "Footer menu", value: "footer_menu" }

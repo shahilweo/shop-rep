@@ -1,30 +1,31 @@
 export default [
     {
         type: "image_file",
-        id: "slide1_image",
+        id: "image_src",
         label: "Slide image",
         note: "",
         height: "150px",
         width: "100%",
-        alt: `Slide 1`,
+        alt_name: "slide_img_alt",
+        alt: "",
         value: "http://122.160.61.100/design/slide.jpg"
     },
     {
         type: "text",
-        id: "slide1_heading",
+        name: "heading",
         label: "Heading",
         value: "Lorem ipsum dolor",
         placeholder: ""
     },
     {
         type: "editor",
-        id: "slide1_subheading",
+        id: "subheading",
         label: "Subheading",
         value: "",
     },
     {
         type: "text",
-        id: "slide1_link",
+        name: "link",
         label: "Link",
         value: "",
         placeholder: ""
