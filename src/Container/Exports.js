@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 
 import schema from "./schema";
+import settingSchema from "./setting-schema";
 
 import { logo } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/LogoReducer";
 import { announcement } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/AnnouncementReducer";
@@ -145,38 +146,46 @@ export default function RenderFn({ data }) {
         if (params.get('type') === "header") {
             setMain(Header)
         }
-        if (params.get('type') === "hero_slider") {
+        else if (params.get('type') === "hero_slider") {
             setMain(HeroSlider)
         }
-        if (params.get('type') === "text_over_image") {
+        else if (params.get('type') === "text_over_image") {
             setMain(TextOverImage)
         }
-        if (params.get('type') === "product_list") {
+        else if (params.get('type') === "product_list") {
             setMain(ProductList)
         }
-        if (params.get('type') === "text_column_with_image") {
+        else if (params.get('type') === "text_column_with_image") {
             setMain(TextColumnWithImage)
         }
-        if (params.get('type') === "gallery") {
+        else if (params.get('type') === "gallery") {
             setMain(Gallery)
         }
-        if (params.get('type') === "content_block") {
+        else if (params.get('type') === "content_block") {
             setMain(ContentBlock)
         }
-        if (params.get('type') === "brands_list") {
+        else if (params.get('type') === "brands_list") {
             setMain(BrandList)
         }
-        if (params.get('type') === "map") {
+        else if (params.get('type') === "map") {
             setMain(MapBlock)
         }
-        if (params.get('type') === "heading_text") {
+        else if (params.get('type') === "heading_text") {
             setMain(HeadingText)
         }
-        if (params.get('type') === "testimonials") {
+        else if (params.get('type') === "testimonials") {
             setMain(Testimonials)
         }
-        if (params.get('type') === "blog_post") {
+        else if (params.get('type') === "blog_post") {
             setMain(BlogPost)
+        }
+        else {
+            let currentObj = {}
+            settingSchema.filter((opt)=>opt.type === params.get('type')).map((val)=>{
+                currentObj = val.settings
+            })
+            setMain(currentObj)
+
         }
     }, [main, schemaData])
 
