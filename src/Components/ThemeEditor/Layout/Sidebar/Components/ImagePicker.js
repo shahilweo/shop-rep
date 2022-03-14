@@ -84,6 +84,7 @@ export default function ImagePicker({ data, doneUpload, handleAltChange }) {
     const handleImageChange = (e) => {
         let reader = new FileReader();
         let file = e.target.files[0];
+        console.log("file: ", file)
         reader.onloadend = () => {
             setActiveImage(reader.result)
         }

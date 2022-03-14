@@ -67,19 +67,22 @@ export default function RenderFn({ data }) {
         let currentId = { ...schemaData }
         let newObj = {}
         if (params.get('slide')) {
-            let newArr = [...schemaData[params.get('type')].items],
-                currentIndex = ""
-            newArr.map((obj, i) => {
+            schemaData[params.get('type')].items.map((obj, i) => {
                 if (obj.id.toString() === params.get('slide').toString()) {
-                    currentIndex = i
-                    newObj = { ...obj, [id]: val }
+                    setSchemaData({
+                        ...schemaData,
+                        [params.get('type')]: {
+                            ...schemaData[params.get('type')],
+                            'items': [
+                                {
+                                    ...obj,
+                                    [id]: val
+                                }
+                            ]
+                        }
+                    })
                 }
             })
-            newArr[currentIndex] = newObj
-            console.log("newArr: ", newArr)
-
-            setSchemaData(schemaData, [...schemaData[params.get('type')].items, newArr])
-            // schemaData[params.get('type')].items = newArr
         } else {
             currentId = schemaData[params.get('type')]
             newObj = { ...currentId, [id]: val }
