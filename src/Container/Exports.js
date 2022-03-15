@@ -66,21 +66,22 @@ export default function RenderFn({ data }) {
     const dispatchFn = useCallback((id, val) => {
         let currentId = { ...schemaData }
         let newObj = {}
+        let schemaDataItems = [...schemaData[params.get('type')].items]
         if (params.get('slide')) {
-            schemaData[params.get('type')].items.map((obj, i) => {
-                if (obj.id.toString() === params.get('slide').toString()) {
-                    setSchemaData({
-                        ...schemaData,
-                        [params.get('type')]: {
-                            ...schemaData[params.get('type')],
-                            'items': [
-                                {
-                                    ...obj,
-                                    [id]: val
-                                }
-                            ]
-                        }
-                    })
+            schemaDataItems.filter((obj) => obj.id.toString() === params.get('slide').toString()).map((opt) => {
+                newObj = { ...opt }
+                Object.assign(newObj, {
+                    [id]: val
+                })
+                console.log("newObj: ", newObj)
+            })
+            schemaDataItems[params.get('slide') - 1] = newObj
+            console.log("schemaDataItems: ", schemaDataItems)
+            setSchemaData({
+                ...schemaData,
+                [params.get('type')]: {
+                    ...schemaData[params.get('type')],
+                    'items': schemaDataItems
                 }
             })
         } else {

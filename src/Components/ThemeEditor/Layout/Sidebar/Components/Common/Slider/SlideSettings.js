@@ -14,7 +14,7 @@ export default [
         type: "text",
         name: "heading",
         label: "Heading",
-        value: "Lorem ipsum dolor",
+        value: "Lorem ipsum",
         placeholder: ""
     },
     {

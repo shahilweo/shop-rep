@@ -73,7 +73,7 @@ export default {
                     id: 1,
                     image_src: "http://122.160.61.100/design/slide.jpg",
                     link: "",
-                    heading: "Lorem ipsum dolor sit.",
+                    heading: "Lorem ipsum.",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     slide_img_alt: ""
                 },
