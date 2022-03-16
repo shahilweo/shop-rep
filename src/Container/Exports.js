@@ -66,30 +66,26 @@ export default function RenderFn({ data }) {
     const dispatchFn = useCallback((id, val) => {
         let currentId = { ...schemaData }
         let newObj = {}
-        let schemaDataItems = [...schemaData[params.get('type')].items]
+        let newOpt = {}
+        let currentIndex = 0
         if (params.get('slide')) {
+            let schemaDataItems = [...schemaData[params.get('type')].items]
             schemaDataItems.filter((obj) => obj.id.toString() === params.get('slide').toString()).map((opt) => {
-                newObj = { ...opt }
-                Object.assign(newObj, {
+                newOpt = { ...opt }
+                Object.assign(newOpt, {
                     [id]: val
                 })
-                console.log("newObj: ", newObj)
+                currentIndex = _.findLastIndex(schemaDataItems, {'id': opt.id})
             })
-            schemaDataItems[params.get('slide') - 1] = newObj
-            console.log("schemaDataItems: ", schemaDataItems)
-            setSchemaData({
-                ...schemaData,
-                [params.get('type')]: {
-                    ...schemaData[params.get('type')],
-                    'items': schemaDataItems
-                }
-            })
+            schemaDataItems[currentIndex] = newOpt            
+            currentId = schemaData[params.get('type')]
+            newObj = { ...currentId, 'items': schemaDataItems }
         } else {
             currentId = schemaData[params.get('type')]
             newObj = { ...currentId, [id]: val }
-            schemaData[params.get('type')] = newObj
-            setSchemaData(schemaData)
         }
+        schemaData[params.get('type')] = newObj
+        setSchemaData(schemaData)
     }, [main, schemaData])
 
     //Range slider onchange
@@ -173,9 +169,6 @@ export default function RenderFn({ data }) {
     console.log("main: ", main)
 
     useEffect(() => {
-
-        console.log("schemaData: ", schemaData)
-        dispatch(dataValue(schemaData))
         if (params.get('type') === "header") {
             setMain(Header)
         }
@@ -223,6 +216,9 @@ export default function RenderFn({ data }) {
             })
             setMain(currentObj)
         }
+
+        console.log("schemaData: ", schemaData)
+        dispatch(dataValue(schemaData))
     }, [main, schemaData])
 
     return (

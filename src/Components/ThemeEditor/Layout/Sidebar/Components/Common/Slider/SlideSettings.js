@@ -14,11 +14,12 @@ export default [
         type: "text",
         name: "heading",
         label: "Heading",
-        value: "Lorem ipsum",
+        value: "",
         placeholder: ""
     },
     {
         type: "editor",
+        name: "subheading",
         id: "subheading",
         label: "Subheading",
         value: "",

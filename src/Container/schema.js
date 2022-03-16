@@ -73,7 +73,7 @@ export default {
                     id: 1,
                     image_src: "http://122.160.61.100/design/slide.jpg",
                     link: "",
-                    heading: "Lorem ipsum.",
+                    heading: "Slide 1 heading",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     slide_img_alt: ""
                 },
@@ -81,7 +81,15 @@ export default {
                     id: 2,
                     image_src: "http://122.160.61.100/design/slide.jpg",
                     link: "",
-                    heading: "Lorem ipsum dolor sit.",
+                    heading: "Slide 2 heading",
+                    subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    slide_img_alt: ""
+                },
+                {
+                    id: 3,
+                    image_src: "http://122.160.61.100/design/slide.jpg",
+                    link: "",
+                    heading: "Slide 3 heading",
                     subheading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     slide_img_alt: ""
                 }
