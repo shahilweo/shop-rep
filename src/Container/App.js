@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+ 
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { Box, Toolbar, LinearProgress } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
+ 
 import Header from '../Components/Header/Header';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { drawerWidth } from './Exports';
@@ -14,9 +16,9 @@ import AddVariant from '../Components/Pages/Product/EditProduct/AddVariant/AddVa
 import ScrollToTop from './ScrollToTop';
 import Fileupload from '../Components/Fileupload/Fileupload';
 
-// import Layout from '../Components/ThemeEditor/Layout/Layout';
+import Layout from '../Components/ThemeEditor/Layout/Layout';
+ 
 import './App.css';
-
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -55,24 +57,14 @@ const theme = createTheme({
   }
 });
 
-function App() {
-
+function App() { 
   const location = window.location.pathname
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [showLoading, setShowLoading] = useState(true);
+  const [progress, setProgress] = useState(0); 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowLoading(false)
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
-
+ 
 
   return (
     <ThemeProvider theme={theme}>    
@@ -80,7 +72,8 @@ function App() {
       <Box sx={{ display: 'flex' }}>
          
         <Router>
-          <ScrollToTop />
+ 
+          <ScrollToTop /> 
           {location !== "/customizer" &&
             <>
               <Sidebar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
@@ -91,19 +84,22 @@ function App() {
             component="main"
             sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
             <Toolbar />
-            {showLoading ? <LinearProgress className="fixedloading" /> :
+ 
+         
+             
               <Routes>
                 <Route path="/" element={<Home />} exact />
                 <Route path="/product/all" element={<Product />} exact />
                 <Route path="/product/all/add-product" element={<AddProduct />} exact />
                 <Route path="/product/all/edit-product" element={<EditProduct />} exact />
-                {/* <Route path="/customizer" element={<Layout />} exact /> */}
+                <Route path="/customizer" element={<Layout />} exact />
                 <Route path="/product/all/edit-product/add-variant" element={<AddVariant />} exact />
                 
                 {/* file */}
                 <Route path="/file" element={<Fileupload />} exact />
               </Routes>
-            }
+             
+ 
           </Box>
         </Router>
       </Box>

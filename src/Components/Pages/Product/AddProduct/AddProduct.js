@@ -9,9 +9,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 import { alpha } from '@mui/material/styles';
 import { Link } from "react-router-dom";
-import { styled } from '@mui/material/styles';
-
-import { BlockPicker } from 'react-color';
+import { styled } from '@mui/material/styles'; 
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
