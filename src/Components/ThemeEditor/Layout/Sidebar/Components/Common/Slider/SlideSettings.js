@@ -22,7 +22,7 @@ export default [
         name: "subheading",
         id: "subheading",
         label: "Subheading",
-        value: "",
+        value: "<p></p>",
     },
     {
         type: "text",

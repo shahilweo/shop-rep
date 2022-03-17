@@ -45,8 +45,7 @@ export default function Heroslider({ data, type }) {
                                             <Typography variant="h2" component="div" sx={{ mb: 1 }}>
                                                 {slide.heading}
                                             </Typography>
-                                            <Typography variant="h5" component="div">
-                                                {slide.subheading}
+                                            <Typography variant="h5" component="div" dangerouslySetInnerHTML={{ __html: slide.subheading }}>
                                             </Typography>
                                         </Box>
                                     </Box>

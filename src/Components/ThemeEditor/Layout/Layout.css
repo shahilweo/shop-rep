@@ -220,3 +220,11 @@ input[type="file"]{
 .img-fluid{
     max-width: 100%;
 }
+.customTextEditor{
+    min-height: 120px;
+    max-height: 200px;
+    padding: 0 10px;
+}
+.customTextEditor .public-DraftStyleDefault-block {
+    margin: 0px 0;
+}

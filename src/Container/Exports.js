@@ -33,9 +33,9 @@ import schema from "./schema";
 import settingSchema from "./setting-schema";
 import SlideSettings from "../Components/ThemeEditor/Layout/Sidebar/Components/Common/Slider/SlideSettings";
 
-import { logo } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/LogoReducer";
-import { announcement } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/AnnouncementReducer";
 import { dataValue } from "../Components/ThemeEditor/Layout/Sidebar/Components/Reducers/Header/CommonReducer";
+import { EditorState, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 
 
 export const drawerWidth = 240;
@@ -61,6 +61,9 @@ export default function RenderFn({ data }) {
     const componentScheme = schema.components
     const [schemaData, setSchemaData] = useState(componentScheme)
     const [main, setMain] = useState(Header)
+    const [editorState, setEditorState] = useState(() =>
+        EditorState.createEmpty()
+    );
 
     //Default dispatch function
     const dispatchFn = useCallback((id, val) => {
@@ -75,9 +78,9 @@ export default function RenderFn({ data }) {
                 Object.assign(newOpt, {
                     [id]: val
                 })
-                currentIndex = _.findLastIndex(schemaDataItems, {'id': opt.id})
+                currentIndex = _.findLastIndex(schemaDataItems, { 'id': opt.id })
             })
-            schemaDataItems[currentIndex] = newOpt            
+            schemaDataItems[currentIndex] = newOpt
             currentId = schemaData[params.get('type')]
             newObj = { ...currentId, 'items': schemaDataItems }
         } else {
@@ -87,6 +90,20 @@ export default function RenderFn({ data }) {
         schemaData[params.get('type')] = newObj
         setSchemaData(schemaData)
     }, [main, schemaData])
+
+
+    const updateTextDescription = async (state, name) => {
+        await setEditorState(state);
+        // const data = convertToRaw(editorState.getCurrentContent());
+        const htmlData = draftToHtml(
+            convertToRaw(editorState && editorState.getCurrentContent())
+        )
+        dispatchFn(name, htmlData)
+        main.filter((obj) => obj.name === name).map((opt) => {
+            opt.value = htmlData
+        })
+        setMain([...main])
+    };
 
     //Range slider onchange
     const rangeValue = useCallback((value, unit, name) => {
@@ -293,6 +310,8 @@ export default function RenderFn({ data }) {
             {data.type === "editor" &&
                 <TextEditor
                     data={data}
+                    editorState={editorState}
+                    updateTextDescription={updateTextDescription}
                 />
             }
             {data.type === "header" ||
