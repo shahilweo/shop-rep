@@ -2,13 +2,14 @@
     width: 100%;
     background: #fff;
     color: rgba(0, 0, 0, 0.87);
-    padding: 10px 15px;
+    padding: 5px 10px;
     border-radius: 0px;
     text-decoration: none;
     box-shadow: none;
     border-bottom: 1px solid #fff;
     display: flex;
     justify-content: space-between;
+    font-size: 13px;
 }
 
 .MuiBox-root .sidebarButton.sidebarButton--inner {
@@ -25,4 +26,9 @@
 .MuiBox-root .sidebarButton.active {
     background: #00ceaa;
     color: #fff;
+}
+
+.sidebarButton__icon .MuiSvgIcon-root, .MuiBox-root .sidebarButton>svg {
+    width: 0.8em;
+    height: 0.8em;
 }

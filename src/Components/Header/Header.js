@@ -90,8 +90,7 @@ const Header = (props) => {
                             sx={{ mr: 2, display: { sm: 'none' } }}
                         >
                             <MenuIcon />
-                        </IconButton>
-                       
+                        </IconButton> 
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon color="grey"/>

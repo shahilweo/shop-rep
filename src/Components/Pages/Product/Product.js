@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import { alpha } from '@mui/material/styles';
-import { 
-    Grid, Divider, Typography, Paper, ButtonGroup, 
-    Button, InputBase, Menu, MenuItem, Box, Chip, 
-    Card, IconButton,  } from '@mui/material'
+import {
+    Grid, Divider, Typography, Paper, ButtonGroup,
+    Button, InputBase, Menu, MenuItem, Box, Chip,
+    Card, IconButton,
+} from '@mui/material'
 import { styled } from '@mui/material/styles';
 
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,7 +15,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -63,7 +64,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 // secrch
-
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -112,20 +112,24 @@ const StyledMenu = styled((props) => (
     },
 }));
 
-
 // dropdown
 
 const columns = [
-    { field: 'id', headerName: 'Id', width: 70, sortable: false, },
-    { field: 'image', headerName: 'Image', width: 90, renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
-    { field: 'productname', headerName: 'Product Name', renderCell: (params) =>  <Button component={Link} to="/product/all/edit-product"  color="primary">{params.value}</Button>,  width: 200, sortable: false, },
-    { field: 'status', headerName: 'Status', sortable: false, renderCell: (params) => <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "secondary"} /> },
-    { field: 'inventory', headerName: 'Inventory', width: 200, sortable: false, },
-    { field: 'type', headerName: 'Type', sortable: false, },
-    { field: 'brands', headerName: 'Brands', sortable: false, },
-    { field: 'action', headerName: 'Action', sortable: false, renderCell: (params) => <><IconButton aria-label="edit" color="success"><EditIcon /></IconButton> <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton></> },
-
-    
+    { field: 'id', headerName: 'Id', width: "60" , sortable: false, },
+    { field: 'image', headerName: 'Image', width: "80", renderCell: (params) =>   <img src={params.value} width="60" />, sortable: false, },
+    { field: 'productname', headerName: 'Product name', renderCell: (params) => <Button component={Link} to="/product/all/edit-product" color="primary">{params.value}</Button>, flex: 1 , sortable: false, },
+    { field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) => <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "secondary"} /> },
+    { field: 'inventory', headerName: 'Inventory', flex: 1 , sortable: false, },
+    { field: 'type', headerName: 'Type', sortable: false,flex: 1  },
+    { field: 'brands', headerName: 'Brands', sortable: false, flex: 1 },
+    { field: 'action', headerName: 'Action', sortable: false,  flex: 1 ,
+    renderCell: (params) => 
+        <>
+            <IconButton aria-label="view" color="success"><VisibilityIcon /></IconButton>
+            <IconButton aria-label="edit" color="success"><EditIcon /></IconButton> 
+            <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
+        </> 
+    },
 
     // { field: 'fullName', headerName: 'Full name', description: 'This column has a value getter and is not sortable.',
     //     sortable: false,
@@ -134,22 +138,21 @@ const columns = [
     //         `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''
     //     }`,
     // },
+
 ];
 
 const rows = [
-    { id: 1,  image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 2,  image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 3,  image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 4,  image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 5,  image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 6,  image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 7,  image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 8,  image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 9,  image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
-    { id: 10, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action:""  },
- 
+    { id: 1, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 2, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 3, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 4, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 5, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 6, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 7, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 8, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 9, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
+    { id: 10, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
 ];
-
 
 export default function Product() {
     // dropdown btn
@@ -163,38 +166,41 @@ export default function Product() {
     };
     // dropdown btn
     return (
-        <React.Fragment sx={{ marginBottom: "20px", background: "#fff" }}>
-                <Box sx={{ marginBottom: "20px" }}>
+        <React.Fragment >
+            <Box className="smallContainer">
+                <Box sx={{ mb: 2 }}>
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={6}>
-                            <Typography variant="h4" component="div"> Product</Typography>
+                            <Typography variant="h5" component="div"> Product</Typography>
                         </Grid>
                         <Grid item xs={6} sx={{ textAlign: { sm: 'right' }, flexShrink: { sm: 0 } }}>
-                            <Button component={Link} to="/product/all/add-product" variant="contained" color="success">Add Product</Button>
+                            <Button component={Link} to="/product/all/add-product" variant="contained" color="success">Add product</Button>
                         </Grid>
                     </Grid>
-                </Box>                       
-                <Box sx={{ marginBottom: "20px" }}>
-                    <ButtonGroup variant="contained" aria-label="medium success button group">
-                        <Button>All</Button>
-                        <Button>Active</Button>
-                        <Button>Draft</Button>
-                        <Button>Archived</Button>
-                    </ButtonGroup>
                 </Box>
-                <Divider sx={{ marginBottom: "20px" }} />
-                <Box sx={{ marginBottom: "20px" }}>
+
+                <Divider sx={{ mb: 2 }} />
+                <Box sx={{ mb: 2 }}>
                     <Grid container spacing={2} columns={12}>
+
                         <Grid item xs={6}>
-                            <Search>
-                                <SearchIconWrapper>
-                                    <SearchIcon color="grey" />
-                                </SearchIconWrapper>
-                                <StyledInputBase
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
-                                />
-                            </Search>
+                            <Box sx={{ display: "flex" }}>
+                                <ButtonGroup variant="contained" aria-label="medium success button group">
+                                    <Button>All</Button>
+                                    <Button>Active</Button>
+                                    <Button>Draft</Button>
+                                    <Button>Archived</Button>
+                                </ButtonGroup>
+                                <Search>
+                                    <SearchIconWrapper>
+                                        <SearchIcon color="grey" />
+                                    </SearchIconWrapper>
+                                    <StyledInputBase
+                                        placeholder="Search…"
+                                        inputProps={{ 'aria-label': 'search' }}
+                                    />
+                                </Search>
+                            </Box>
                         </Grid>
                         <Grid item xs={6}>
                             <Box sx={{ textAlign: "Right" }}>
@@ -246,20 +252,25 @@ export default function Product() {
                             </Box>
                         </Grid>
                     </Grid>
-                </Box>             
-            <Card sx={{ marginBottom: "20px" }}>
-                <Box sx={{ height: 650, width: '100%' }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        pageSize={10}
-                        rowsPerPageOptions={[10]}
-                        checkboxSelection
-                        disableColumnMenu
-                        disableSelectionOnClick={true}
-                    />
                 </Box>
-            </Card>
+                <Card sx={{ mb: 2 }}>
+                    <Box sx={{  width: '100%' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            pageSize={10}
+                            rowsPerPageOptions={[10]}
+                            checkboxSelection
+                            disableColumnMenu
+                            disableSelectionOnClick={true}
+                            autoHeight={true}
+                            density={"comfortable"}
+                            rowHeight={80}
+                        />
+                    </Box>
+                </Card>
+            </Box>
         </React.Fragment>
     )
 }
+

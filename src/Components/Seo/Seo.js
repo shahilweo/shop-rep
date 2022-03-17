@@ -10,7 +10,7 @@ export default function Seo() {
 
         <Grid container spacing={2}>
             <Grid item xs={8}>
-                <Box><Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Search engine listing preview</Typography></Box>
+                <Box><Typography variant="h6" component="h6" gutterBottom>Search engine listing preview</Typography></Box>
             </Grid>
             <Grid item xs={4}>
                 <Box sx={{ textAlign: "right" }}>  
@@ -22,12 +22,14 @@ export default function Seo() {
 
 
         <Typography variant="body1" gutterBottom>  Add a title and description to see how this product might appear in a search engine listing</Typography>
-        <Divider sx={{ my: "15px" }}></Divider>
+        
         <FormControl fullWidth sx={{ mb: 2 }}>
             <TextField
                 label="Page title"
                 type="text"
                 id="seoTitle"
+                
+                size="small" 
                 sx={{ m: 0, }}
             />
             <FormHelperText >0 of 70 characters used</FormHelperText>
@@ -37,6 +39,8 @@ export default function Seo() {
                 label="Description"
                 type="text"
                 id="seoDescription"
+                
+                size="small" 
                 sx={{ m: 0, }}
             />
             <FormHelperText >0 of 320 characters used</FormHelperText>
@@ -46,6 +50,8 @@ export default function Seo() {
                 label="URL and handle"
                 type="text"
                 id="seoDescription"
+                
+                size="small" 
                 sx={{ m: 0, }}
             />
         </FormControl>

@@ -17,8 +17,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SearchIcon from '@mui/icons-material/Search';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MUIRichTextEditor from 'mui-rte';
+
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import bundleprod from '../../../../Assets/images/bundleprod.jpg';
@@ -26,13 +26,20 @@ import bundleprod from '../../../../Assets/images/bundleprod.jpg';
 import { Draggable } from "react-drag-reorder";
 import { DataGrid } from '@mui/x-data-grid';
 import PopupModal from '../../../PopupModal/PopupModal';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
+
+
+import htmlToDraft from "html-to-draftjs";
+
+import { EditorState, convertToRaw, ContentState, convertFromHTML } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+
+import draftToHtml from "draftjs-to-html";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 // text Editor
-const myTheme = createTheme({
-    // Set up your custom MUI theme here
-    marginBottom: "15px !important"
-});
+
 
 const save = (data) => {
     console.log(data);
@@ -44,9 +51,6 @@ const EditProduct = () => {
     const [weight, setWeight] = useState(1);
     const [prodStatus, setProdStatus] = useState(1);
     const [media, setMedia] = useState([]);
-    const [values, setValues] = useState({
-        amount: '',
-    });
     const [value, setValue] = useState(null);
     const [brand, setBrand] = useState(null);
     const [videourl, setVideourl] = useState();
@@ -58,7 +62,17 @@ const EditProduct = () => {
     ]);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const [editorState, setEditorState] = useState(() =>
+        EditorState.createEmpty()
+    );
+
     const isMoreActionopen = Boolean(anchorEl);
+
+    const updateTextDescription = async (state) => {
+        await setEditorState(state);
+        const data = convertToRaw(editorState.getCurrentContent());
+    };
 
 
     const productTypesList = [
@@ -103,9 +117,6 @@ const EditProduct = () => {
         setMedia(e)
     };
 
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
     const handleChangeWeight = (event) => {
         setWeight(event.target.value);
     };
@@ -174,13 +185,23 @@ const EditProduct = () => {
     const editProdOption = (e, index) => {
         let updProdOption = []
         prodOption.map((data) => {
-            updProdOption.push({ ...data, 'edit': false })
+            return updProdOption.push({ ...data, 'edit': false })
         })
 
         updProdOption[index].edit = !updProdOption[index].edit
         setprodOption(updProdOption)
 
     };
+
+    const closeProdOption = (e, index) => {
+        let updProdOption = []
+        prodOption.map((data) => {
+            return updProdOption.push({ ...data })
+        })
+
+        updProdOption[index].edit = !updProdOption[index].edit
+        setprodOption(updProdOption)
+    }
 
     useEffect(() => {
 
@@ -190,8 +211,8 @@ const EditProduct = () => {
 
     const columns = [
         { field: 'id', headerName: 'Id', width: 40, sortable: false, },
-        { field: 'image', headerName: 'Image', width: 90, renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
-        { field: 'variant', headerName: 'Variant', width: 200, sortable: false, },
+        { field: 'image', headerName: 'Image', width: 80, renderCell: (params) => <img src={params.value} width="50" />, sortable: false, },
+        { field: 'variant', headerName: 'Variant', width: 100, sortable: false, },
         {
             field: 'price', headerName: 'Price', sortable: false, renderCell: (params) => <TextField
                 type="text"
@@ -199,7 +220,7 @@ const EditProduct = () => {
                 name="price"
                 defaultValue={params.value}
                 sx={{ m: 0, width: '100%', border: '0' }}
-
+                size="small"
             />,
         },
         {
@@ -210,7 +231,7 @@ const EditProduct = () => {
                 name="quantity"
                 defaultValue={params.value}
                 sx={{ m: 0, width: '100%', border: '0' }}
-
+                size="small"
             />,
         },
         {
@@ -220,12 +241,13 @@ const EditProduct = () => {
                 name="sku"
                 defaultValue={params.value}
                 sx={{ m: 0, width: '100%', border: '0' }}
-
+                size="small"
             />,
         },
         {
-            field: 'action', headerName: 'Action', sortable: false, renderCell: (params) =>
+            field: 'action', headerName: 'Action', sortable: false, width: 120, renderCell: (params) =>
                 <>
+                    <IconButton aria-label="view" color="success"><VisibilityIcon /></IconButton>
                     <IconButton aria-label="edit" color="success"><EditIcon /></IconButton>
                     <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
                 </>
@@ -256,138 +278,252 @@ const EditProduct = () => {
 
     return (
         <React.Fragment>
-            <Grid container spacing={2} sx={{ mb: 2 }}>
-                <Grid item xs={6}>
-                    <Button component={Link} variant="text" to="/product/all" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
+            <Box className="smallContainer">
+                <Grid container spacing={2} sx={{ mb: 2 }}>
+                    <Grid item xs={6}>
+                        <Button component={Link} variant="text" to="/product/all" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                            <div>
+                                <Button
+                                    id="demo-positioned-button"
+                                    aria-controls={isMoreActionopen ? "demo-positioned-menu" : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={isMoreActionopen ? "true" : undefined}
+                                    onClick={moreActonClick}
+                                >
+                                    More actions
+                                </Button>
+                                <Menu
+                                    id="demo-positioned-menu"
+                                    aria-labelledby="demo-positioned-button"
+                                    anchorEl={anchorEl}
+                                    open={isMoreActionopen}
+                                    onClose={moreActionClose}
+                                    anchorOrigin={{
+                                        vertical: "top",
+                                        horizontal: "left"
+                                    }}
+                                    transformOrigin={{
+                                        vertical: "top",
+                                        horizontal: "left"
+                                    }}
+                                >
+                                    <MenuItem onClick={moreActionClose}>Duplicate</MenuItem>
+                                    <MenuItem onClick={moreActionClose}>View</MenuItem>
+                                </Menu>
+                            </div>
+                            <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                                <Button><ArrowBackIosIcon /></Button>
+                                <Button><ArrowForwardIosIcon /></Button>
+                            </ButtonGroup>
+                        </Box>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%'  }}>
-                        <div>
-                            <Button
-                                id="demo-positioned-button"
-                                aria-controls={isMoreActionopen ? "demo-positioned-menu" : undefined}
-                                aria-haspopup="true"
-                                aria-expanded={isMoreActionopen ? "true" : undefined}
-                                onClick={moreActonClick}
-                            >
-                                More actions
-                            </Button>
-                            <Menu
-                                id="demo-positioned-menu"
-                                aria-labelledby="demo-positioned-button"
-                                anchorEl={anchorEl}
-                                open={isMoreActionopen}
-                                onClose={moreActionClose}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "left"
-                                }}
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "left"
-                                }}
-                            >
-                                <MenuItem onClick={moreActionClose}>Duplicate</MenuItem>
-                                <MenuItem onClick={moreActionClose}>View</MenuItem>
-                            </Menu>
-                        </div>
-                        <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                            <Button><ArrowBackIosIcon /></Button>
-                            <Button><ArrowForwardIosIcon /></Button>
-                        </ButtonGroup>
-                    </Box>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="div">Product Title</Typography>
-                            <FormControl fullWidth sx={{ mt: 2.5 }}>
-                                <TextField
-                                    id="standard-basic"
-                                    label="Title"
-                                    InputLabelProps={{ shrink: true }}
-                                    variant="outlined" />
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="div">Product Description</Typography>
+                <Grid container spacing={2}>
+                    <Grid item xs={8}>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="div" gutterBottom>Product Title</Typography>
+                                <FormControl fullWidth  >
+                                    <TextField
+                                        id="standard-basic"
+                                        label="Title"
+                                        InputLabelProps={{ shrink: true }}
+                                        variant="outlined" size="small" />
+                                </FormControl>
+                            </CardContent>
+                        </Card>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="div" gutterBottom>Product Description</Typography>
+                                <div  >
+                                    <Editor
+                                        editorState={editorState}
+                                        toolbarClassName="textEditorBoxToolbar"
+                                        wrapperClassName="wrapperClassName"
+                                        editorClassName="textEditorBox"
+                                        onEditorStateChange={updateTextDescription}
+                                        toolbar={
+                                            {
+                                                options: ['inline', 'blockType', 'emoji', 'image', 'colorPicker', 'list', 'textAlign', 'link',],
+                                                inline: {
+                                                    inDropdown: false,
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    dropdownClassName: undefined,
+                                                    options: ['bold', 'italic', 'underline'],
 
-                            <ThemeProvider theme={myTheme} >
-                                <MUIRichTextEditor
-                                    label="Type something here..."
-                                    onSave={save}
-                                    inlineToolbar={true} />
-                                <Box sx={{ paddingTop: "36px" }}></Box>
-                            </ThemeProvider>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Grid container spacing={2} columns={12}>
-                                <Grid item md={6}>
-                                    <Box><Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Media Image</Typography></Box>
+                                                },
+                                                blockType: {
+                                                    inDropdown: true,
+                                                    options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'],
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    dropdownClassName: undefined,
+                                                },
+                                                list: {
+                                                    inDropdown: true,
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    dropdownClassName: undefined,
+                                                    options: ['unordered', 'ordered', 'indent', 'outdent'],
+
+                                                },
+                                                textAlign: {
+                                                    inDropdown: true,
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    dropdownClassName: undefined,
+                                                    options: ['left', 'center', 'right', 'justify'],
+
+                                                },
+                                                colorPicker: {
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    popupClassName: undefined,
+                                                    colors: ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 'rgb(44,130,201)',
+                                                        'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
+                                                        'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
+                                                        'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
+                                                        'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
+                                                        'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'],
+                                                },
+                                                link: {
+                                                    inDropdown: true,
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    popupClassName: undefined,
+                                                    dropdownClassName: undefined,
+                                                    showOpenOptionOnHover: true,
+                                                    defaultTargetOption: '_self',
+                                                    options: ['link', 'unlink'],
+                                                    linkCallback: undefined
+                                                },
+                                                emoji: {
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    popupClassName: undefined,
+                                                    emojis: [
+                                                        '😀', '😁', '😂', '😃', '😉', '😋', '😎', '😍', '😗', '🤗', '🤔', '😣', '😫', '😴', '😌', '🤓',
+                                                        '😛', '😜', '😠', '😇', '😷', '😈', '👻', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '🙈',
+                                                        '🙉', '🙊', '👼', '👮', '🕵', '💂', '👳', '🎅', '👸', '👰', '👲', '🙍', '🙇', '🚶', '🏃', '💃',
+                                                        '⛷', '🏂', '🏌', '🏄', '🚣', '🏊', '⛹', '🏋', '🚴', '👫', '💪', '👈', '👉', '👉', '👆', '🖕',
+                                                        '👇', '🖖', '🤘', '🖐', '👌', '👍', '👎', '✊', '👊', '👏', '🙌', '🙏', '🐵', '🐶', '🐇', '🐥',
+                                                        '🐸', '🐌', '🐛', '🐜', '🐝', '🍉', '🍄', '🍔', '🍤', '🍨', '🍪', '🎂', '🍰', '🍾', '🍷', '🍸',
+                                                        '🍺', '🌍', '🚑', '⏰', '🌙', '🌝', '🌞', '⭐', '🌟', '🌠', '🌨', '🌩', '⛄', '🔥', '🎄', '🎈',
+                                                        '🎉', '🎊', '🎁', '🎗', '🏀', '🏈', '🎲', '🔇', '🔈', '📣', '🔔', '🎵', '🎷', '💰', '🖊', '📅',
+                                                        '✅', '❎', '💯',
+                                                    ],
+                                                },
+                                                embedded: {
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    popupClassName: undefined,
+                                                    embedCallback: undefined,
+                                                    defaultSize: {
+                                                        height: 'auto',
+                                                        width: 'auto',
+                                                    },
+                                                },
+                                                image: {
+                                                    className: undefined,
+                                                    component: undefined,
+                                                    popupClassName: undefined,
+                                                    urlEnabled: true,
+                                                    uploadEnabled: true,
+                                                    alignmentEnabled: true,
+                                                    uploadCallback: undefined,
+                                                    previewImage: false,
+                                                    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+                                                    alt: { present: false, mandatory: false },
+                                                    defaultSize: {
+                                                        height: 'auto',
+                                                        width: 'auto',
+                                                    },
+                                                },
+
+                                            }
+                                        }
+                                    />
+                                    <textarea
+                                        disabled
+                                        style={{ width: "100%", display: "none" }}
+                                        value={draftToHtml(
+                                            convertToRaw(
+                                                editorState && editorState.getCurrentContent()
+                                            )
+                                        )}
+                                    />
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Grid container spacing={2} columns={12}>
+                                    <Grid item md={6}>
+                                        <Box><Typography variant="h6" component="h6" gutterBottom>Media Image</Typography></Box>
+                                    </Grid>
+                                    <Grid item md={6} sx={{ textAlign: "Right" }}>
+                                        <Button onClick={ModalOpen}>Add media from URL</Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item md={6} sx={{ textAlign: "Right" }}>
-                                    <Button onClick={ModalOpen}>Add media from URL</Button>
-                                </Grid>
-                            </Grid>
 
 
 
-                            <Box sx={{ marginBottom: "15px !important" }}></Box>
-                            <DropzoneArea
-                                onChange={(files) => handleMediaChange(files)}
-                                acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                                filesLimit={5}
-                                showAlerts={false}
-                                // onChange={(files) => console.log('Files:', files)}
-                                showPreviewsInDropzone={false}
-                                showPreviews={true}
-                            // showFileNamesInPreview={true}
-                            />
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Options</Typography>
-                            <Divider sx={{ mb: 0 }} />
-                            <Draggable onPosChange={getChangedPos}>
-
+                                <Box gutterBottom></Box>
+                                <DropzoneArea
+                                    onChange={(files) => handleMediaChange(files)}
+                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                                    filesLimit={5}
+                                    showAlerts={false}
+                                    // onChange={(files) => console.log('Files:', files)}
+                                    showPreviewsInDropzone={false}
+                                    showPreviews={true}
+                                // showFileNamesInPreview={true}
+                                />
+                            </CardContent>
+                        </Card>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="div" gutterBottom>Options</Typography>
+                                <Divider sx={{ mb: 0 }} />
+                                {/* <Draggable onPosChange={getChangedPos}> */}
 
                                 {prodOption.map((data, idx) => {
                                     return (
                                         <React.Fragment key={idx} >
-                                            {data.edit ? <>{idx}true</> : <>false</>}
-                                            <Box sx={{ textAlign: "left", m: 2, }} className="flex-item">
-                                                <Grid container spacing={2} columns={12} alignItems="center">
-                                                    <Grid item md={1} sx={{ textAlign: "center" }}>
-                                                        <DragIndicatorIcon />
+
+                                            {data.edit ? null :
+                                                <Box sx={{ textAlign: "left", m: 2, }} className="flex-item">
+                                                    <Grid container spacing={2} columns={12} alignItems="center">
+                                                        <Grid item md={1} sx={{ textAlign: "center" }}>
+                                                            <DragIndicatorIcon />
+                                                        </Grid>
+                                                        <Grid item md={10}>
+                                                            <Box>
+                                                                <Typography variant="subtitle1" component="div" gutterBottom > {data.optionName}</Typography>
+                                                            </Box>
+                                                            <Box>
+                                                                <Stack direction="row" spacing={1}>
+                                                                    {data.optionValue.map((cntnt, indx) => {
+                                                                        return (<Chip key={indx} label={cntnt} />)
+                                                                    })}
+                                                                </Stack>
+                                                            </Box>
+                                                        </Grid>
+                                                        <Grid item md={1}>
+                                                            {data.edit ? null : <IconButton aria-label="edit" color="success" onClick={() => editProdOption(data, idx)}><EditIcon /></IconButton>}
+                                                        </Grid>
                                                     </Grid>
-                                                    <Grid item md={10}>
-                                                        <Box>
-                                                            <Typography variant="subtitle1" component="div" gutterBottom > {data.optionName}</Typography>
-                                                        </Box>
-                                                        <Box>
-                                                            <Stack direction="row" spacing={1}>
-                                                                {data.optionValue.map((cntnt, indx) => {
-                                                                    return (<Chip key={indx} label={cntnt} />)
-                                                                })}
-                                                            </Stack>
-                                                        </Box>
-                                                    </Grid>
-                                                    <Grid item md={1}>
-                                                        <IconButton aria-label="edit" color="success" onClick={() => editProdOption(data, idx)}><EditIcon /></IconButton>
-                                                    </Grid>
-                                                </Grid>
-                                            </Box>
+                                                </Box>
+
+                                                            }
                                             {data.edit ?
                                                 <>
-                                                    <Divider sx={{ my: 2 }} />
-                                                    <Box>
+                                                    {/* <Divider sx={{ my: 2 }} /> */}
+                                                    <Box sx={{pt: 1}}>
                                                         <Grid container spacing={2} columns={12} alignItems="center">
                                                             <Grid item md={1} sx={{ textAlign: "center" }}></Grid>
                                                             <Grid item md={10}>
@@ -402,7 +538,7 @@ const EditProduct = () => {
                                                                 <Box>
                                                                     <Stack direction="row" spacing={1}>
                                                                         <FormControl fullWidth sx={{ m: 0 }}>
-                                                                            <TextField id="outlined-basic" defaultValue={data.optionName} variant="outlined" />
+                                                                            <TextField id="outlined-basic" defaultValue={data.optionName} variant="outlined" size="small" />
                                                                         </FormControl>
                                                                     </Stack>
                                                                 </Box>
@@ -430,7 +566,7 @@ const EditProduct = () => {
                                                                             <Box>
                                                                                 <Stack direction="row" spacing={1}>
                                                                                     <FormControl fullWidth sx={{ m: 0 }}>
-                                                                                        <TextField id="outlined-basic" defaultValue={cntnt} variant="outlined" />
+                                                                                        <TextField id="outlined-basic" defaultValue={cntnt} variant="outlined" size="small" />
                                                                                     </FormControl>
                                                                                 </Stack>
                                                                             </Box>
@@ -450,229 +586,240 @@ const EditProduct = () => {
                                                                 <Box>
                                                                     <Stack direction="row" spacing={1}>
                                                                         <FormControl fullWidth sx={{ m: 0 }}>
-                                                                            <TextField id="value2" label="Add another value" variant="outlined" />
+                                                                            <TextField id="value2" label="Add another value" variant="outlined" size="small" />
                                                                         </FormControl>
                                                                     </Stack>
                                                                 </Box>
                                                             </Grid>
                                                         </Grid>
                                                     </Box>
+                                                    <Box sx={{ pt: 2 }}>
+                                                        <Grid container spacing={2} columns={12} sx={{ mb: 2 }} alignItems="center">
+                                                            <Grid item md={1} sx={{ textAlign: "right" }}></Grid>
+                                                            <Grid item md={10}>
+                                                                <Button variant="contained" color="success" size="small" onClick={() => closeProdOption(data, idx)} >Done</Button>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Box>
                                                 </> : null
-
                                             }
                                             <Divider sx={{ my: 2 }} />
                                         </React.Fragment >
                                     );
                                 })}
-                            </Draggable>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Grid container spacing={2} columns={12}>
-                                <Grid item md={6}>
-                                    <Box><Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Variants</Typography></Box>
+                                {/* </Draggable> */}
+                            </CardContent>
+                        </Card>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Grid container spacing={2} columns={12}>
+                                    <Grid item md={6}>
+                                        <Box><Typography variant="h6" component="h6" gutterBottom>Variants</Typography></Box>
+                                    </Grid>
+                                    <Grid item md={6} sx={{ textAlign: "Right" }}>
+                                        <Button component={Link} variant="text" to="/product/all/edit-product/add-variant">Add variant</Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item md={6} sx={{ textAlign: "Right" }}>
-                                    <Button component={Link} variant="text" to="/product/all/edit-product/add-variant">Add variant</Button>
+                                <Grid container spacing={2} columns={12}>
+                                    <Grid item xs={12}>
+                                        <div style={{   width: '100%' }}>
+                                            <DataGrid
+                                                rows={rows}
+                                                columns={columns}
+                                                pageSize={5}
+                                                rowsPerPageOptions={[5]}
+                                                checkboxSelection
+                                                disableSelectionOnClick
+                                                rowHeight={80}
+                                                autoHeight={true}
+                                            />
+                                        </div>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid container spacing={2} columns={12}>
-                                <Grid item xs={12}>
-                                    <div style={{ height: 400, width: '100%' }}>
-                                        <DataGrid
-                                            rows={rows}
-                                            columns={columns}
-                                            pageSize={5}
-                                            rowsPerPageOptions={[5]}
-                                            checkboxSelection
-                                            disableSelectionOnClick
-                                        />
-                                    </div>
-                                </Grid>
-                            </Grid>
 
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={4}>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" >Product status</Typography>
-                            <FormControl fullWidth sx={{ m: 0 }}>
-                                <Select
-                                    labelId="ProductStatus"
-                                    id="productStatus"
-                                    value={prodStatus}
-                                    onChange={handleChangeproductStat}
-                                    sx={{ mt: 2 }} >
-                                    <MenuItem value={1}>Draft</MenuItem>
-                                    <MenuItem value={2}>Active</MenuItem>
-                                </Select>
-                                <FormHelperText >This product will be hidden from all sales channels</FormHelperText>
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                    <Card sx={{ mb: 2 }}>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Organization</Typography>
-                            <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Brands</Typography>
-                            <FormControl fullWidth sx={{ m: 0 }}>
-                                <Autocomplete
-                                    value={brand}
-                                    onChange={(event, newValue) => {
-                                        if (typeof newValue === "string") {
-                                            setBrand({
-                                                title: newValue
-                                            });
-                                        } else if (newValue && newValue.inputValue) {
-                                            // Create a new value from the user input
-                                            setBrand({
-                                                title: newValue.inputValue
-                                            });
-                                        } else {
-                                            setBrand(newValue);
-                                        }
-                                    }}
-                                    filterOptions={(options, params) => {
-                                        const filtered = filter(options, params);
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="h6" gutterBottom>Product status</Typography>
+                                <FormControl fullWidth  >
+                                    <Select
+                                        labelId="ProductStatus"
+                                        id="productStatus"
+                                        value={prodStatus}
+                                        onChange={handleChangeproductStat} 
+                                        size="small" >
+                                        <MenuItem value={1}>Draft</MenuItem>
+                                        <MenuItem value={2}>Active</MenuItem>
+                                    </Select>
+                                    <FormHelperText >This product will be hidden from all sales channels</FormHelperText>
+                                </FormControl>
+                            </CardContent>
+                        </Card>
+                        <Card sx={{ mb: 2 }}>
+                            <CardContent>
+                                <Typography variant="h6" component="h6" gutterBottom>Organization</Typography>
+                                <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Brands</Typography>
+                                <FormControl fullWidth sx={{ m: 0 }}>
+                                    <Autocomplete
+                                        value={brand}
+                                        size="small"
+                                        onChange={(event, newValue) => {
+                                            if (typeof newValue === "string") {
+                                                setBrand({
+                                                    title: newValue
+                                                });
+                                            } else if (newValue && newValue.inputValue) {
+                                                // Create a new value from the user input
+                                                setBrand({
+                                                    title: newValue.inputValue
+                                                });
+                                            } else {
+                                                setBrand(newValue);
+                                            }
+                                        }}
+                                        filterOptions={(options, params) => {
+                                            const filtered = filter(options, params);
 
-                                        const { inputValue } = params;
-                                        // Suggest the creation of a new value
-                                        const isExisting = options.some(
-                                            (option) => inputValue === option.title
-                                        );
-                                        if (inputValue !== "" && !isExisting) {
-                                            filtered.push({
-                                                inputValue,
-                                                title: `Add "${inputValue}"`
-                                            });
-                                        }
-                                        return filtered;
-                                    }}
-                                    selectOnFocus
-                                    clearOnBlur
-                                    handleHomeEndKeys
-                                    id="brandTypes"
-                                    options={organization}
-                                    getOptionLabel={(option) => {
-                                        // Value selected with enter, right from the input
-                                        if (typeof option === "string") {
-                                            return option;
-                                        }
-                                        // Add "xxx" option created dynamically
-                                        if (option.inputValue) {
-                                            return option.inputValue;
-                                        }
-                                        // Regular option
-                                        return option.title;
-                                    }}
-                                    renderOption={(props, option) => <li {...props}>{option.title}</li>}
-                                    sx={{ width: "100%" }}
-                                    freeSolo
-                                    renderInput={(params) => (
-                                        <TextField {...params} label="Free solo with text demo" />
-                                    )}
-                                />
-                            </FormControl>
-                        </CardContent>
-                        <Divider sx={{ mt: "15px" }}></Divider>
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Product Type</Typography>
-                            <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Standard</Typography>
-                            <FormControl fullWidth sx={{ m: 0 }}>
-                                <Autocomplete
-                                    value={value}
-                                    onChange={(event, newValue) => {
-                                        if (typeof newValue === 'string') {
-                                            setValue({
-                                                title: newValue,
-                                            });
-                                        } else if (newValue && newValue.inputValue) {
-                                            // Create a new value from the user input
-                                            setValue({
-                                                title: newValue.inputValue,
-                                            });
-                                        } else {
-                                            setValue(newValue);
-                                        }
-                                    }}
-                                    filterOptions={(options, params) => {
-                                        const filtered = filter(options, params);
-                                        const { inputValue } = params;
-                                        // Suggest the creation of a new value
-                                        const isExisting = options.some((option) => inputValue === option.title);
-                                        if (inputValue !== '' && !isExisting) {
-                                            filtered.push({
-                                                inputValue,
-                                                title: `Add "${inputValue}"`,
-                                            });
-                                        }
-
-                                        return filtered;
-                                    }}
-                                    selectOnFocus
-                                    clearOnBlur
-                                    handleHomeEndKeys
-                                    id="productTypes"
-                                    options={productTypesList}
-                                    getOptionLabel={(option) => {
-                                        // Value selected with enter, right from the input
-                                        if (typeof option === 'string') {
-                                            return option;
-                                        }
-                                        // Add "xxx" option created dynamically
-                                        if (option.inputValue) {
-                                            return option.inputValue;
-                                        }
-                                        // Regular option
-                                        return option.title;
-                                    }}
-                                    renderOption={(props, option) => <li {...props}>{option.title}</li>}
-                                    sx={{ width: "100%" }}
-                                    freeSolo
-                                    renderInput={(params) => (
-                                        <TextField  {...params} label="Search types" />
-                                    )}
-                                />
-                            </FormControl>
-                        </CardContent>
-
-                        <CardContent>
-                            <Typography variant="h6" component="h6" sx={{ marginBottom: "15px !important" }}>Category</Typography>
-                            <FormControl fullWidth sx={{ marginBottom: "15px !important" }} >
-                                <Search>
-                                    <SearchIconWrapper>
-                                        <SearchIcon color="grey" />
-                                    </SearchIconWrapper>
-                                    <StyledInputBase
-                                        placeholder="Search…"
-                                        inputProps={{ 'aria-label': 'search' }}
-                                        sx={{ display: "flex" }}
+                                            const { inputValue } = params;
+                                            // Suggest the creation of a new value
+                                            const isExisting = options.some(
+                                                (option) => inputValue === option.title
+                                            );
+                                            if (inputValue !== "" && !isExisting) {
+                                                filtered.push({
+                                                    inputValue,
+                                                    title: `Add "${inputValue}"`
+                                                });
+                                            }
+                                            return filtered;
+                                        }}
+                                        selectOnFocus
+                                        clearOnBlur
+                                        handleHomeEndKeys
+                                        id="brandTypes"
+                                        options={organization}
+                                        getOptionLabel={(option) => {
+                                            // Value selected with enter, right from the input
+                                            if (typeof option === "string") {
+                                                return option;
+                                            }
+                                            // Add "xxx" option created dynamically
+                                            if (option.inputValue) {
+                                                return option.inputValue;
+                                            }
+                                            // Regular option
+                                            return option.title;
+                                        }}
+                                        renderOption={(props, option) => <li {...props}>{option.title}</li>}
+                                        sx={{ width: "100%" }}
+                                        freeSolo
+                                        renderInput={(params) => (
+                                            <TextField {...params} label="Free solo with text demo" />
+                                        )}
                                     />
-                                </Search>
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12}>
-                    <Divider sx={{ my: "15px" }}></Divider>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <Box sx={{ textAlign: "left" }}>
-                                <Button variant="contained" color="secondary" size="large">Archive product</Button>
-                                <Button variant="contained" color="error" size="large" sx={{ ml: 1 }}>Delete product</Button>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Box sx={{ textAlign: "right" }}>
-                                <Button variant="contained" color="success" size="large">Save</Button>
-                            </Box>
+                                </FormControl>
+                            </CardContent>
+                            <Divider sx={{ mt: "15px" }}></Divider>
+                            <CardContent>
+                                <Typography variant="h6" component="h6" gutterBottom>Product Type</Typography>
+                                <Typography component="label" sx={{ mb: "10px !important", display: "block" }}>Standard</Typography>
+                                <FormControl fullWidth sx={{ m: 0 }}>
+                                    <Autocomplete
+                                        value={value}
+                                        size="small"
+                                        onChange={(event, newValue) => {
+                                            if (typeof newValue === 'string') {
+                                                setValue({
+                                                    title: newValue,
+                                                });
+                                            } else if (newValue && newValue.inputValue) {
+                                                // Create a new value from the user input
+                                                setValue({
+                                                    title: newValue.inputValue,
+                                                });
+                                            } else {
+                                                setValue(newValue);
+                                            }
+                                        }}
+                                        filterOptions={(options, params) => {
+                                            const filtered = filter(options, params);
+                                            const { inputValue } = params;
+                                            // Suggest the creation of a new value
+                                            const isExisting = options.some((option) => inputValue === option.title);
+                                            if (inputValue !== '' && !isExisting) {
+                                                filtered.push({
+                                                    inputValue,
+                                                    title: `Add "${inputValue}"`,
+                                                });
+                                            }
+
+                                            return filtered;
+                                        }}
+                                        selectOnFocus
+                                        clearOnBlur
+                                        handleHomeEndKeys
+                                        id="productTypes"
+                                        options={productTypesList}
+                                        getOptionLabel={(option) => {
+                                            // Value selected with enter, right from the input
+                                            if (typeof option === 'string') {
+                                                return option;
+                                            }
+                                            // Add "xxx" option created dynamically
+                                            if (option.inputValue) {
+                                                return option.inputValue;
+                                            }
+                                            // Regular option
+                                            return option.title;
+                                        }}
+                                        renderOption={(props, option) => <li {...props}>{option.title}</li>}
+                                        sx={{ width: "100%" }}
+                                        freeSolo
+                                        renderInput={(params) => (
+                                            <TextField  {...params} label="Search types" />
+                                        )}
+                                    />
+                                </FormControl>
+                            </CardContent>
+
+                            <CardContent>
+                                <Typography variant="h6" component="h6" gutterBottom>Category</Typography>
+                                <FormControl fullWidth   >
+                                    <Search>
+                                        <SearchIconWrapper>
+                                            <SearchIcon color="grey" />
+                                        </SearchIconWrapper>
+                                        <StyledInputBase
+                                            placeholder="Search…"
+                                            inputProps={{ 'aria-label': 'search' }}
+                                            sx={{ display: "flex" }}
+                                        />
+                                    </Search>
+                                </FormControl>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Divider sx={{ my: "15px" }}></Divider>
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <Box sx={{ textAlign: "left" }}>
+                                    <Button variant="contained" color="secondary" size="large">Archive product</Button>
+                                    <Button variant="contained" color="error" size="large" sx={{ ml: 1 }}>Delete product</Button>
+                                </Box>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Box sx={{ textAlign: "right" }}>
+                                    <Button variant="contained" color="success" size="large">Save</Button>
+                                </Box>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-
+            </Box>
             <PopupModal
                 open={openModal}
                 ModalClose={ModalClose}
@@ -683,7 +830,7 @@ const EditProduct = () => {
                 savebtnTxt="Add File"
                 savebtnFunct={savebtnFunct}
             >
-                <TextField onChange={(data) => updateVideourl(data)} fullWidth label="Image, YouTube, or Vimeo URL" id="fullWidth" />
+                <TextField onChange={(data) => updateVideourl(data)} fullWidth label="Image, YouTube, or Vimeo URL" id="fullWidth" size="small" />
             </PopupModal>
         </React.Fragment>
     );
