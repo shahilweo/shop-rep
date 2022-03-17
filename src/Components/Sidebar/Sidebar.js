@@ -3,37 +3,48 @@ import { useLocation } from "react-router";
 import { Box, Drawer, List, Collapse, Button } from '@mui/material';
 import { Link, NavLink } from "react-router-dom";
 import { drawerWidth } from '../../Container/Exports';
+
 import Logo from '../../Assets/images/logo.png';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+
+import HomeIcon from '@mui/icons-material/Home';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import PersonIcon from '@mui/icons-material/Person';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+
 import './Sidebar.css';
 
 
 export default function Sidebar(props) {
     const location = useLocation()
-
     const [sideMenu, setSideMenu] = useState([
-        { main: 'Home', link: "/", submain: [], dropDown: false, active: false },
+        { main: 'Home', link: "/", submain: [], dropDown: false, active: false, icon: <HomeIcon />, },
 
         {
             main: 'Order', link: "", submain: [
                 { sbname: 'All Order', active: false },
                 { sbname: 'Create', active: false }
-            ], dropDown: false, active: false
+            ], dropDown: false, active: false, icon: <ListAltIcon />,
         },
         {
             main: 'Products', link: "", submain: [
                 { sbname: 'All Products', link: "/product/all", active: false },
                 { sbname: 'Inventory', link: "/product/inventory", active: false },
                 { sbname: 'Category', link: "/product/category", active: false }
-            ], dropDown: false, active: false
+            ], dropDown: false, active: false, icon: <Inventory2OutlinedIcon />,
         },
-        { main: 'Users', link: "/users", submain: [], dropDown: false, active: false },
-        { main: 'Discount', link: "/discount", submain: [], dropDown: false, active: false },
+        { main: 'Users', link: "/users", submain: [], dropDown: false, active: false, icon: <PersonIcon />, },
+        { main: 'Discount', link: "/discount", submain: [], dropDown: false, active: false, icon: <LocalOfferOutlinedIcon />, },
         {
             main: 'Setting', link: "", submain: [
-                { sbname: 'Account', link: "/account", active: false },
-            ], dropDown: false, active: false
+                { sbname: 'Account', link: "/account", active: false, },
+            ], dropDown: false, active: false, icon: <SettingsIcon />,
         },
     ]);
 
@@ -43,13 +54,12 @@ export default function Sidebar(props) {
     const handleClick = (e, index) => {
         let updatemenu = [];
         sideMenu.map((data) => {
-            updatemenu.push({ ...data, 'dropDown': false, 'active': false })
+            return updatemenu.push({ ...data, 'dropDown': false, 'active': false })
         })
         updatemenu[index].dropDown = !sideMenu[index].dropDown
         updatemenu[index].active = !sideMenu[index].active
         setSideMenu(updatemenu)
     };
-
 
     const drawer = (
         <div>
@@ -60,16 +70,17 @@ export default function Sidebar(props) {
                 {sideMenu.map((text, index) => (
                     <Box key={index}>
 
-                        {text.submain.length > 0 ? <Button onClick={(data) => handleClick(data, index)} variant="contained" className={`sidebarButton ${text.active || location.pathname === text.link ? "active" : ""} `}  >  {text.main}
-                            {text.submain.length > 0 ? <>{text.dropDown ? <ExpandLess /> : <ExpandMore />} </> : null}
-                        </Button> : <NavLink component={Link} to={`${text.link}`} onClick={(data) => handleClick(data, index)} variant="contained" className={`sidebarButton ${text.active || location.pathname === text.link ? "active" : ""} `}  >  {text.main}  </NavLink>
+                        {text.submain.length > 0 ? <Button onClick={(data) => handleClick(data, index)} variant="contained" className={`sidebarButton ${text.active || location.pathname === text.link ? "active" : ""} `}  >
+                            <Box sx={{ display: 'flex', alignItems: 'center', }}> <Box className="sidebarButton__icon" sx={{display: 'flex', mr: 1,}}>{text.icon}</Box> {text.main}</Box> {text.submain.length > 0 ? <>{text.dropDown ? <ExpandLess /> : <ExpandMore />} </> : null}
+                        </Button> : <NavLink component={Link} to={`${text.link}`} onClick={(data) => handleClick(data, index)} variant="contained" className={`sidebarButton ${text.active || location.pathname === text.link ? "active" : ""} `}  >
+                            <Box sx={{ display: 'flex', alignItems: 'center', }}> <Box className="sidebarButton__icon" sx={{display: 'flex', mr: 1,}}>{text.icon}</Box> {text.main}</Box>  </NavLink>
                         }
 
                         {text.submain.length > 0 ?
                             <Collapse in={text.dropDown} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding >
                                     {text.submain.map((data, index1) => (
-                                        <NavLink key={index1} component={Link} to={`${data.link}`} variant="contained" className={`sidebarButton sidebarButton--inner ${data.active || location.pathname === data.link ? "active" : ""} `}  >  {data.sbname}</NavLink>
+                                        <NavLink key={index1} component={Link} to={`${data.link}`} variant="contained" className={`sidebarButton sidebarButton--inner ${data.active || location.pathname === data.link ? "active" : ""} `} >  {data.sbname}</NavLink>
                                     ))}
                                 </List>
                             </Collapse> : null}

@@ -1,6 +1,8 @@
+ 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { Box, Toolbar } from '@mui/material';
+ 
 import Header from '../Components/Header/Header';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { drawerWidth } from './Exports';
@@ -10,16 +12,18 @@ import Home from '../Components/Pages/Home/Home';
 import Product from '../Components/Pages/Product/Product';
 import AddProduct from '../Components/Pages/Product/AddProduct/AddProduct';
 import EditProduct from '../Components/Pages/Product/EditProduct/EditProduct';
+import AddVariant from '../Components/Pages/Product/EditProduct/AddVariant/AddVariant';
+import ScrollToTop from './ScrollToTop';
+import Fileupload from '../Components/Fileupload/Fileupload';
 
 import Layout from '../Components/ThemeEditor/Layout/Layout';
-
+ 
 import './App.css';
-
 const theme = createTheme({
   palette: {
     type: 'light',
     background: {
-      default: "#F8F8FB"
+      default: "#f5f5f5"
     },
     primary: {
       main: "#030303",
@@ -42,10 +46,10 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Quicksand',
-    fontWeightLight: 400,
-    fontWeightRegular: 500,
-    fontWeightMedium: 600,
+    fontFamily: "Roboto",
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
     fontWeightBold: 700,
     allVariants: {
       textTransform: "none",
@@ -53,19 +57,23 @@ const theme = createTheme({
   }
 });
 
-
-function App() {
+function App() { 
   const location = window.location.pathname
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  const [progress, setProgress] = useState(0); 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+ 
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>    
+
       <Box sx={{ display: 'flex' }}>
+         
         <Router>
+ 
+          <ScrollToTop /> 
           {location !== "/customizer" &&
             <>
               <Sidebar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen} />
@@ -76,13 +84,22 @@ function App() {
             component="main"
             sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
             <Toolbar />
-            <Routes>
-              <Route path="/" element={<Home />} exact />
-              <Route path="/product/all" element={<Product />} exact />
-              <Route path="/product/all/add-product" element={<AddProduct />} exact />
-              <Route path="/product/all/edit-product" element={<EditProduct />} exact />
-              <Route path="/customizer" element={<Layout />} exact />
-            </Routes>
+ 
+         
+             
+              <Routes>
+                <Route path="/" element={<Home />} exact />
+                <Route path="/product/all" element={<Product />} exact />
+                <Route path="/product/all/add-product" element={<AddProduct />} exact />
+                <Route path="/product/all/edit-product" element={<EditProduct />} exact />
+                <Route path="/customizer" element={<Layout />} exact />
+                <Route path="/product/all/edit-product/add-variant" element={<AddVariant />} exact />
+                
+                {/* file */}
+                <Route path="/file" element={<Fileupload />} exact />
+              </Routes>
+             
+ 
           </Box>
         </Router>
       </Box>

@@ -1,16 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
+import {
+  Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton,
+} from '@mui/material';
+
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import "./PopModal.css"; 
+import { styled } from '@mui/material/styles';
+
+import "./PopModal.css";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -50,19 +48,19 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function PopupModal({ title, children, open, ModalClose, cancelbtn, cancelbtnTxt, savebtn, savebtnTxt, savebtnFunct }) { 
+export default function PopupModal({ title, children, open, ModalClose, cancelbtn, cancelbtnTxt, savebtn, savebtnTxt, savebtnFunct }) {
   return (
     <>
       <BootstrapDialog
         onClose={ModalClose}
         aria-labelledby="largeModal"
         open={open}>
-        <BootstrapDialogTitle id="largeModal" onClose={ModalClose}>{title}</BootstrapDialogTitle> 
-        <DialogContent dividers sx={{width: "100%"}}>{children}</DialogContent> 
+        <BootstrapDialogTitle id="largeModal" onClose={ModalClose}>{title}</BootstrapDialogTitle>
+        <DialogContent dividers sx={{ width: "100%" }}>{children}</DialogContent>
         <DialogActions >
-          {cancelbtn && <Button autoFocus onClick={ModalClose} > {cancelbtnTxt} </Button> }
-          {savebtn && <Button autoFocus onClick={savebtnFunct}> {savebtnTxt} </Button>}          
-        </DialogActions> 
+          {cancelbtn && <Button autoFocus onClick={ModalClose} > {cancelbtnTxt} </Button>}
+          {savebtn && <Button autoFocus onClick={savebtnFunct}> {savebtnTxt} </Button>}
+        </DialogActions>
       </BootstrapDialog>
     </>
   );

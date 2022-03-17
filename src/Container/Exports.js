@@ -38,7 +38,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 
 
-export const drawerWidth = 240;
+export const drawerWidth = 220;
 
 export const renderImport = (arr) => {
     return (
