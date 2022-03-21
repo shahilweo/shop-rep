@@ -191,10 +191,11 @@ export default function RenderFn({ data }) {
         }
         else if (params.get('type') === "hero_slider") {
             if (params.get('slide')) {
-                setMain(SlideSettings)
-            } else {
-                setMain(HeroSlider)
+                SlideSettings.map((opt)=> {
+                    setMain([...HeroSlider, {...opt}])
+                })
             }
+            setMain(HeroSlider)
         }
         else if (params.get('type') === "text_over_image") {
             setMain(TextOverImage)
@@ -237,7 +238,6 @@ export default function RenderFn({ data }) {
         console.log("schemaData: ", schemaData)
         dispatch(dataValue(schemaData))
     }, [main, schemaData])
-
     return (
         <>
             {data.type === "heading" &&

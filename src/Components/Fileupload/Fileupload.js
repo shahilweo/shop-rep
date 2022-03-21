@@ -1,41 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Card, CardContent, } from '@mui/material';
+import _ from 'underscore';
 
 import './Fileupload.css';
 
-export default function Fileupload() {
-    const [selectedFile, setSelectedFile] = useState()
-    const [preview, setPreview] = useState()
+export default function Fileupload({onSelectFile, preview}) {
+    const thumbs = preview.length > 0 && preview.map((file, i) => {
+        return (
+            <div className="filePreviewBox" key={i.toString()}>
+                <div className="filePreviewBox__img" >
+                    <img src={file} />
+                </div>
+                <div className="filePreviewBox__cntnt">
 
+                </div>
+            </div>
+        )
+    });
 
-    const onSelectFile = (e) => {
-        let files = Array.from(e.target.files);
-        let reader = new FileReader();
-        console.log("files", files)
-        reader.onloadend = () => {
-            console.log("reader", reader.result)
+    useEffect(() => {
 
-        }
-        // if (!_.isUndefined(file)) {
-        //     reader.readAsDataURL(file);
-        // }
-
-    }
-
-
+    }, [preview]);
     return (
         <>
             <Box className="smallContainer">
                 <Card sx={{ mb: 2 }}>
                     <CardContent>
-                        <Box className="customFileUpload">
-                            <input
-                                multiple="multiple"
-                                accept=".jpg,.jpeg,.png"
-                                type='file' onChange={onSelectFile}
-                            />
+                        <Box className="container">
+                            <Box className={`fileUploader ${preview.length > 0 ? "active" : null}`}>
+                                {thumbs}
+                                <Box className="customFileUpload">
+                                    <input
+                                        multiple
+                                        accept=".jpg,.jpeg,.png"
+                                        type='file' onChange={onSelectFile}
+                                    />
+                                    <label >Drag and drop images</label>
+                                </Box>
+                            </Box>
+                        </Box>
 
-                        </Box> {selectedFile && <img src={preview} />}
                     </CardContent>
                 </Card>
             </Box>

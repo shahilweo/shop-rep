@@ -46,9 +46,10 @@ export default function ListItems({ data }) {
         }
         setArray(arr)
     }, [data])
+    console.log("array: ", array)
     return (
         <List sx={{ m: 0, p: 0 }}>
-            {array.map((opt, index) => {
+            {array.length > 0 && array.map((opt, index) => {
                 return (
                     <React.Fragment key={index.toString()}>
                         <ListItem disablePadding className={params.get('slide') === opt.toString() || params.get('column') === opt.toString() ? "active_item" : ""}>

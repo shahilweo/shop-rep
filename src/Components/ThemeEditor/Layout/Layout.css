@@ -228,3 +228,6 @@ input[type="file"]{
 .customTextEditor .public-DraftStyleDefault-block {
     margin: 0px 0;
 }
+.customTextEditorTools{
+    padding: 5px 2px 0;
+}

@@ -9,7 +9,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 import { alpha } from '@mui/material/styles';
 import { Link } from "react-router-dom";
-import { styled } from '@mui/material/styles'; 
+import { styled } from '@mui/material/styles';
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,6 +25,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useDropzone } from 'react-dropzone';
 
 import Seo from '../../../Seo/Seo';
+import Fileupload from '../../../Fileupload/Fileupload';
 
 // file drag drop 
 
@@ -87,6 +88,9 @@ const AddProduct = () => {
         margin: 0,
         profit: 0,
     });
+    
+    const [selectedFile, setSelectedFile] = useState([])
+    const [preview, setPreview] = useState([])
 
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
@@ -128,20 +132,6 @@ const AddProduct = () => {
         await setEditorState(state);
         const data = convertToRaw(editorState.getCurrentContent());
     };
-
-
-    const thumbs = files.length > 0 && files.map((file, i) => {
-        return (
-            <div className="filePreviewBox" key={i.toString()}>
-                <div className="filePreviewBox__img" >
-                    <img src={file} />
-                </div>
-                <div className="filePreviewBox__cntnt">
-
-                </div>
-            </div>
-        )
-    });
 
     const save = (data) => {
         console.log(data);
@@ -190,14 +180,34 @@ const AddProduct = () => {
         { title: "Organization 6" },
         { title: 'Organization 7' },
     ];
+    
+    const onSelectFile = (e) => {
+        e.preventDefault()
+        const fileobj = [];
+        let files = Array.from(e.target.files);
+        fileobj.push(files);
+        let reader;
+        let selectedFiles = [...selectedFile]
+        for (var i = 0; i < fileobj[0].length; i++) {
+            selectedFiles.push(files[i])
+            setSelectedFile(selectedFiles)
+            reader = new FileReader();
+            reader.readAsDataURL(fileobj[0][i]);
+            reader.onload = event => {
+                preview.push(event.target.result);
+                setPreview([...new Set(preview)]);
+            }
+        }
+    }
 
 
     useEffect(() => {
-        // Make sure to revoke the data uris to avoid memory leaks
-        console.log('files', files)
-        files.forEach(file => URL.revokeObjectURL(file.preview));
+        // console.log('files', files)
+        // files.forEach(file => URL.revokeObjectURL(file.preview));
 
     }, [files]);
+    console.log("selectedFile: ", selectedFile)
+    console.log("preview: ", preview)
 
     return (
         <Box className="smallContainer">
@@ -214,7 +224,7 @@ const AddProduct = () => {
                     <Grid item md={8}>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Typography variant="h6" component="div" gutterBottom>Product Title</Typography>
+                                <Typography variant="h6" component="div" gutterBottom>Product title</Typography>
                                 <FormControl fullWidth  >
                                     <TextField
                                         id="standard-basic"
@@ -227,7 +237,7 @@ const AddProduct = () => {
                         </Card>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Typography variant="h6" component="div" gutterBottom>Product Description</Typography>
+                                <Typography variant="h6" component="div" gutterBottom>Product description</Typography>
                                 <div  >
                                     <Editor
                                         editorState={editorState}
@@ -351,10 +361,13 @@ const AddProduct = () => {
                         </Card>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Typography variant="h6" component="h6" gutterBottom>Media Image</Typography>
+                                <Typography variant="h6" component="h6" gutterBottom>Product images</Typography>
 
-
-                                <Box className="container">
+                                <Fileupload
+                                    preview={preview}
+                                    onSelectFile={onSelectFile}
+                                />
+                                {/* <Box className="container">
 
                                     <Box className={`fileUploader ${files.length > 0 ? "active" : null}`}>
                                         {thumbs}
@@ -363,7 +376,7 @@ const AddProduct = () => {
                                             <p>Drag 'n' drop some files here.</p>
                                         </div>
                                     </Box>
-                                </Box>
+                                </Box> */}
                             </CardContent>
                         </Card>
                         <Card sx={{ mb: 2 }}>
@@ -530,7 +543,7 @@ const AddProduct = () => {
                                         labelId="ProductStatus"
                                         id="productStatus"
                                         onChange={handleChangeproductStat}
-                                        sx={{ mt: 0}}
+                                        sx={{ mt: 0 }}
                                         defaultValue={prodStatus} size="small"
                                     >
                                         <MenuItem value={1}>Draft</MenuItem>
@@ -543,7 +556,7 @@ const AddProduct = () => {
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" gutterBottom>Organization</Typography>
-                                <Typography component="label" gutterBottom sx={{   display: "block" }}>Brands</Typography>
+                                <Typography component="label" gutterBottom sx={{ display: "block" }}>Brands</Typography>
                                 <FormControl fullWidth sx={{ m: 0 }}>
                                     <Autocomplete
                                         value={brand}
@@ -607,7 +620,7 @@ const AddProduct = () => {
                             <Divider sx={{ mt: "15px" }}></Divider>
                             <CardContent>
                                 <Typography variant="h6" component="h6" gutterBottom>Product Type</Typography>
-                                <Typography component="label" gutterBottom sx={{  display: "block" }}>Standard</Typography>
+                                <Typography component="label" gutterBottom sx={{ display: "block" }}>Standard</Typography>
                                 <FormControl fullWidth sx={{ m: 0 }}>
                                     <Autocomplete
                                         value={value}

@@ -10,7 +10,7 @@ export default function CustomEditor({ editorState, updateTextDescription }) {
         <Paper>
             <Editor
                 editorState={editorState}
-                toolbarClassName="textEditorBoxToolbar"
+                toolbarClassName="customTextEditorTools"
                 wrapperClassName="wrapperClassName"
                 editorClassName="customTextEditor"
                 onEditorStateChange={updateTextDescription}
