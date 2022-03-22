@@ -1,10 +1,10 @@
-import React from 'react'
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import { alpha } from '@mui/material/styles';
 import {
     Grid, Divider, Typography, Paper, ButtonGroup,
     Button, InputBase, Menu, MenuItem, Box, Chip,
-    Card, IconButton,
+    Card, IconButton, Container,
 } from '@mui/material'
 import { styled } from '@mui/material/styles';
 
@@ -18,6 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { DataGrid } from '@mui/x-data-grid';
+import { tab } from '@testing-library/user-event/dist/tab';
 
 // secrch
 const Search = styled('div')(({ theme }) => ({
@@ -58,7 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         // borderRadius:"10px",
         // background: "#f7f8fa",
         [theme.breakpoints.up('md')]: {
-            width: '20ch',
+            width: '30ch',
         },
     },
 }));
@@ -114,32 +115,6 @@ const StyledMenu = styled((props) => (
 
 // dropdown
 
-const columns = [
-    { field: 'id', headerName: 'Id', width: "60" , sortable: false, },
-    { field: 'image', headerName: 'Image', width: "80", renderCell: (params) =>   <img src={params.value} width="60" />, sortable: false, },
-    { field: 'productname', headerName: 'Product name', renderCell: (params) => <Button component={Link} to="/product/all/edit-product" color="primary">{params.value}</Button>, flex: 1 , sortable: false, },
-    { field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) => <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "secondary"} /> },
-    { field: 'inventory', headerName: 'Inventory', flex: 1 , sortable: false, },
-    { field: 'type', headerName: 'Type', sortable: false,flex: 1  },
-    { field: 'brands', headerName: 'Brands', sortable: false, flex: 1 },
-    { field: 'action', headerName: 'Action', sortable: false,  flex: 1 ,
-    renderCell: (params) => 
-        <>
-            <IconButton aria-label="view" color="success"><VisibilityIcon /></IconButton>
-            <IconButton aria-label="edit" color="success"><EditIcon /></IconButton> 
-            <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
-        </> 
-    },
-
-    // { field: 'fullName', headerName: 'Full name', description: 'This column has a value getter and is not sortable.',
-    //     sortable: false,
-    //     width: 160,
-    //     valueGetter: (params) =>
-    //         `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''
-    //     }`,
-    // },
-
-];
 
 const rows = [
     { id: 1, image: bundleprod, productname: "Product name", status: "Active", inventory: "in stock for 4 variants", type: "TOYS", brands: "apple", action: "" },
@@ -156,7 +131,43 @@ const rows = [
 
 export default function Product() {
     // dropdown btn
+    let navigate = useNavigate()
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [activeTab, setactiveTab] = useState("all")
+
+    const [columns, setcolumns] = useState([
+        { field: 'id', headerName: 'Id', width: "60", sortable: false, },
+        { field: 'image', headerName: 'Image', width: "80", renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
+        { field: 'productname', headerName: 'Product name', renderCell: (params) => <Button component={Link} to="/product/edit-product" color="primary">{params.value}</Button>, flex: 1, sortable: false, },
+        { field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) => <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "secondary"} /> },
+        { field: 'inventory', headerName: 'Inventory', flex: 1, sortable: false, },
+        { field: 'type', headerName: 'Type', sortable: false, flex: 1 },
+        { field: 'brands', headerName: 'Brands', sortable: false, flex: 1 },
+        {
+            field: 'action', headerName: 'Action', sortable: false, flex: 1,
+            renderCell: (params) =>
+                <>
+                    <IconButton aria-label="view" color="success"><VisibilityIcon /></IconButton>
+                    <IconButton aria-label="edit" color="success" onClick={editProduct}><EditIcon /></IconButton>
+                    <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
+                </>
+        },
+
+        // { field: 'fullName', headerName: 'Full name', description: 'This column has a value getter and is not sortable.',
+        //     sortable: false,
+        //     width: 160,
+        //     valueGetter: (params) =>
+        //         `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''
+        //     }`,
+        // },
+
+    ])
+    const tabs = [
+        { label: "All", name: "all" },
+        { label: "Active", name: "active" },
+        { label: "Draft", name: "draft" },
+        { label: "Archived", name: "archived" },
+    ]
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -164,17 +175,24 @@ export default function Product() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const clickTab = (name) => {
+        setactiveTab(name);
+    };
+    const editProduct = () => {
+        navigate("/product/edit-product")
+    };
     // dropdown btn
     return (
         <React.Fragment >
-            <Box className="smallContainer">
+            {/* <Box className="smallContainer"> */}
+            <Container maxWidth="lg">
                 <Box sx={{ mb: 2 }}>
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={6}>
                             <Typography variant="h5" component="div"> Product</Typography>
                         </Grid>
                         <Grid item xs={6} sx={{ textAlign: { sm: 'right' }, flexShrink: { sm: 0 } }}>
-                            <Button component={Link} to="/product/all/add-product" variant="contained" color="success">Add product</Button>
+                            <Button component={Link} to="/product/add-product" variant="contained">Add product</Button>
                         </Grid>
                     </Grid>
                 </Box>
@@ -185,11 +203,12 @@ export default function Product() {
 
                         <Grid item xs={6}>
                             <Box sx={{ display: "flex" }}>
-                                <ButtonGroup variant="contained" aria-label="medium success button group">
-                                    <Button>All</Button>
-                                    <Button>Active</Button>
-                                    <Button>Draft</Button>
-                                    <Button>Archived</Button>
+                                <ButtonGroup variant="outlined" color="secondary" aria-label="medium success button group">
+                                    {tabs.map((tab) => {
+                                        return (
+                                            <Button key={tab.name} variant={`${activeTab === tab.name ? 'contained' : 'outlined'}`} onClick={() => clickTab(tab.name)}>{tab.label}</Button>
+                                        )
+                                    })}
                                 </ButtonGroup>
                                 <Search>
                                     <SearchIconWrapper>
@@ -254,7 +273,7 @@ export default function Product() {
                     </Grid>
                 </Box>
                 <Card sx={{ mb: 2 }}>
-                    <Box sx={{  width: '100%' }}>
+                    <Box sx={{ width: '100%' }}>
                         <DataGrid
                             rows={rows}
                             columns={columns}
@@ -269,7 +288,7 @@ export default function Product() {
                         />
                     </Box>
                 </Card>
-            </Box>
+            </Container>
         </React.Fragment>
     )
 }

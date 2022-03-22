@@ -53,7 +53,7 @@ export default function LayoutSidebar() {
             <div className="layout_sidebar_container">
                 {showAllSections ?
                     <Box>
-                        <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => setshowAllSections(false)}>
+                        <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => setshowAllSections(false)} color="secondary">
                             Back
                         </Button>
                         <Grid container spacing={2}>
@@ -62,7 +62,7 @@ export default function LayoutSidebar() {
                                 return (
                                     <Grid item xs={6} key={index.toString()}>
                                         <Paper sx={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }} elevation={3}>
-                                            <Button sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }} fullWidth>
+                                            <Button sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }} fullWidth color="secondary">
                                                 <SectionIcons type={opt} />
                                                 {activeName}
                                             </Button>
@@ -78,7 +78,7 @@ export default function LayoutSidebar() {
                             <>
                                 <Box className="layout_sidebar_sections">
                                     <Box sx={{ py: 1 }}>
-                                        <Button fullWidth onClick={() => setshowAllSections(true)} variant="outlined">
+                                        <Button fullWidth onClick={() => setshowAllSections(true)} variant="outlined" color="secondary">
                                             <AddCircleOutlineIcon fontSize="small" sx={{ mr: 1 }} /> Add new section
                                         </Button>
                                     </Box>

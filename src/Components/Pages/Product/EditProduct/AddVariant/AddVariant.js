@@ -6,7 +6,7 @@ import {
     FormControl, Divider, FormHelperText,
     Typography, Select, TextField, InputBase,
     Chip, Avatar, List, ListItemButton, ListItemText,
-    ListItemAvatar, InputAdornment, FormControlLabel, Checkbox
+    ListItemAvatar, InputAdornment, FormControlLabel, Checkbox, Container
 } from '@mui/material';
 
 import { createFilterOptions } from '@mui/material/Autocomplete';
@@ -60,10 +60,10 @@ const AddVariant = () => {
 
     return (
         <React.Fragment>
-            <Box className="smallContainer">
+            <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={6}>
-                        <Button component={Link} variant="text" to="/product/all/edit-product" color="success" startIcon={<ArrowBackIosIcon />}> Edit product </Button>
+                        <Button component={Link} variant="text" to="/product/edit-product" color="success" startIcon={<ArrowBackIosIcon />}> Edit product </Button>
                     </Grid>
                     <Grid item xs={6}>
 
@@ -83,7 +83,7 @@ const AddVariant = () => {
                                         <Box sx={{ pt: 1, }}>
                                             <Typography variant="caption" display="block" gutterBottom> 5 variants </Typography>
                                         </Box>
-                                        <Button component={Link} variant="text" to="/product/all/edit-product" color="success" sx={{ p: 0 }} > Back to product </Button>
+                                        <Button component={Link} variant="text" to="/product/edit-product" color="success" sx={{ p: 0 }} > Back to product </Button>
 
                                     </Grid>
                                 </Grid>
@@ -91,7 +91,7 @@ const AddVariant = () => {
                         </Card>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Typography variant="h6" component="div"  >Variants</Typography> 
+                                <Typography variant="h6" component="div"  >Variants</Typography>
                                 <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
                                     <Link to="" className='basicAnchor' >
                                         <ListItemButton>
@@ -124,17 +124,17 @@ const AddVariant = () => {
                                 <Grid container spacing={2} columns={12}>
                                     <Grid item md={4}>
                                         <FormControl fullWidth  >
-                                            <TextField id="option1" label="options name 1" variant="outlined"   size="small" />
+                                            <TextField id="option1" label="options name 1" variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                     <Grid item md={4}>
                                         <FormControl fullWidth  >
-                                            <TextField id="option2" label="options name 2" variant="outlined"   size="small" />
+                                            <TextField id="option2" label="options name 2" variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                     <Grid item md={4}>
                                         <FormControl fullWidth  >
-                                            <TextField id="option2" label="options name 3" variant="outlined"   size="small" />
+                                            <TextField id="option2" label="options name 3" variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -151,7 +151,7 @@ const AddVariant = () => {
 
                                     </Grid>
                                 </Grid>
-                            
+
                                 <DropzoneArea
                                     onChange={(files) => handleMediaChange(files)}
                                     acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
@@ -181,7 +181,7 @@ const AddVariant = () => {
                                                 InputProps={{
                                                     startadornment: <InputAdornment position="start">₹</InputAdornment>
                                                 }}
-                                                 size="small"
+                                                size="small"
                                             />
                                         </FormControl>
                                     </Grid>
@@ -195,7 +195,7 @@ const AddVariant = () => {
                                                 InputProps={{
                                                     startadornment: <InputAdornment position="start">₹</InputAdornment>
                                                 }}
-                                                 size="small"
+                                                size="small"
                                             />
                                         </FormControl>
                                     </Grid>
@@ -212,7 +212,7 @@ const AddVariant = () => {
                                                 onChange={marginprofit}
                                                 onBlur={getprofit}
                                                 startadornment={<InputAdornment position="start">₹</InputAdornment>}
-                                                 size="small"
+                                                size="small"
                                             />
                                             <FormHelperText >Customers won’t see this </FormHelperText>
                                         </FormControl>
@@ -240,12 +240,12 @@ const AddVariant = () => {
                                 <Grid container spacing={2} columns={12}>
                                     <Grid item md={6}>
                                         <FormControl fullWidth >
-                                            <TextField id="option1" label="SKU (Stock Keeping Unit) " variant="outlined"   size="small" />
+                                            <TextField id="option1" label="SKU (Stock Keeping Unit) " variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                     <Grid item md={6}>
                                         <FormControl fullWidth >
-                                            <TextField id="option2" label="Barcode (ISBN, UPC, GTIN, etc.)" variant="outlined"   size="small" />
+                                            <TextField id="option2" label="Barcode (ISBN, UPC, GTIN, etc.)" variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                     <Grid item xs={12}>
@@ -262,7 +262,7 @@ const AddVariant = () => {
                                 <Grid container spacing={2} columns={12}>
                                     <Grid item md={6}>
                                         <FormControl fullWidth >
-                                            <TextField id="option1" label="Available" type="number" variant="outlined"   size="small" />
+                                            <TextField id="option1" label="Available" type="number" variant="outlined" size="small" />
                                         </FormControl>
                                     </Grid>
                                 </Grid>
@@ -282,7 +282,7 @@ const AddVariant = () => {
                                     type="number"
                                     id="weight"
                                     sx={{ mt: 1, }}
-                                     size="small"
+                                    size="small"
                                 />
                                 <FormControl sx={{ m: 1 }}>
                                     <Select
@@ -291,7 +291,7 @@ const AddVariant = () => {
                                         value={weight}
                                         onChange={handleChangeWeight}
                                         sx={{ m: 0, marginLeft: "8px" }}
-                                         size="small" >
+                                        size="small" >
                                         <MenuItem value={1}>Kg</MenuItem>
                                         <MenuItem value={2}>LBS</MenuItem>
                                         <MenuItem value={3}>Pound</MenuItem>
@@ -315,7 +315,7 @@ const AddVariant = () => {
                     </Grid>
                 </Grid>
 
-            </Box>
+            </Container>
         </React.Fragment>
     );
 }

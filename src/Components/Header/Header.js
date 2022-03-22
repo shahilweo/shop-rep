@@ -73,10 +73,10 @@ const Header = (props) => {
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar
-                    color="secondary"
+                    color="white"
                     position="fixed"
                     sx={{                     
-                        boxShadow: "0 7px 10px 0 rgb(0 0 0 / 9%)",
+                        boxShadow: "0 0px 6px rgb(0 0 0 / 10%)",
                         width: { sm: `calc(100% - ${drawerWidth}px)` },
                         ml: { sm: `${drawerWidth}px` },
                     }}>

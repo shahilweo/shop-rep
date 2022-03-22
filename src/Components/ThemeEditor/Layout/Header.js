@@ -30,7 +30,7 @@ export default function LayoutHeader() {
                     alignItems="center"
                     sx={{ flexWrap: "nowrap", p: 1 }}
                 >
-                    <Button startIcon={<ArrowBackIcon />}>
+                    <Button href="/" startIcon={<ArrowBackIcon />} color="secondary">
                         Exit
                     </Button>
                     <Divider orientation="vertical" flexItem />

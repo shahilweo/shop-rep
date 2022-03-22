@@ -5,7 +5,7 @@ import {
     MenuItem, Card, CardContent,
     FormControl, Divider, FormHelperText,
     Typography, Select, TextField, InputBase,
-    Chip, Stack, IconButton, Menu,
+    Chip, Stack, IconButton, Menu, Container,
 } from '@mui/material';
 
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
@@ -37,6 +37,8 @@ import { Editor } from "react-draft-wysiwyg";
 
 import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import CustomEditor from '../../../common/CustomEditor/CustomEditor';
+import Fileupload from '../../../common/Fileupload/Fileupload';
 
 // text Editor
 
@@ -55,6 +57,8 @@ const EditProduct = () => {
     const [brand, setBrand] = useState(null);
     const [videourl, setVideourl] = useState();
     const [openModal, setOpenModal] = useState(false);
+    const [selectedFile, setSelectedFile] = useState([])
+    const [preview, setPreview] = useState([])
 
     const [prodOption, setprodOption] = useState([
         { optionName: "Size", optionValue: ["s", "m", "l"], edit: false },
@@ -202,6 +206,25 @@ const EditProduct = () => {
         updProdOption[index].edit = !updProdOption[index].edit
         setprodOption(updProdOption)
     }
+    
+    const onSelectFile = (e) => {
+        e.preventDefault()
+        const fileobj = [];
+        let files = Array.from(e.target.files);
+        fileobj.push(files);
+        let reader;
+        let selectedFiles = [...selectedFile]
+        for (var i = 0; i < fileobj[0].length; i++) {
+            selectedFiles.push(files[i])
+            setSelectedFile(selectedFiles)
+            reader = new FileReader();
+            reader.readAsDataURL(fileobj[0][i]);
+            reader.onload = event => {
+                preview.push(event.target.result);
+                setPreview([...new Set(preview)]);
+            }
+        }
+    }
 
     useEffect(() => {
 
@@ -278,10 +301,10 @@ const EditProduct = () => {
 
     return (
         <React.Fragment>
-            <Box className="smallContainer">
+            <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={6}>
-                        <Button component={Link} variant="text" to="/product/all" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                        <Button component={Link} variant="text" to="/product/list" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
                     </Grid>
                     <Grid item xs={6}>
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
@@ -292,6 +315,8 @@ const EditProduct = () => {
                                     aria-haspopup="true"
                                     aria-expanded={isMoreActionopen ? "true" : undefined}
                                     onClick={moreActonClick}
+                                    variant="outlined"
+                                    sx={{ mr: 3 }}
                                 >
                                     More actions
                                 </Button>
@@ -338,150 +363,19 @@ const EditProduct = () => {
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="div" gutterBottom>Product Description</Typography>
-                                <div  >
-                                    <Editor
-                                        editorState={editorState}
-                                        toolbarClassName="textEditorBoxToolbar"
-                                        wrapperClassName="wrapperClassName"
-                                        editorClassName="textEditorBox"
-                                        onEditorStateChange={updateTextDescription}
-                                        toolbar={
-                                            {
-                                                options: ['inline', 'blockType', 'emoji', 'image', 'colorPicker', 'list', 'textAlign', 'link',],
-                                                inline: {
-                                                    inDropdown: false,
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    dropdownClassName: undefined,
-                                                    options: ['bold', 'italic', 'underline'],
-
-                                                },
-                                                blockType: {
-                                                    inDropdown: true,
-                                                    options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'],
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    dropdownClassName: undefined,
-                                                },
-                                                list: {
-                                                    inDropdown: true,
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    dropdownClassName: undefined,
-                                                    options: ['unordered', 'ordered', 'indent', 'outdent'],
-
-                                                },
-                                                textAlign: {
-                                                    inDropdown: true,
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    dropdownClassName: undefined,
-                                                    options: ['left', 'center', 'right', 'justify'],
-
-                                                },
-                                                colorPicker: {
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    popupClassName: undefined,
-                                                    colors: ['rgb(97,189,109)', 'rgb(26,188,156)', 'rgb(84,172,210)', 'rgb(44,130,201)',
-                                                        'rgb(147,101,184)', 'rgb(71,85,119)', 'rgb(204,204,204)', 'rgb(65,168,95)', 'rgb(0,168,133)',
-                                                        'rgb(61,142,185)', 'rgb(41,105,176)', 'rgb(85,57,130)', 'rgb(40,50,78)', 'rgb(0,0,0)',
-                                                        'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
-                                                        'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
-                                                        'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'],
-                                                },
-                                                link: {
-                                                    inDropdown: true,
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    popupClassName: undefined,
-                                                    dropdownClassName: undefined,
-                                                    showOpenOptionOnHover: true,
-                                                    defaultTargetOption: '_self',
-                                                    options: ['link', 'unlink'],
-                                                    linkCallback: undefined
-                                                },
-                                                emoji: {
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    popupClassName: undefined,
-                                                    emojis: [
-                                                        '😀', '😁', '😂', '😃', '😉', '😋', '😎', '😍', '😗', '🤗', '🤔', '😣', '😫', '😴', '😌', '🤓',
-                                                        '😛', '😜', '😠', '😇', '😷', '😈', '👻', '😺', '😸', '😹', '😻', '😼', '😽', '🙀', '🙈',
-                                                        '🙉', '🙊', '👼', '👮', '🕵', '💂', '👳', '🎅', '👸', '👰', '👲', '🙍', '🙇', '🚶', '🏃', '💃',
-                                                        '⛷', '🏂', '🏌', '🏄', '🚣', '🏊', '⛹', '🏋', '🚴', '👫', '💪', '👈', '👉', '👉', '👆', '🖕',
-                                                        '👇', '🖖', '🤘', '🖐', '👌', '👍', '👎', '✊', '👊', '👏', '🙌', '🙏', '🐵', '🐶', '🐇', '🐥',
-                                                        '🐸', '🐌', '🐛', '🐜', '🐝', '🍉', '🍄', '🍔', '🍤', '🍨', '🍪', '🎂', '🍰', '🍾', '🍷', '🍸',
-                                                        '🍺', '🌍', '🚑', '⏰', '🌙', '🌝', '🌞', '⭐', '🌟', '🌠', '🌨', '🌩', '⛄', '🔥', '🎄', '🎈',
-                                                        '🎉', '🎊', '🎁', '🎗', '🏀', '🏈', '🎲', '🔇', '🔈', '📣', '🔔', '🎵', '🎷', '💰', '🖊', '📅',
-                                                        '✅', '❎', '💯',
-                                                    ],
-                                                },
-                                                embedded: {
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    popupClassName: undefined,
-                                                    embedCallback: undefined,
-                                                    defaultSize: {
-                                                        height: 'auto',
-                                                        width: 'auto',
-                                                    },
-                                                },
-                                                image: {
-                                                    className: undefined,
-                                                    component: undefined,
-                                                    popupClassName: undefined,
-                                                    urlEnabled: true,
-                                                    uploadEnabled: true,
-                                                    alignmentEnabled: true,
-                                                    uploadCallback: undefined,
-                                                    previewImage: false,
-                                                    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
-                                                    alt: { present: false, mandatory: false },
-                                                    defaultSize: {
-                                                        height: 'auto',
-                                                        width: 'auto',
-                                                    },
-                                                },
-
-                                            }
-                                        }
-                                    />
-                                    <textarea
-                                        disabled
-                                        style={{ width: "100%", display: "none" }}
-                                        value={draftToHtml(
-                                            convertToRaw(
-                                                editorState && editorState.getCurrentContent()
-                                            )
-                                        )}
-                                    />
-                                </div>
+                                <CustomEditor
+                                    editorState={editorState}
+                                    updateTextDescription={updateTextDescription}
+                                />
                             </CardContent>
                         </Card>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
-                                <Grid container spacing={2} columns={12}>
-                                    <Grid item md={6}>
-                                        <Box><Typography variant="h6" component="h6" gutterBottom>Media Image</Typography></Box>
-                                    </Grid>
-                                    <Grid item md={6} sx={{ textAlign: "Right" }}>
-                                        <Button onClick={ModalOpen}>Add media from URL</Button>
-                                    </Grid>
-                                </Grid>
+                                <Typography variant="h6" component="h6" gutterBottom>Product images</Typography>
 
-
-
-                                <Box gutterBottom></Box>
-                                <DropzoneArea
-                                    onChange={(files) => handleMediaChange(files)}
-                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                                    filesLimit={5}
-                                    showAlerts={false}
-                                    // onChange={(files) => console.log('Files:', files)}
-                                    showPreviewsInDropzone={false}
-                                    showPreviews={true}
-                                // showFileNamesInPreview={true}
+                                <Fileupload
+                                    preview={preview}
+                                    onSelectFile={onSelectFile}
                                 />
                             </CardContent>
                         </Card>
@@ -519,11 +413,11 @@ const EditProduct = () => {
                                                     </Grid>
                                                 </Box>
 
-                                                            }
+                                            }
                                             {data.edit ?
                                                 <>
                                                     {/* <Divider sx={{ my: 2 }} /> */}
-                                                    <Box sx={{pt: 1}}>
+                                                    <Box sx={{ pt: 1 }}>
                                                         <Grid container spacing={2} columns={12} alignItems="center">
                                                             <Grid item md={1} sx={{ textAlign: "center" }}></Grid>
                                                             <Grid item md={10}>
@@ -617,12 +511,12 @@ const EditProduct = () => {
                                         <Box><Typography variant="h6" component="h6" gutterBottom>Variants</Typography></Box>
                                     </Grid>
                                     <Grid item md={6} sx={{ textAlign: "Right" }}>
-                                        <Button component={Link} variant="text" to="/product/all/edit-product/add-variant">Add variant</Button>
+                                        <Button component={Link} variant="text" to="/product/add-variant">Add variant</Button>
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={2} columns={12}>
                                     <Grid item xs={12}>
-                                        <div style={{   width: '100%' }}>
+                                        <div style={{ width: '100%' }}>
                                             <DataGrid
                                                 rows={rows}
                                                 columns={columns}
@@ -649,7 +543,7 @@ const EditProduct = () => {
                                         labelId="ProductStatus"
                                         id="productStatus"
                                         value={prodStatus}
-                                        onChange={handleChangeproductStat} 
+                                        onChange={handleChangeproductStat}
                                         size="small" >
                                         <MenuItem value={1}>Draft</MenuItem>
                                         <MenuItem value={2}>Active</MenuItem>
@@ -819,7 +713,7 @@ const EditProduct = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Box>
+            </Container>
             <PopupModal
                 open={openModal}
                 ModalClose={ModalClose}

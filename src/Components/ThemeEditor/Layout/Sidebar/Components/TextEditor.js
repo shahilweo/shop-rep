@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import CustomEditor from "../../../CustomEditor/CustomEditor";
+import MiniEditor from "../../../../common/CustomEditor/MiniEditor";
 
 export default function TextEditor({ data, editorState, updateTextDescription }) {
     return (
@@ -8,7 +8,7 @@ export default function TextEditor({ data, editorState, updateTextDescription })
             <Typography variant="caption" component="div" sx={{ p: "0 0 0 10px", mb: 0, display: "block" }}>
                 {data.label}
             </Typography>
-            <CustomEditor
+            <MiniEditor
                 editorState={editorState}
                 updateTextDescription={(e)=>updateTextDescription(e, data.name)}
             />

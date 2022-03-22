@@ -9,26 +9,33 @@
     border-bottom: 1px solid #fff;
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .MuiBox-root .sidebarButton.sidebarButton--inner {
-    padding-left: 25px;
-    background: #f8f8fb;
+    padding-left: 35px;
+    /* background: #f8f8fb; */
+    font-size: 13px;
 }
 
 .MuiBox-root .sidebarButton:hover {
-    background: #00ceaa;
-    color: #fff;
+    background: #ececec;
     box-shadow: none;
 }
 
 .MuiBox-root .sidebarButton.active {
-    background: #00ceaa;
-    color: #fff;
+    /* background: #00ceaa; */
+    background: #ececec;
+}
+.sidebarButton.sidebarButton--inner.active {
+    background: #e6e6e6;
 }
 
 .sidebarButton__icon .MuiSvgIcon-root, .MuiBox-root .sidebarButton>svg {
     width: 0.8em;
     height: 0.8em;
+}
+.sidebarButton__icon {
+    color: #008060;
 }
