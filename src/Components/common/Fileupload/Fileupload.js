@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Card, CardContent, Container, } from '@mui/material';
+import { Box, Card, CardContent, Container, Paper, } from '@mui/material';
 import _ from 'underscore';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
@@ -8,14 +8,14 @@ import './Fileupload.css';
 export default function Fileupload({ onSelectFile, preview }) {
     const thumbs = preview.length > 0 && preview.map((file, i) => {
         return (
-            <div className="filePreviewBox" key={i.toString()}>
+            <Paper className="filePreviewBox" sx={{mb:2}} key={i.toString()} elevation={3}>
                 <div className="filePreviewBox__img" >
                     <img src={file} />
                 </div>
                 <div className="filePreviewBox__cntnt">
 
                 </div>
-            </div>
+            </Paper>
         )
     });
 
@@ -32,8 +32,9 @@ export default function Fileupload({ onSelectFile, preview }) {
                             <Box className="customFileUpload">
                                 <input
                                     multiple
-                                    accept=".jpg,.jpeg,.png"
-                                    type='file' onChange={onSelectFile}
+                                    accept=".jpg,.jpeg,.png,.webp,.svg"
+                                    type='file'
+                                    onChange={onSelectFile}
                                 />
                                 <label> <FileUploadIcon fontSize='small' sx={{ verticalAlign: "middle" }} /> Choose images</label>
                             </Box>

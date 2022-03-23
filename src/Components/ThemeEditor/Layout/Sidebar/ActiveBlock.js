@@ -23,7 +23,7 @@ export default function ActiveBlock() {
 
     return (
         <Box className="activeBlock_outer">
-            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => params.get('context') === "theme" ? navigate(-1) : navigate('')} color="secondary">
+            <Button startIcon={<ArrowBackIcon />} sx={{ mb: 1, textTransform: "uppercase" }} onClick={() => params.get('context') === "theme" ? navigate(-1) : navigate('')}>
                 {!_.isEmpty(activeBlock) && activeBlock.name}
             </Button>
             <Box>

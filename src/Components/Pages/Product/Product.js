@@ -139,7 +139,10 @@ export default function Product() {
         { field: 'id', headerName: 'Id', width: "60", sortable: false, },
         { field: 'image', headerName: 'Image', width: "80", renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
         { field: 'productname', headerName: 'Product name', renderCell: (params) => <Button component={Link} to="/product/edit-product" color="primary">{params.value}</Button>, flex: 1, sortable: false, },
-        { field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) => <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "secondary"} /> },
+        {
+            field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) =>
+                <Chip label={params.value} variant="contained" color={params.value === "Active" ? "success" : "info"} />
+        },
         { field: 'inventory', headerName: 'Inventory', flex: 1, sortable: false, },
         { field: 'type', headerName: 'Type', sortable: false, flex: 1 },
         { field: 'brands', headerName: 'Brands', sortable: false, flex: 1 },
@@ -147,7 +150,7 @@ export default function Product() {
             field: 'action', headerName: 'Action', sortable: false, flex: 1,
             renderCell: (params) =>
                 <>
-                    <IconButton aria-label="view" color="success"><VisibilityIcon /></IconButton>
+                    <IconButton aria-label="view" color="primary"><VisibilityIcon /></IconButton>
                     <IconButton aria-label="edit" color="success" onClick={editProduct}><EditIcon /></IconButton>
                     <IconButton aria-label="delete" color="error"><DeleteIcon /></IconButton>
                 </>
@@ -203,7 +206,7 @@ export default function Product() {
 
                         <Grid item xs={6}>
                             <Box sx={{ display: "flex" }}>
-                                <ButtonGroup variant="outlined" color="secondary" aria-label="medium success button group">
+                                <ButtonGroup variant="outlined" color="primary" aria-label="medium success button group">
                                     {tabs.map((tab) => {
                                         return (
                                             <Button key={tab.name} variant={`${activeTab === tab.name ? 'contained' : 'outlined'}`} onClick={() => clickTab(tab.name)}>{tab.label}</Button>

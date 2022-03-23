@@ -20,3 +20,6 @@
     height: 100%;
     opacity: 0; 
   }
+  .singlefilePreviewBox .filePreviewBox__img img{
+    max-height: 100px;
+  }

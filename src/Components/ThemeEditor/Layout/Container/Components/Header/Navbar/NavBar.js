@@ -15,7 +15,7 @@ export default function NavBar() {
                 {nav.length > 0 && nav.map((opt, index) => {
                     return (
                         <Grid item key={index.toString()}>
-                            <Button variant="text" color="secondary">{opt.label}</Button>
+                            <Button variant="text">{opt.label}</Button>
                         </Grid>
                     )
                 })}

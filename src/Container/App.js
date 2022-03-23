@@ -32,17 +32,16 @@ const theme = createTheme({
       contrastText: '#fff'
     },
     secondary: {
-      main: '#00ae5c',
+      main: '#5838e1',
       contrastText: '#fff'
     },
     info: {
       main: '#EEF4FF',
-      contrastText: '#6c91ff'
     },
     success: {
-      main: "#00CEAA",
+      main: "#00ce56",
       dark: "#007A66",
-      light: "#00CEAA",
+      light: "#00ce56",
       contrastText: '#fff'
     },
     white: {

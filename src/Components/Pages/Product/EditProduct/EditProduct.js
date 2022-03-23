@@ -526,6 +526,7 @@ const EditProduct = () => {
                                                 disableSelectionOnClick
                                                 rowHeight={80}
                                                 autoHeight={true}
+                                                disableColumnMenu={true}
                                             />
                                         </div>
                                     </Grid>
@@ -701,13 +702,13 @@ const EditProduct = () => {
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
                                 <Box sx={{ textAlign: "left" }}>
-                                    <Button variant="contained" color="secondary" size="large">Archive product</Button>
+                                    <Button variant="outlined" size="large">Archive product</Button>
                                     <Button variant="contained" color="error" size="large" sx={{ ml: 1 }}>Delete product</Button>
                                 </Box>
                             </Grid>
                             <Grid item xs={6}>
                                 <Box sx={{ textAlign: "right" }}>
-                                    <Button variant="contained" color="success" size="large">Save</Button>
+                                    <Button variant="contained" color="secondary" size="large">Save</Button>
                                 </Box>
                             </Grid>
                         </Grid>

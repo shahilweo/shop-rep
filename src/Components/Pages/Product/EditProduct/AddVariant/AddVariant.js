@@ -18,6 +18,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { createTheme } from '@mui/material/styles';
 import bundleprod from '../../../../../Assets/images/bundleprod.jpg';
 import ImageIcon from '@mui/icons-material/Image';
+import Fileupload from '../../../../common/Fileupload/Fileupload';
+import SingleFileupload from '../../../../common/Fileupload/SingleFileupload';
 
 
 const AddVariant = () => {
@@ -35,6 +37,7 @@ const AddVariant = () => {
         margin: 0,
         profit: 0,
     });
+    const [preview, setPreview] = useState("")
 
     const marginprofit = (e) => {
         setPricing({ ...pricing, [e.target.name]: e.target.value })
@@ -54,6 +57,14 @@ const AddVariant = () => {
     const handleChangeWeight = (event) => {
         setWeight(event.target.value);
     };
+    const onFileChange = (e) => {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            setPreview(reader.result)
+        }
+        reader.readAsDataURL(file)
+    }
 
 
 
@@ -118,52 +129,37 @@ const AddVariant = () => {
                         </Card>
                     </Grid>
                     <Grid item xs={8}>
-                        <Card sx={{ mb: 2 }}>
-                            <CardContent>
-                                <Typography variant="h6" component="h6" gutterBottom>Options</Typography>
-                                <Grid container spacing={2} columns={12}>
-                                    <Grid item md={4}>
-                                        <FormControl fullWidth  >
+                        <Grid container spacing={2}>
+                            <Grid item xs={6}>
+                                <Card sx={{ mb: 2 }}>
+                                    <CardContent>
+                                        <Typography variant="h6" component="h6" gutterBottom>Options</Typography>
+                                        <FormControl fullWidth sx={{mb:2}}>
                                             <TextField id="option1" label="options name 1" variant="outlined" size="small" />
                                         </FormControl>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                        <FormControl fullWidth  >
+                                        <FormControl fullWidth sx={{mb:2}}>
                                             <TextField id="option2" label="options name 2" variant="outlined" size="small" />
                                         </FormControl>
-                                    </Grid>
-                                    <Grid item md={4}>
-                                        <FormControl fullWidth  >
+                                        <FormControl fullWidth>
                                             <TextField id="option2" label="options name 3" variant="outlined" size="small" />
                                         </FormControl>
-                                    </Grid>
-                                </Grid>
 
-                            </CardContent>
-                        </Card>
-                        <Card sx={{ mb: 2 }}>
-                            <CardContent>
-                                <Grid container spacing={2} columns={12}>
-                                    <Grid item md={6}>
-                                        <Box><Typography variant="h6" component="h6" gutterBottom>Media image</Typography></Box>
-                                    </Grid>
-                                    <Grid item md={6} sx={{ textAlign: "Right" }}>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Card sx={{ mb: 2 }}>
+                                    <CardContent>
+                                        <Typography variant="h6" component="h6" gutterBottom>Image</Typography>
 
-                                    </Grid>
-                                </Grid>
-
-                                <DropzoneArea
-                                    onChange={(files) => handleMediaChange(files)}
-                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                                    filesLimit={5}
-                                    showAlerts={false}
-                                    // onChange={(files) => console.log('Files:', files)}
-                                    showPreviewsInDropzone={false}
-                                    showPreviews={true}
-                                // showFileNamesInPreview={true}
-                                />
-                            </CardContent>
-                        </Card>
+                                        <SingleFileupload
+                                            preview={preview}
+                                            onFileChange={onFileChange}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Grid>
                         <Card sx={{ mb: 2 }}>
                             <CardContent>
                                 <Typography variant="h6" component="h6" gutterBottom>Pricing</Typography>
