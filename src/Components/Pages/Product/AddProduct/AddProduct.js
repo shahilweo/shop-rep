@@ -215,7 +215,7 @@ const AddProduct = () => {
             <Box sx={{ mb: 2 }}>
                 <Grid container spacing={2} columns={12}>
                     <Grid item md={6}>
-                        <Button component={Link} variant="text" to="/product/list" color="secondary" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                        <Button component={Link} variant="text" to="/product/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
                     </Grid>
                     <Grid item md={6} sx={{ textAlign: "Right" }}></Grid>
                 </Grid>

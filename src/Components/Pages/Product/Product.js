@@ -137,7 +137,7 @@ export default function Product() {
 
     const [columns, setcolumns] = useState([
         { field: 'id', headerName: 'Id', width: "60", sortable: false, },
-        { field: 'image', headerName: 'Image', width: "80", renderCell: (params) => <img src={params.value} width="60" />, sortable: false, },
+        { field: 'image', headerName: 'Image', width: "80", renderCell: (params) => <img src={params.value} width="50" />, sortable: false, },
         { field: 'productname', headerName: 'Product name', renderCell: (params) => <Button component={Link} to="/product/edit-product" color="primary">{params.value}</Button>, flex: 1, sortable: false, },
         {
             field: 'status', headerName: 'Status', sortable: false, width: "100", renderCell: (params) =>
@@ -287,7 +287,7 @@ export default function Product() {
                             disableSelectionOnClick={true}
                             autoHeight={true}
                             density={"comfortable"}
-                            rowHeight={80}
+                            rowHeight={60}
                         />
                     </Box>
                 </Card>

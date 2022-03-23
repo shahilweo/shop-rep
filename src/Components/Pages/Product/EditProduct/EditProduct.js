@@ -304,7 +304,7 @@ const EditProduct = () => {
             <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={6}>
-                        <Button component={Link} variant="text" to="/product/list" color="success" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                        <Button component={Link} variant="text" to="/product/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
                     </Grid>
                     <Grid item xs={6}>
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
