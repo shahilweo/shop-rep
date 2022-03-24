@@ -74,7 +74,7 @@ const AddVariant = () => {
             <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={6}>
-                        <Button component={Link} variant="text" to="/product/edit-product" startIcon={<ArrowBackIosIcon />}> Edit product </Button>
+                        <Button component={Link} variant="text" to="/products/edit-product" startIcon={<ArrowBackIosIcon />}> Edit product </Button>
                     </Grid>
                     <Grid item xs={6}>
 
@@ -94,8 +94,7 @@ const AddVariant = () => {
                                         <Box sx={{ pt: 1, }}>
                                             <Typography variant="caption" display="block" gutterBottom> 5 variants </Typography>
                                         </Box>
-                                        <Button component={Link} variant="text" to="/product/edit-product" color="success" sx={{ p: 0 }} > Back to product </Button>
-
+                                        <Button component={Link} variant="text" to="/products/edit-product" color="success" sx={{ p: 0 }} > Back to product </Button>
                                     </Grid>
                                 </Grid>
                             </CardContent>

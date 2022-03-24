@@ -15,7 +15,7 @@ export default [
             },
             {
                 type: "range",
-                label: "Heading Size",
+                label: "Size",
                 id: 'heading_base_size',
                 value: 26,
                 min: 20,
@@ -36,7 +36,7 @@ export default [
             {
                 type: "range",
                 id: "body_text_base_size",
-                label: "Base Size",
+                label: "Base size",
                 value: 14,
                 min: 12,
                 max: 20,
@@ -131,12 +131,12 @@ export default [
         settings: [
             {
                 type: "heading",
-                text: "Add Favicon image"
+                text: "Add favicon image"
             },
             {
                 type: "image_file",
                 id: "favicon",
-                label: "Add Favicon image",
+                label: "Add favicon image",
                 note: "Recommended size 64 X 64",
                 height: "64px",
                 width: "100%",

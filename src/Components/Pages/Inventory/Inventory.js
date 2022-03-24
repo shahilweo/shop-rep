@@ -129,7 +129,7 @@ const rows = [
     { id: 10, image: bundleprod, productname: "Product name", status: "Inactive", inventory: "in stock for 4 variants", type: "TOYS", brands: "Digimon", action: "" },
 ];
 
-export default function Product() {
+export default function Inventory() {
     // dropdown btn
     let navigate = useNavigate()
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -165,12 +165,6 @@ export default function Product() {
         // },
 
     ])
-    const tabs = [
-        { label: "All", name: "all" },
-        { label: "Active", name: "active" },
-        { label: "Draft", name: "draft" },
-        { label: "Archived", name: "archived" },
-    ]
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -192,10 +186,10 @@ export default function Product() {
                 <Box sx={{ mb: 2 }}>
                     <Grid container spacing={2} columns={12}>
                         <Grid item xs={6}>
-                            <Typography variant="h5" component="div"> Product</Typography>
+                            <Typography variant="h5" component="div"> Inventory</Typography>
                         </Grid>
                         <Grid item xs={6} sx={{ textAlign: { sm: 'right' }, flexShrink: { sm: 0 } }}>
-                            <Button component={Link} to="/products/add-product" variant="contained">Add product</Button>
+                            <Button component={Link} to="/products/add-product" variant="contained">View products</Button>
                         </Grid>
                     </Grid>
                 </Box>
@@ -206,14 +200,7 @@ export default function Product() {
 
                         <Grid item xs={6}>
                             <Box sx={{ display: "flex" }}>
-                                <ButtonGroup variant="outlined" color="primary" aria-label="medium success button group">
-                                    {tabs.map((tab) => {
-                                        return (
-                                            <Button key={tab.name} variant={`${activeTab === tab.name ? 'contained' : 'outlined'}`} onClick={() => clickTab(tab.name)}>{tab.label}</Button>
-                                        )
-                                    })}
-                                </ButtonGroup>
-                                <Search>
+                                <Search className='ml-0'>
                                     <SearchIconWrapper>
                                         <SearchIcon color="grey" />
                                     </SearchIconWrapper>
@@ -226,18 +213,6 @@ export default function Product() {
                         </Grid>
                         <Grid item xs={6}>
                             <Box sx={{ textAlign: "Right" }}>
-                                <Button
-                                    id="demo-customized-button"
-                                    aria-controls="demo-customized-menu"
-                                    aria-haspopup="true"
-                                    aria-expanded={open ? 'true' : undefined}
-                                    variant="text"
-                                    disableElevation
-                                    onClick={handleClick}
-                                    endIcon={<KeyboardArrowDownIcon />}
-                                    sx={{ marginRight: "10px" }}>
-                                    Brands
-                                </Button>
                                 <StyledMenu
                                     id="demo-customized-menu"
                                     MenuListProps={{ 'aria-labelledby': 'demo-customized-button' }}

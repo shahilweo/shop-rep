@@ -76,7 +76,16 @@ img {
   height: 0.8em;
 }
 
-
+.ml-0{
+  margin-left: 0 !important;
+}
+.float_btn{
+  position: sticky !important;
+  top: 80px;
+}
+.small_input *{
+  font-size: 13px !important;
+}
 
 .fileUploader.active {
   text-align: center;
@@ -179,4 +188,11 @@ img {
 hr {
   border-top: #eee 1px solid;
   display: block;
+}
+
+
+.editor_code{
+  position: absolute !important;
+  top: 0;
+  right: 0;
 }

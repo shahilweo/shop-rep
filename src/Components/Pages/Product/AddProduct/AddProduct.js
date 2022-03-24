@@ -89,6 +89,7 @@ const AddProduct = () => {
         margin: 0,
         profit: 0,
     });
+    console.log("brand: ", brand)
 
     const [selectedFile, setSelectedFile] = useState([])
     const [preview, setPreview] = useState([])
@@ -133,6 +134,15 @@ const AddProduct = () => {
         await setEditorState(state);
         const data = convertToRaw(editorState.getCurrentContent());
     };
+    const editorSwitch = async () => {
+        draftToHtml(
+            convertToRaw(
+                editorState && editorState.getCurrentContent()
+            )
+        )
+        await setEditorState(editorState)
+    };
+    console.log("editorState: ", editorState)
 
     const save = (data) => {
         console.log(data);
@@ -215,7 +225,7 @@ const AddProduct = () => {
             <Box sx={{ mb: 2 }}>
                 <Grid container spacing={2} columns={12}>
                     <Grid item md={6}>
-                        <Button component={Link} variant="text" to="/product/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                        <Button component={Link} variant="text" to="/products/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
                     </Grid>
                     <Grid item md={6} sx={{ textAlign: "Right" }}></Grid>
                 </Grid>
@@ -242,6 +252,7 @@ const AddProduct = () => {
                                 <CustomEditor
                                     editorState={editorState}
                                     updateTextDescription={updateTextDescription}
+                                    editorSwitch={editorSwitch}
                                 />
                             </CardContent>
                         </Card>
@@ -303,7 +314,7 @@ const AddProduct = () => {
                                 </Grid>
                                 <Divider sx={{ my: "15px" }}></Divider>
                                 <Grid container spacing={2} columns={12}>
-                                    <Grid item xs={6}>
+                                    {/* <Grid item xs={6}>
                                         <FormControl fullWidth sx={{ m: 0 }}>
                                             <TextField
                                                 label="Cost per item"
@@ -331,7 +342,7 @@ const AddProduct = () => {
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item xs={12}>
                                         <FormControlLabel control={<Checkbox />} label="Charge tax on this product" />
                                     </Grid>
@@ -498,7 +509,7 @@ const AddProduct = () => {
                                         sx={{ width: "100%" }}
                                         freeSolo
                                         renderInput={(params) => (
-                                            <TextField {...params} label="Free solo with text demo" size="small" />
+                                            <TextField {...params} label="Select or add brand" size="small" />
                                         )}
                                     />
                                 </FormControl>
@@ -559,7 +570,7 @@ const AddProduct = () => {
                                         sx={{ width: "100%" }}
                                         freeSolo
                                         renderInput={(params) => (
-                                            <TextField  {...params} label="Search types" size="small" />
+                                            <TextField  {...params} label="Select or add product type" size="small" />
                                         )}
                                     />
                                 </FormControl>
@@ -580,12 +591,13 @@ const AddProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Button variant="contained" color="primary" className='float_btn' size="large" sx={{ ml: 1 }}>Save product</Button>
                     </Grid>
                     <Grid item md={12}>
                         <Divider sx={{ my: "15px" }}></Divider>
                         <Box sx={{ textAlign: "left" }}>
                             <Button variant="contained" color="error" size="large" >Cancel</Button>
-                            <Button variant="contained" color="success" size="large" sx={{ ml: 1 }}>Save</Button>
+                            <Button variant="contained" color="primary" size="large" sx={{ ml: 1 }}>Save product</Button>
                         </Box>
                     </Grid>
                 </Grid>

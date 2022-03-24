@@ -17,6 +17,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import StoreIcon from '@mui/icons-material/Store';
+import _ from "underscore"
 
 import './Sidebar.css';
 
@@ -24,25 +25,25 @@ import './Sidebar.css';
 export default function Sidebar(props) {
     const location = useLocation()
     const [sideMenu, setSideMenu] = useState([
-        { main: 'Home', link: "/", submain: [], dropDown: false, active: false, icon: <HomeIcon />, },
+        { id: 1, main: 'Home', link: "/", submain: [], dropDown: false, active: false, icon: <HomeIcon />, },
 
         {
-            main: 'Order', link: "", submain: [
+            id: 2, main: 'Orders', link: "", submain: [
                 { sbname: 'All Order', link: '', active: false },
                 { sbname: 'Create', link: '', active: false }
             ], dropDown: false, active: false, icon: <ListAltIcon />,
         },
         {
-            main: 'Products', link: "", submain: [
-                { sbname: 'All Products', link: "/product/list", active: false },
-                { sbname: 'Inventory', link: "/product/inventory", active: false },
-                { sbname: 'Category', link: "/product/category", active: false }
+            id: 3, main: 'Products', link: "", submain: [
+                { sbname: 'List', link: "/products/list", active: false },
+                { sbname: 'Inventory', link: "/products/inventory", active: false },
+                { sbname: 'Category', link: "/products/category", active: false }
             ], dropDown: false, active: false, icon: <Inventory2OutlinedIcon />,
         },
-        { main: 'Users', link: "/users", submain: [], dropDown: false, active: false, icon: <PersonIcon />, },
-        { main: 'Discount', link: "/discount", submain: [], dropDown: false, active: false, icon: <LocalOfferOutlinedIcon />, },
+        { id: 4, main: 'Users', link: "/users", submain: [], dropDown: false, active: false, icon: <PersonIcon />, },
+        { id: 5, main: 'Discount', link: "/discount", submain: [], dropDown: false, active: false, icon: <LocalOfferOutlinedIcon />, },
         {
-            main: 'Settings', link: "", submain: [
+            id: 6, main: 'Settings', link: "", submain: [
                 { sbname: 'Account', link: "/account", active: false, },
             ], dropDown: false, active: false, icon: <SettingsIcon />,
         },
@@ -56,10 +57,18 @@ export default function Sidebar(props) {
         sideMenu.map((data) => {
             return updatemenu.push({ ...data, 'dropDown': false, 'active': false })
         })
-        updatemenu[index].dropDown = !sideMenu[index].dropDown
-        updatemenu[index].active = !sideMenu[index].active
+        updatemenu[index].dropDown = true
+        updatemenu[index].active = true
         setSideMenu(updatemenu)
     };
+
+    useEffect(() => {
+        let activeRoute = sideMenu.filter((opt) => opt.main.toLowerCase() === location.pathname.split("/")[1])[0]
+        if (!_.isUndefined(activeRoute)) {
+            let currentIndex = _.findLastIndex(sideMenu, { 'id': activeRoute.id })
+            handleClick("", currentIndex)
+        }
+    }, [])
 
     const drawer = (
         <div>
@@ -70,7 +79,7 @@ export default function Sidebar(props) {
                 {sideMenu.map((menu, index) => (
                     <Box key={index}>
                         {menu.submain.length > 0 ?
-                            <Button onClick={(data) => handleClick(data, index)} variant="contained" className={`sidebarButton ${menu.active || location.pathname === menu.link ? "active" : ""} `}  >
+                            <Button onClick={(data) => handleClick(data, index)} variant="contained" className="sidebarButton">
                                 <Box sx={{ display: 'flex', alignItems: 'center', }}>
                                     <Box className="sidebarButton__icon" sx={{ display: 'flex', mr: 1, }}>{menu.icon}</Box>
                                     {menu.main}
@@ -149,7 +158,7 @@ export default function Sidebar(props) {
                 }}
                 open>
                 {drawer}
-                <Divider sx={{mb:1}} />
+                <Divider sx={{ mb: 1 }} />
                 <a href='/customizer' className="sidebarButton">
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box className="sidebarButton__icon" sx={{ display: 'flex', mr: 1, }}><StoreIcon /></Box>

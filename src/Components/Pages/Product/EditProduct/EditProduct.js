@@ -242,8 +242,9 @@ const EditProduct = () => {
                 id="prodPrice"
                 name="price"
                 defaultValue={params.value}
-                sx={{ m: 0, width: '100%', border: '0' }}
+                sx={{ m: 0, border: '0' }}
                 size="small"
+                className='small_input'
             />,
         },
         {
@@ -253,18 +254,20 @@ const EditProduct = () => {
                 id="quantity"
                 name="quantity"
                 defaultValue={params.value}
-                sx={{ m: 0, width: '100%', border: '0' }}
+                sx={{ m: 0, border: '0' }}
                 size="small"
+                className='small_input'
             />,
         },
         {
-            field: 'sku', headerName: 'SKU', sortable: false, width: 200, renderCell: (params) => <TextField
+            field: 'sku', headerName: 'SKU', sortable: false, width: 125, renderCell: (params) => <TextField
                 type="text"
                 id="sku"
                 name="sku"
                 defaultValue={params.value}
-                sx={{ m: 0, width: '100%', border: '0' }}
+                sx={{ m: 0, border: '0' }}
                 size="small"
+                className='small_input'
             />,
         },
         {
@@ -287,16 +290,16 @@ const EditProduct = () => {
     ];
 
     const rows = [
-        { id: 1, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 1, sku: "TOYS136", action: "" },
-        { id: 2, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 3, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 4, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 5, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 6, image: bundleprod, variant: ["s", "m", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 7, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 8, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 9, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
-        { id: 10, image: bundleprod, variant: ["s", "red"], price: "$99.99", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 1, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 1, sku: "TOYS136", action: "" },
+        { id: 2, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 3, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 4, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 5, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 6, image: bundleprod, variant: ["s", "m", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 7, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 8, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 9, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
+        { id: 10, image: bundleprod, variant: ["s", "red"], price: "99.00", quantity: 2, sku: "TOYS136", action: "" },
     ];
 
     return (
@@ -304,7 +307,7 @@ const EditProduct = () => {
             <Container maxWidth="lg">
                 <Grid container spacing={2} sx={{ mb: 2 }}>
                     <Grid item xs={6}>
-                        <Button component={Link} variant="text" to="/product/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
+                        <Button component={Link} variant="text" to="/products/list" startIcon={<ArrowBackIosIcon />}> Product </Button>
                     </Grid>
                     <Grid item xs={6}>
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
@@ -316,28 +319,12 @@ const EditProduct = () => {
                                     aria-expanded={isMoreActionopen ? "true" : undefined}
                                     onClick={moreActonClick}
                                     variant="outlined"
-                                    sx={{ mr: 3 }}
+                                    sx={{ mr: 2 }}
                                 >
-                                    More actions
+                                    Duplicate
                                 </Button>
-                                <Menu
-                                    id="demo-positioned-menu"
-                                    aria-labelledby="demo-positioned-button"
-                                    anchorEl={anchorEl}
-                                    open={isMoreActionopen}
-                                    onClose={moreActionClose}
-                                    anchorOrigin={{
-                                        vertical: "top",
-                                        horizontal: "left"
-                                    }}
-                                    transformOrigin={{
-                                        vertical: "top",
-                                        horizontal: "left"
-                                    }}
-                                >
-                                    <MenuItem onClick={moreActionClose}>Duplicate</MenuItem>
-                                    <MenuItem onClick={moreActionClose}>View</MenuItem>
-                                </Menu>
+                                <Button aria-label="view" variant="outlined" startIcon={<VisibilityIcon />} sx={{ mr: 2 }}>View</Button>
+                                
                             </div>
                             <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                 <Button><ArrowBackIosIcon /></Button>
@@ -511,7 +498,7 @@ const EditProduct = () => {
                                         <Box><Typography variant="h6" component="h6" gutterBottom>Variants</Typography></Box>
                                     </Grid>
                                     <Grid item md={6} sx={{ textAlign: "Right" }}>
-                                        <Button component={Link} variant="text" to="/product/add-variant">Add variant</Button>
+                                        <Button component={Link} variant="text" to="/products/add-variant">Add variant</Button>
                                     </Grid>
                                 </Grid>
                                 <Grid container spacing={2} columns={12}>
@@ -696,6 +683,7 @@ const EditProduct = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Button variant="contained" color="primary" className='float_btn' size="large" sx={{ ml: 1 }}>Update product</Button>
                     </Grid>
                     <Grid item xs={12}>
                         <Divider sx={{ my: "15px" }}></Divider>
@@ -708,7 +696,7 @@ const EditProduct = () => {
                             </Grid>
                             <Grid item xs={6}>
                                 <Box sx={{ textAlign: "right" }}>
-                                    <Button variant="contained" color="secondary" size="large">Save</Button>
+                                    <Button variant="contained" color="primary" size="large">Update Product</Button>
                                 </Box>
                             </Grid>
                         </Grid>

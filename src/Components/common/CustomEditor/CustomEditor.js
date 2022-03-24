@@ -3,11 +3,13 @@ import { convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
+import CodeIcon from '@mui/icons-material/Code';
 
-export default function CustomEditor({ editorState, updateTextDescription }) {
+export default function CustomEditor({ editorState, updateTextDescription, editorSwitch }) {
     return (
-        <Paper>
+        <Paper sx={{position: 'relative'}}>
+            <Button className="editor_code" variant="contained" size="large" color="primary" onClick={editorSwitch}><CodeIcon /></Button>
             <Editor
                 editorState={editorState}
                 toolbarClassName="textEditorBoxToolbar"
@@ -27,7 +29,7 @@ export default function CustomEditor({ editorState, updateTextDescription }) {
                         },
                         blockType: {
                             inDropdown: true,
-                            options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote'],
+                            options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
                             className: undefined,
                             component: undefined,
                             dropdownClassName: undefined,

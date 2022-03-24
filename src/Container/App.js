@@ -18,6 +18,7 @@ import ScrollToTop from './ScrollToTop';
 import Layout from '../Components/ThemeEditor/Layout/Layout';
 
 import './App.css';
+import Inventory from '../Components/Pages/Inventory/Inventory';
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -87,17 +88,15 @@ function App() {
             component="main"
             sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
             <Toolbar />
-
             <Routes>
               <Route path="/" element={<Home />} exact />
-              <Route path="/product/list" element={<Product />} exact />
-              <Route path="/product/add-product" element={<AddProduct />} exact />
-              <Route path="/product/edit-product" element={<EditProduct />} exact />
+              <Route path="/products/list" element={<Product />} exact />
+              <Route path="/products/add-product" element={<AddProduct />} exact />
+              <Route path="/products/edit-product" element={<EditProduct />} exact />
+              <Route path="/products/add-variant" element={<AddVariant />} exact />
+              <Route path="/products/inventory" element={<Inventory />} exact />
               <Route path="/customizer" element={<Layout />} exact />
-              <Route path="/product/add-variant" element={<AddVariant />} exact />
             </Routes>
-
-
           </Box>
         </Router>
       </Box>
