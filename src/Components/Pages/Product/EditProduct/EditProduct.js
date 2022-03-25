@@ -67,6 +67,8 @@ const EditProduct = () => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const [dataVal, setData] = useState("");
+    const [contentState, setcontentState] = useState()
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
@@ -75,8 +77,23 @@ const EditProduct = () => {
 
     const updateTextDescription = async (state) => {
         await setEditorState(state);
-        const data = convertToRaw(editorState.getCurrentContent());
     };
+    const onContentStateChange = (contentState) => {
+        setcontentState(draftToHtml(contentState))
+        setData(draftToHtml(contentState))
+    }
+
+    const handleHtmlChange = (val) => {
+        setData(val)
+        const contentBlock = htmlToDraft(val);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(
+                contentBlock.contentBlocks
+            );
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState)
+        }
+    }
 
 
     const productTypesList = [
@@ -353,6 +370,9 @@ const EditProduct = () => {
                                 <CustomEditor
                                     editorState={editorState}
                                     updateTextDescription={updateTextDescription}
+                                    onContentStateChange={onContentStateChange}
+                                    handleHtmlChange={handleHtmlChange}
+                                    value={dataVal}
                                 />
                             </CardContent>
                         </Card>

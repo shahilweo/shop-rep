@@ -94,6 +94,8 @@ const AddProduct = () => {
     const [selectedFile, setSelectedFile] = useState([])
     const [preview, setPreview] = useState([])
 
+    const [dataVal, setData] = useState("");
+    const [contentState, setcontentState] = useState()
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
@@ -132,17 +134,23 @@ const AddProduct = () => {
 
     const updateTextDescription = async (state) => {
         await setEditorState(state);
-        const data = convertToRaw(editorState.getCurrentContent());
     };
-    const editorSwitch = async () => {
-        draftToHtml(
-            convertToRaw(
-                editorState && editorState.getCurrentContent()
-            )
-        )
-        await setEditorState(editorState)
-    };
-    console.log("editorState: ", editorState)
+    const onContentStateChange = (contentState) => {
+        setcontentState(draftToHtml(contentState))
+        setData(draftToHtml(contentState))
+    }
+
+    const handleHtmlChange = (val) => {
+        setData(val)
+        const contentBlock = htmlToDraft(val);
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(
+                contentBlock.contentBlocks
+            );
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState)
+        }
+    }
 
     const save = (data) => {
         console.log(data);
@@ -252,7 +260,9 @@ const AddProduct = () => {
                                 <CustomEditor
                                     editorState={editorState}
                                     updateTextDescription={updateTextDescription}
-                                    editorSwitch={editorSwitch}
+                                    onContentStateChange={onContentStateChange}
+                                    handleHtmlChange={handleHtmlChange}
+                                    value={dataVal}
                                 />
                             </CardContent>
                         </Card>

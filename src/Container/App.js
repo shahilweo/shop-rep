@@ -94,7 +94,7 @@ function App() {
               <Route path="/products/add-product" element={<AddProduct />} exact />
               <Route path="/products/edit-product" element={<EditProduct />} exact />
               <Route path="/products/add-variant" element={<AddVariant />} exact />
-              <Route path="/products/inventory" element={<Inventory />} exact />
+              {/* <Route path="/products/inventory" element={<Inventory />} exact /> */}
               <Route path="/customizer" element={<Layout />} exact />
             </Routes>
           </Box>
